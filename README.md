@@ -6,7 +6,7 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
 ### Personas:
 
 + Eltern
-+ Kinder (reduzierte Berechtigungen im Vergleich mit Eltern)
++ Kinder (reduzierte Berechtigungen im Vergleich zu den Eltern)
 + Angestellte
 + Rektorat (Admin)
 
