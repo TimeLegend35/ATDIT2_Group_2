@@ -34,7 +34,7 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
 ## Datenbankshema:
 
 **Bild/Screenshot von ERD**
-
+![](https://github.com/TimeLegend35/ATDIT2_Group_2/edit/master/ERD-03.04.jpg)
 ## UI Design Prototypen:
 
 Hier haben wir verschiedene UI Designs für die 3 verschiedenen Personas erstellt.
