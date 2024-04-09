@@ -5,29 +5,19 @@ import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CareOfferMarketplaceView extends VBox {
-    private CareOfferMarketplaceController controller;
-
-    public CareOfferMarketplaceView(MainView mainview) {
+public class CareOfferView extends VBox {
+    private CareOffer careOffer;
+    public CareOfferView(CareOffer offer) {
         super(15); // Adds spacing between child elements of the VBox
-        controller = new CareOfferMarketplaceController(mainview);
 
         // Set padding around the entire VBox container
         setPadding(new Insets(15));
 
-        for (CareOffer offer : controller.getCareOffers()) {
+
             // Create labels for the offer's title and description
             Label titleLabel = new Label(offer.getName());
             titleLabel.setFont(new Font(18)); // Set font size for title
@@ -36,10 +26,13 @@ public class CareOfferMarketplaceView extends VBox {
             descriptionLabel.setFont(new Font(14)); // Set font size for description
             descriptionLabel.setWrapText(true); // Allows the description to wrap within the label width
 
+            Label numberOfSeatsLabel = new Label("Seats: " + String.valueOf(offer.getNumberOfSeats()));
+            numberOfSeatsLabel.setFont(new Font(14)); // Set font size for description
+            numberOfSeatsLabel.setWrapText(true); // Allows the description to wrap within the label width
+
             // Create a button to view details
             Button detailsButton = new Button("View Details");
             detailsButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            detailsButton.setOnAction(event -> controller.navigateToCareOffer(detailsButton.getId(), offer));
 
 
             // Create a container for each offer's details and add them to the VBox
@@ -47,10 +40,9 @@ public class CareOfferMarketplaceView extends VBox {
             offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
                     CornerRadii.EMPTY, new BorderWidths(2))));
             offerBox.setPadding(new Insets(10)); // Add padding inside the border
-            offerBox.getChildren().addAll(titleLabel, descriptionLabel, detailsButton);
+            offerBox.getChildren().addAll(titleLabel, descriptionLabel, numberOfSeatsLabel, detailsButton);
 
             this.getChildren().add(offerBox);
-        }
-    }
 
+    }
 }
