@@ -13,9 +13,9 @@ public class CareOfferController {
 
     public void navigateToCareOfferMarketplace(String id, MainView mainView) {
         // Implementation depends on how we are handling navigation.
-        // This could update a main view to show the care offer detail view for the given id.
-        System.out.println("Navigating to details of care offer with ID: " + id);
-        // Test navigation to Object Pages.
+        // This could update a main view
+        System.out.println("Navigating to CareOfferMarketplace with the button: " + id);
+        // Test navigation to Object Pages
         mainView.setContentView(new CareOfferMarketplaceView(mainView));
     }
 }

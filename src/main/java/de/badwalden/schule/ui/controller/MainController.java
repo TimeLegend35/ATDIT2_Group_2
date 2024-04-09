@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -19,11 +20,12 @@ public class MainController {
         for (Node node : mainView.getSidebarView().getChildren()) {
             if (node instanceof Button) {
                 Button button = (Button) node;
-                button.setOnAction(event -> handleSidebarNavigation(button.getId()));
+                button.setOnAction(event -> Main.navigationHelper.setContentView(button.getId()));
             }
         }
     }
 
+    /**
     private void handleSidebarNavigation(String viewId) {
         VBox contentView = switch (viewId) {
             case "Kalender" -> new CalenderView();
@@ -34,4 +36,5 @@ public class MainController {
         };
         mainView.setContentView(contentView);
     }
+     **/
 }

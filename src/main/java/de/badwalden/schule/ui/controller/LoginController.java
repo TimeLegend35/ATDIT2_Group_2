@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.ui.helper.LoginHelper;
 import de.badwalden.schule.ui.views.Dialog;
 import de.badwalden.schule.ui.views.LoginView;
@@ -38,6 +39,7 @@ public class LoginController {
         return "admin".equals(username) && "pw".equals(password);
     }
 
+    /**
     private void showMainView() {
         MainView mainView = new MainView();
         MainController mainController = new MainController(mainView);  // Associate MainController
@@ -48,6 +50,10 @@ public class LoginController {
         primaryStage.setScene(mainScene);
         primaryStage.setTitle("Main View - Bad Walden");  // Set the title for the main window
         primaryStage.show();  // Refresh the stage to show the MainView
+    }
+     **/
+    private void showMainView() {
+        Main.navigationHelper.navigateTo("MainView");
     }
 
     public void handleLanguageChange(String newLanguage) {
