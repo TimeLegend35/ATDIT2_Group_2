@@ -12,11 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class CareOfferMarketplaceController {
-    private final MainView mainview;
+    private final MainView mainView;
     private ObservableList<CareOffer> careOffers = FXCollections.observableArrayList();
 
     public CareOfferMarketplaceController(MainView mainview) {
-        this.mainview = mainview;
+        this.mainView = mainview;
 
         //Example Care Offer (mocked)
         CareOffer careOffer1 = new CareOffer();
@@ -43,7 +43,7 @@ public class CareOfferMarketplaceController {
         // This could update a main view to show the care offer detail view for the given id.
         System.out.println("Navigating to details of care offer with ID: " + id);
         // Test navigation to Object Pages.
-        mainview.setContentView(new CareOfferView(offer));
+        mainView.setContentView(new CareOfferView(mainView, offer));
     }
 
 }
