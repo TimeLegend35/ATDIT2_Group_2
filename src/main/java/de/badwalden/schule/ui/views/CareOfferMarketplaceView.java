@@ -18,10 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CareOfferMarketplaceView extends VBox {
-    private final CareOfferMarketplaceController controller = new CareOfferMarketplaceController();
+    private CareOfferMarketplaceController controller;
 
-    public CareOfferMarketplaceView() {
+    public CareOfferMarketplaceView(MainView mainview) {
         super(15); // Adds spacing between child elements of the VBox
+        controller = new CareOfferMarketplaceController(mainview);
 
         // Set padding around the entire VBox container
         setPadding(new Insets(15));

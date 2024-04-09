@@ -28,7 +28,7 @@ public class MainController {
         VBox contentView = switch (viewId) {
             case "Kalender" -> new CalenderView();
             case "Noten" -> new CalenderView();
-            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
+            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView(mainView);
             // ... more cases for other views
             default -> new VBox(new Text("View not implemented."));
         };

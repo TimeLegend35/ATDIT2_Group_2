@@ -8,11 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class CareOfferMarketplaceController {
+    private final MainView mainview;
     private ObservableList<CareOffer> careOffers = FXCollections.observableArrayList();
 
-    public CareOfferMarketplaceController() {
+    public CareOfferMarketplaceController(MainView mainview) {
+        this.mainview = mainview;
 
         //Example Care Offer (mocked)
         CareOffer careOffer1 = new CareOffer();
@@ -37,6 +40,8 @@ public class CareOfferMarketplaceController {
         // Implementation depends on how we are handling navigation.
         // This could update a main view to show the care offer detail view for the given id.
         System.out.println("Navigating to details of care offer with ID: " + id);
+        // Test navigation to Object Pages.
+        mainview.setContentView(new VBox(new Text("Test object page for node " + id)));
     }
 
 }
