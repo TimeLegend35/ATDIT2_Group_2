@@ -2,6 +2,7 @@ package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.dao.LoginHelperDAO;
 import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.views.Dialog;
 import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -9,7 +10,7 @@ public class LoginHelper {
     private LoginController loginController;
     private boolean auth;
     private String username, password;
-    private final String salt = "5";
+    private final int salt = 5;
 
     public LoginHelper(LoginController loginController) {
         this.loginController = loginController;
@@ -26,12 +27,12 @@ public class LoginHelper {
         LoginHelperDAO dbconn = new LoginHelperDAO();
         String db_password = "";
 
-        String hashed_password = BCrypt.hashpw(password, salt);
+        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
 
         auth = BCrypt.checkpw(db_password, hashed_password);
 
         if (!auth) {
-            loginController.getLoginView().showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Wrong Username or Password");
+            Dialog.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Wrong Username or Password");
         }
     }
 }
