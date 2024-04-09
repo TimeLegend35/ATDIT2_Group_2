@@ -20,4 +20,5 @@ public class Parent extends User {
     public void reportChildSick() {
 
     }
+
 }
