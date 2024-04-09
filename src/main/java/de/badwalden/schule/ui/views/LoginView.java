@@ -68,4 +68,12 @@ public class LoginView extends BorderPane {
     public Button getSignInButton() {
         return signInButton;
     }
+
+    public void showAlertDialog(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

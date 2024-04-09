@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.ui.helper.LoginHelper;
 import de.badwalden.schule.ui.views.LoginView;
 import de.badwalden.schule.ui.views.MainView;
 import javafx.scene.Scene;
@@ -21,28 +22,19 @@ public class LoginController {
     }
 
     private void handleLoginButtonPressed() {
-        String username = loginView.getUserNameTextField().getText();
-        String password = loginView.getPasswordField().getText();
-
-        // Simple password check (replace with real authentication logic)
-        if (isValidCredentials(username, password)) {
+        // auth
+        LoginHelper loginHelper = new LoginHelper(this);
+        loginHelper.authenticate();
+        if (loginHelper.get_auth()) {
             showMainView();
         } else {
-            showAlertDialog(AlertType.ERROR, "Login Failed", "Invalid username or password.");
+            loginView.showAlertDialog(AlertType.ERROR, "Login Failed", "Invalid username or password.");
         }
     }
 
     private boolean isValidCredentials(String username, String password) {
         // Replace with real authentication logic
         return "admin".equals(username) && "pw".equals(password);
-    }
-
-    private void showAlertDialog(AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     private void showMainView() {
@@ -55,6 +47,10 @@ public class LoginController {
         primaryStage.setScene(mainScene);
         primaryStage.setTitle("Main View - Bad Walden");  // Set the title for the main window
         primaryStage.show();  // Refresh the stage to show the MainView
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
     }
 }
 
