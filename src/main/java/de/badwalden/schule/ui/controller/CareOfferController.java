@@ -6,16 +6,8 @@ import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.MainView;
 
 public class CareOfferController {
-    private MainView mainView;
-    public CareOfferController(MainView mainView, CareOfferView careOfferView) {
+    public CareOfferController(CareOfferView careOfferView) {
 
     }
 
-    public void navigateToCareOfferMarketplace(String id, MainView mainView) {
-        // Implementation depends on how we are handling navigation.
-        // This could update a main view
-        System.out.println("Navigating to CareOfferMarketplace with the button: " + id);
-        // Test navigation to Object Pages
-        mainView.setContentView(new CareOfferMarketplaceView(mainView));
-    }
 }

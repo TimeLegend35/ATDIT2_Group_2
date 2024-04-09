@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
@@ -16,9 +17,9 @@ import javafx.scene.text.Font;
 public class CareOfferView extends VBox {
     private CareOffer careOffer;
     private CareOfferController controller;
-    public CareOfferView(MainView mainView, CareOffer offer) {
+    public CareOfferView(CareOffer offer) {
         super(15); // Adds spacing between child elements of the VBox
-        controller = new CareOfferController(mainView, this);
+        controller = new CareOfferController(this);
 
         // Set padding around the entire VBox container
         setPadding(new Insets(15));
@@ -26,7 +27,7 @@ public class CareOfferView extends VBox {
         // Create a button to go back
         Button backButton = new Button("Zurück");
         backButton.setId("back"); // Set the button's ID to the offer's ID
-        backButton.setOnAction(event -> controller.navigateToCareOfferMarketplace(backButton.getId(), mainView));
+        backButton.setOnAction(event -> Main.navigationHelper.setContentView("Betreuungsmarktplatz"));
 
         HBox topRightContainer = new HBox(backButton);
         topRightContainer.setAlignment(Pos.TOP_LEFT);

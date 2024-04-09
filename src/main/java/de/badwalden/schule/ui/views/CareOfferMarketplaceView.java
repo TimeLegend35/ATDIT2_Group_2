@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import javafx.geometry.Insets;
@@ -20,9 +21,9 @@ import java.util.List;
 public class CareOfferMarketplaceView extends VBox {
     private CareOfferMarketplaceController controller;
 
-    public CareOfferMarketplaceView(MainView mainview) {
+    public CareOfferMarketplaceView() {
         super(15); // Adds spacing between child elements of the VBox
-        controller = new CareOfferMarketplaceController(mainview);
+        controller = new CareOfferMarketplaceController();
 
         // Set padding around the entire VBox container
         setPadding(new Insets(15));
@@ -39,7 +40,7 @@ public class CareOfferMarketplaceView extends VBox {
             // Create a button to view details
             Button detailsButton = new Button("View Details");
             detailsButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            detailsButton.setOnAction(event -> controller.navigateToCareOffer(detailsButton.getId(), offer));
+            detailsButton.setOnAction(event -> Main.navigationHelper.setContentViewToCareOffer(detailsButton.getId(), offer));
 
 
             // Create a container for each offer's details and add them to the VBox

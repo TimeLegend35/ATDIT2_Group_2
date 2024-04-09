@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.helper;
 
+import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -51,14 +52,23 @@ public class NavigationHelper {
         }
     }
 
+    // Handle navigation to sidebar main Views
     public void setContentView(String viewId) {
+        System.out.println("Navigating to content view with viewId: " + viewId);
         VBox contentView = switch (viewId) {
             case "Kalender" -> new CalenderView();
-            case "Noten" -> new CalenderView();
-            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView(mainView);
+            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
+
             // ... more cases for other views
+
             default -> new VBox(new Text("View not implemented."));
         };
+        mainView.setContentView(contentView);
+    }
+
+    public void setContentViewToCareOffer(String offerId, CareOffer careOffer) {
+        System.out.println("Navigating to care offer view with careOfferId: " + offerId);
+        VBox contentView = new CareOfferView(careOffer);
         mainView.setContentView(contentView);
     }
 
