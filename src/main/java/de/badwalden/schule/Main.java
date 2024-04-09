@@ -14,7 +14,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         LoginView loginView = new LoginView();
-        new LoginController(loginView); // Controller is now wired up with the view
 
         Scene scene = new Scene(loginView, 1280, 720);
         primaryStage.setTitle("Learning Hub - Bad Walden");

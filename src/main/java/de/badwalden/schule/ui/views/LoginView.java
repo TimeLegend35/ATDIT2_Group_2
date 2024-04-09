@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.ui.controller.LoginController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -10,7 +11,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class LoginView extends BorderPane {
-
+    private final LoginController loginController = new LoginController(this);
     private Text userNameLabel;
     private TextField userNameTextField;
     private Text passwordLabel;
@@ -42,6 +43,7 @@ public class LoginView extends BorderPane {
 
         signInButton = new Button("Anmelden");
         signInButton.setDefaultButton(true);
+        signInButton.setOnAction(event -> loginController.handleLoginButtonPressed());
 
         centerContent.getChildren().addAll(scenetitle, userNameLabel, userNameTextField, passwordLabel, passwordField, stayLoggedInCheckBox, signInButton);
 
@@ -67,13 +69,5 @@ public class LoginView extends BorderPane {
 
     public Button getSignInButton() {
         return signInButton;
-    }
-
-    public void showAlertDialog(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }
