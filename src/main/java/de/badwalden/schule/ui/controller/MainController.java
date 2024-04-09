@@ -3,7 +3,6 @@ package de.badwalden.schule.ui.controller;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -27,8 +26,9 @@ public class MainController {
 
     private void handleSidebarNavigation(String viewId) {
         VBox contentView = switch (viewId) {
-            case "Kalender" -> new KalenderView();
-            case "Noten" -> new KalenderView();
+            case "Kalender" -> new CalenderView();
+            case "Noten" -> new CalenderView();
+            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
             // ... more cases for other views
             default -> new VBox(new Text("View not implemented."));
         };
