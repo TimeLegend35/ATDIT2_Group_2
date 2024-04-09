@@ -2,14 +2,18 @@ package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.views.*;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Stack;
 
+// instantiated in Main class and used across multiple controllers for view navigation
 public class NavigationHelper {
 
+    public static final int WINDOW_WIDTH = 1280;
+    public static final int WINDOW_HEIGHT = 720;
     private final Stage primaryStage;
     private final Stack<Scene> history = new Stack<>();
     private MainView mainView;
@@ -29,12 +33,12 @@ public class NavigationHelper {
         switch(viewName) {
             case "MainView":
                 mainView = new MainView(); // Assuming constructor takes params
-                scene = new Scene(mainView, 1280, 720);
+                scene = new Scene(mainView, WINDOW_WIDTH, WINDOW_HEIGHT);
                 primaryStage.setTitle("Learning Hub - Bad Walden (Main View)");
                 break;
             case "LoginView":
                 LoginView loginView = new LoginView(); // Assuming constructor takes params
-                scene = new Scene(loginView, 1280, 720);
+                scene = new Scene(loginView, WINDOW_WIDTH, WINDOW_HEIGHT);
                 primaryStage.setTitle("Learning Hub - Bad Walden (Login View)");
                 break;
             // Add other cases for different views
@@ -55,7 +59,7 @@ public class NavigationHelper {
     // Handle navigation to sidebar main Views
     public void setContentView(String viewId) {
         System.out.println("Navigating to content view with viewId: " + viewId);
-        VBox contentView = switch (viewId) {
+        Node contentView = switch (viewId) {
             case "Kalender" -> new CalenderView();
             case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
 
