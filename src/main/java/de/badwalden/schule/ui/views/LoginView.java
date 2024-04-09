@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.views;
 
 import de.badwalden.schule.ui.controller.LoginController;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.text.Text;
 
 public class LoginView extends BorderPane {
     private final LoginController loginController = new LoginController(this);
+    private ComboBox<String> languageComboBox;
     private Text userNameLabel;
     private TextField userNameTextField;
     private Text passwordLabel;
@@ -21,6 +23,17 @@ public class LoginView extends BorderPane {
     private Text scenetitle;
 
     public LoginView() {
+
+        // Language selection
+        languageComboBox = new ComboBox<>();
+        languageComboBox.setItems(FXCollections.observableArrayList("English", "Deutsch", "Français")); // Add languages as needed
+        languageComboBox.getSelectionModel().selectFirst(); // Select the first language by default
+        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> loginController.handleLanguageChange(newVal));
+
+        HBox topRightContainer = new HBox(languageComboBox);
+        topRightContainer.setAlignment(Pos.TOP_RIGHT);
+        topRightContainer.setPadding(new Insets(10));
+        setTop(topRightContainer);
 
         VBox centerContent = new VBox();
         centerContent.setAlignment(Pos.CENTER);

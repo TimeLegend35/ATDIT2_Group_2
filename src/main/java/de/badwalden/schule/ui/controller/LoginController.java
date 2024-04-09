@@ -50,6 +50,12 @@ public class LoginController {
         primaryStage.show();  // Refresh the stage to show the MainView
     }
 
+    public void handleLanguageChange(String newLanguage) {
+        // For demonstration, print the selected language
+        System.out.println("Language selected: " + newLanguage);
+        // Here, you could add more complex logic, like updating the UI text based on the selected language
+    }
+
     public LoginView getLoginView() {
         return loginView;
     }
