@@ -40,7 +40,7 @@ public class CareOfferMarketplaceView extends VBox {
             // Create a button to view details
             Button detailsButton = new Button("View Details");
             detailsButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            detailsButton.setOnAction(event -> Main.navigationHelper.setContentViewToCareOffer(detailsButton.getId(), offer));
+            detailsButton.setOnAction(event -> controller.showObjectPage(offer));
 
 
             // Create a container for each offer's details and add them to the VBox

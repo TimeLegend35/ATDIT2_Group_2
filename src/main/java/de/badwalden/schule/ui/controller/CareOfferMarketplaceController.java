@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
@@ -30,6 +31,10 @@ public class CareOfferMarketplaceController {
 
         careOffers.add(careOffer1);
         careOffers.add(careOffer);
+    }
+
+    public void showObjectPage(CareOffer offer) {
+        Main.navigationHelper.setContentViewToObjectPage(offer);
     }
 
     public ObservableList<CareOffer> getCareOffers() {

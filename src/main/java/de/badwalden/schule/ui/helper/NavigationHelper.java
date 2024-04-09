@@ -66,9 +66,18 @@ public class NavigationHelper {
         mainView.setContentView(contentView);
     }
 
-    public void setContentViewToCareOffer(String offerId, CareOffer careOffer) {
-        System.out.println("Navigating to care offer view with careOfferId: " + offerId);
-        VBox contentView = new CareOfferView(careOffer);
+    public void setContentViewToObjectPage(Object object) {
+        System.out.println("Navigating to Object Page of obj: " + object.toString());
+        VBox contentView;
+        if (object instanceof CareOffer) {
+            contentView = new CareOfferView((CareOffer) object); // Cast to CareOffer
+        }
+
+        // ... add else if blocks for other object types
+
+        else {
+            contentView = new VBox(new Text("View not implemented or Object not found."));
+        }
         mainView.setContentView(contentView);
     }
 
