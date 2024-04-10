@@ -70,7 +70,8 @@ public class NavigationHelper {
         mainView.setContentView(contentView);
     }
 
-    public void setContentViewToObjectPage(Object object) {
+    // Handle navigation if no String but an object is given to setContentView();
+    public void setContentView(Object object) {
         System.out.println("Navigating to Object Page of obj: " + object.toString());
         VBox contentView;
         if (object instanceof CareOffer) {

@@ -108,7 +108,7 @@ public class CareOfferMarketplaceController {
     }
 
     public void showObjectPage(CareOffer offer) {
-        Main.navigationHelper.setContentViewToObjectPage(offer);
+        Main.navigationHelper.setContentView(offer);
     }
 
     public ObservableList<CareOffer> getCareOffers() {
