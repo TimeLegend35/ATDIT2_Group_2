@@ -91,21 +91,10 @@ public class CareOfferView extends VBox {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        gridPane.add(titleLabel, 0, 0);
-        gridPane.add(titleLabelValue, 1, 0);
-        gridPane.add(titleTextField, 1, 0);
-
-        gridPane.add(descriptionLabel, 0, 1);
-        gridPane.add(descriptionLabelValue, 1, 1);
-        gridPane.add(descriptionTextField, 1, 1);
-
-        gridPane.add(numberOfSeatsLabel, 0, 2);
-        gridPane.add(numberOfSeatsLabelValue, 1, 2);
-        gridPane.add(numberOfSeatsTextField, 1, 2);
-
-        gridPane.add(youngestGradeLabel, 0, 3);
-        gridPane.add(youngestGradeLabelValue, 1, 3);
-        gridPane.add(youngestGradeTextField, 1, 3);
+        addAttributeToGridPane(gridPane, titleLabel, titleLabelValue, titleTextField);
+        addAttributeToGridPane(gridPane, descriptionLabel, descriptionLabelValue, descriptionTextField);
+        addAttributeToGridPane(gridPane, numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField);
+        addAttributeToGridPane(gridPane, youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField);
 
         // Create a button to register for this care offer
         Button registerButton = new Button("Anmelden");
@@ -122,6 +111,13 @@ public class CareOfferView extends VBox {
 
         this.getChildren().addAll(topRightContainer, offerBox);
 
+    }
+
+    private void addAttributeToGridPane(GridPane gridPane, Label label, Label labelValue, TextField textField) {
+        int rowCount = gridPane.getRowCount();
+        gridPane.add(label, 0, rowCount);
+        gridPane.add(labelValue, 1, rowCount);
+        gridPane.add(textField, 1, rowCount);
     }
 
     private void changeEditView(Button editButton) {
