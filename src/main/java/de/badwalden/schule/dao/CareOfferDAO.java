@@ -29,6 +29,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         careOffer1.setDescription("This is a sample service description.");
         careOffer1.setNumberOfSeats(12);
         careOffer1.setYoungestGrade(1);
+        careOffer1.setOldestGrade(2);
 
         //Example Care Offer (mocked)
         CareOffer careOffer2 = new CareOffer();

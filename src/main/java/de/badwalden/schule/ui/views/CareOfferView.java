@@ -34,6 +34,8 @@ public class CareOfferView extends VBox {
     public TextField numberOfSeatsTextField;
     public Label youngestGradeLabelValue;
     public TextField youngestGradeTextField;
+    public Label oldestGradeLabelValue;
+    public TextField oldestGradeTextField;
 
     public CareOfferView(CareOffer offer) {
         super(15); // Adds spacing between child elements of the VBox
@@ -93,6 +95,15 @@ public class CareOfferView extends VBox {
         youngestGradeTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
 
+        Label oldestGradeLabel = new Label("Jüngste Stufe: ");
+        oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        oldestGradeLabelValue = new Label();
+        oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        oldestGradeTextField = new TextField();
+        oldestGradeTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
+
         controller.updateValuesFromObject(careOffer);
 
         GridPane gridPane = new GridPane();
@@ -118,35 +129,57 @@ public class CareOfferView extends VBox {
 
     }
 
+    /**
+     * Internal class for storing elements related to an object pages attributes.
+     */
     public class ObjectPageAttributeElementsContainer {
-        public ObjectPageAttributeElementsContainer(Label titleLabel, Label valueLabel, TextField textField) {
+        public ObjectPageAttributeElementsContainer(Label titleLabel, Node initialUiNode, Node editModeUiNode) {
             this.titleLabel = titleLabel;
-            this.valueLabel = valueLabel;
-            this.textField = textField;
+            this.initialUiNode = initialUiNode;
+            this.editModeUiNode = editModeUiNode;
         }
         public Label titleLabel;
-        public Label valueLabel;
-        public TextField textField;
+        public Node initialUiNode;
+        public Node editModeUiNode;
     }
 
+    /**
+     * Add all attributes to the provided GridPane.
+     *
+     * @param  gridPane   the GridPane to which attributes will be added
+     */
     private void addAllAttributesToGridPane(GridPane gridPane) {
         for (ObjectPageAttributeElementsContainer container : uiElements) {
-            addAttributeToGridPane(gridPane, container.titleLabel, container.valueLabel, container.textField);
+            addAttributeToGridPane(gridPane, container.titleLabel, container.initialUiNode, container.editModeUiNode);
         }
     }
-    private void addAttributeToGridPane(GridPane gridPane, Label label, Label labelValue, TextField textField) {
+
+    /**
+     * Adds a Single attribute to a GridPane.
+     *
+     * @param  gridPane         the GridPane to which the attribute will be added
+     * @param  label            the label for the attribute
+     * @param  initialUiNode    the initial UI node for the attribute
+     * @param  editModeUiNode   the UI node for the attribute in edit mode
+     */
+    private void addAttributeToGridPane(GridPane gridPane, Label label, Node initialUiNode, Node editModeUiNode) {
         int rowCount = gridPane.getRowCount();
         gridPane.add(label, 0, rowCount);
-        gridPane.add(labelValue, 1, rowCount);
-        gridPane.add(textField, 1, rowCount);
+        gridPane.add(initialUiNode, 1, rowCount);
+        gridPane.add(editModeUiNode, 1, rowCount);
     }
 
+    /**
+     * Changes the edit view based on the current mode.
+     *
+     * @param  editButton  the Button used to toggle edit mode
+     */
     private void changeEditView(Button editButton) {
         if (!isEditMode) {
             isEditMode = true;
 
             for (ObjectPageAttributeElementsContainer container : uiElements) {
-                toggleEditModeOfAttribute(container.valueLabel, container.textField);
+                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
             }
 
             editButton.setText("Save");
@@ -154,7 +187,7 @@ public class CareOfferView extends VBox {
             isEditMode = false;
 
             for (ObjectPageAttributeElementsContainer container : uiElements) {
-                toggleEditModeOfAttribute(container.valueLabel, container.textField);
+                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
             }
 
             controller.setValuesOfObject(careOffer);
@@ -162,12 +195,22 @@ public class CareOfferView extends VBox {
             editButton.setText("Edit");
         }
     }
-
+    /**
+     * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
+     *
+     * @param  value         the attribute node
+     * @param  valueEditNode the edit node of the attribute
+     */
     private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
         toggleVisibilityOfNode(value);
         toggleVisibilityOfNode(valueEditNode);
     }
 
+    /**
+     * Toggles the visibility of a given node.
+     *
+     * @param  node   the node to toggle visibility
+     */
     private void toggleVisibilityOfNode(Node node) {
         node.setVisible(!node.isVisible());
     }
