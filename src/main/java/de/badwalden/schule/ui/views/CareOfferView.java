@@ -5,6 +5,7 @@ import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,12 +16,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class CareOfferView extends VBox {
     private CareOffer careOffer;
     private CareOfferController controller;
 
+    private static final int FONT_SIZE = 14;
     private boolean isEditMode;
+    public ObservableList<UiElementsContainer> uiElements = FXCollections.observableArrayList();
 
     public Label titleLabelValue;
     public TextField titleTextField;
@@ -55,35 +59,39 @@ public class CareOfferView extends VBox {
 
         // Create labels for the offer's title and description
         Label titleLabel = new Label("Titel: ");
-        titleLabel.setFont(new Font(14)); // Set font size for title
+        titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         titleLabelValue  = new Label();
-        titleLabelValue.setFont(new Font(14)); // Set font size for title
+        titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
         titleTextField = new TextField();
         titleTextField.setVisible(false);
+        uiElements.add(new UiElementsContainer(titleLabel, titleLabelValue, titleTextField));
 
         Label descriptionLabel = new Label("Beschreibung: ");
-        descriptionLabel.setFont(new Font(14)); // Set font size for title
+        descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         descriptionLabelValue = new Label();
-        descriptionLabelValue.setFont(new Font(14)); // Set font size for description
+        descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
         descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         descriptionTextField = new TextField();
         descriptionTextField.setVisible(false);
+        uiElements.add(new UiElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
 
         Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
-        numberOfSeatsLabel.setFont(new Font(14)); // Set font size for title
+        numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         numberOfSeatsLabelValue = new Label();
-        numberOfSeatsLabelValue.setFont(new Font(14)); // Set font size for description
+        numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
         numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         numberOfSeatsTextField = new TextField();
         numberOfSeatsTextField.setVisible(false);
+        uiElements.add(new UiElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
 
         Label youngestGradeLabel = new Label("Jüngste Stufe: ");
-        youngestGradeLabel.setFont(new Font(14)); // Set font size for title
+        youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         youngestGradeLabelValue = new Label();
-        youngestGradeLabelValue.setFont(new Font(14)); // Set font size for description
+        youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
         youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         youngestGradeTextField = new TextField();
         youngestGradeTextField.setVisible(false);
+        uiElements.add(new UiElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
 
         controller.updateValuesFromObject(careOffer);
 
@@ -91,10 +99,7 @@ public class CareOfferView extends VBox {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        addAttributeToGridPane(gridPane, titleLabel, titleLabelValue, titleTextField);
-        addAttributeToGridPane(gridPane, descriptionLabel, descriptionLabelValue, descriptionTextField);
-        addAttributeToGridPane(gridPane, numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField);
-        addAttributeToGridPane(gridPane, youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField);
+        addAllAttributesToGridPane(gridPane);
 
         // Create a button to register for this care offer
         Button registerButton = new Button("Anmelden");
@@ -113,6 +118,22 @@ public class CareOfferView extends VBox {
 
     }
 
+    public class UiElementsContainer {
+        public UiElementsContainer(Label titleLabel, Label valueLabel, TextField textField) {
+            this.titleLabel = titleLabel;
+            this.valueLabel = valueLabel;
+            this.textField = textField;
+        }
+        public Label titleLabel;
+        public Label valueLabel;
+        public TextField textField;
+    }
+
+    private void addAllAttributesToGridPane(GridPane gridPane) {
+        for (UiElementsContainer container : uiElements) {
+            addAttributeToGridPane(gridPane, container.titleLabel, container.valueLabel, container.textField);
+        }
+    }
     private void addAttributeToGridPane(GridPane gridPane, Label label, Label labelValue, TextField textField) {
         int rowCount = gridPane.getRowCount();
         gridPane.add(label, 0, rowCount);
@@ -124,19 +145,17 @@ public class CareOfferView extends VBox {
         if (!isEditMode) {
             isEditMode = true;
 
-            toggleEditModeOfAttribute(titleLabelValue, titleTextField);
-            toggleEditModeOfAttribute(descriptionLabelValue, descriptionTextField);
-            toggleEditModeOfAttribute(numberOfSeatsLabelValue, numberOfSeatsTextField);
-            toggleEditModeOfAttribute(youngestGradeLabelValue, youngestGradeTextField);
+            for (UiElementsContainer container : uiElements) {
+                toggleEditModeOfAttribute(container.valueLabel, container.textField);
+            }
 
             editButton.setText("Save");
         } else {
             isEditMode = false;
 
-            toggleEditModeOfAttribute(titleLabelValue, titleTextField);
-            toggleEditModeOfAttribute(descriptionLabelValue, descriptionTextField);
-            toggleEditModeOfAttribute(numberOfSeatsLabelValue, numberOfSeatsTextField);
-            toggleEditModeOfAttribute(youngestGradeLabelValue, youngestGradeTextField);
+            for (UiElementsContainer container : uiElements) {
+                toggleEditModeOfAttribute(container.valueLabel, container.textField);
+            }
 
             controller.setValuesOfObject(careOffer);
             controller.updateValuesFromObject(careOffer);
