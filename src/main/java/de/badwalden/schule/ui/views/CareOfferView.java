@@ -24,7 +24,7 @@ public class CareOfferView extends VBox {
 
     private static final int FONT_SIZE = 14;
     private boolean isEditMode;
-    public ObservableList<UiElementsContainer> uiElements = FXCollections.observableArrayList();
+    public ObservableList<ObjectPageAttributeElementsContainer> uiElements = FXCollections.observableArrayList();
 
     public Label titleLabelValue;
     public TextField titleTextField;
@@ -64,7 +64,7 @@ public class CareOfferView extends VBox {
         titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
         titleTextField = new TextField();
         titleTextField.setVisible(false);
-        uiElements.add(new UiElementsContainer(titleLabel, titleLabelValue, titleTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
 
         Label descriptionLabel = new Label("Beschreibung: ");
         descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -73,7 +73,7 @@ public class CareOfferView extends VBox {
         descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         descriptionTextField = new TextField();
         descriptionTextField.setVisible(false);
-        uiElements.add(new UiElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
 
         Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
         numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -82,7 +82,7 @@ public class CareOfferView extends VBox {
         numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         numberOfSeatsTextField = new TextField();
         numberOfSeatsTextField.setVisible(false);
-        uiElements.add(new UiElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
 
         Label youngestGradeLabel = new Label("Jüngste Stufe: ");
         youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -91,7 +91,7 @@ public class CareOfferView extends VBox {
         youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         youngestGradeTextField = new TextField();
         youngestGradeTextField.setVisible(false);
-        uiElements.add(new UiElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
 
         controller.updateValuesFromObject(careOffer);
 
@@ -118,8 +118,8 @@ public class CareOfferView extends VBox {
 
     }
 
-    public class UiElementsContainer {
-        public UiElementsContainer(Label titleLabel, Label valueLabel, TextField textField) {
+    public class ObjectPageAttributeElementsContainer {
+        public ObjectPageAttributeElementsContainer(Label titleLabel, Label valueLabel, TextField textField) {
             this.titleLabel = titleLabel;
             this.valueLabel = valueLabel;
             this.textField = textField;
@@ -130,7 +130,7 @@ public class CareOfferView extends VBox {
     }
 
     private void addAllAttributesToGridPane(GridPane gridPane) {
-        for (UiElementsContainer container : uiElements) {
+        for (ObjectPageAttributeElementsContainer container : uiElements) {
             addAttributeToGridPane(gridPane, container.titleLabel, container.valueLabel, container.textField);
         }
     }
@@ -145,7 +145,7 @@ public class CareOfferView extends VBox {
         if (!isEditMode) {
             isEditMode = true;
 
-            for (UiElementsContainer container : uiElements) {
+            for (ObjectPageAttributeElementsContainer container : uiElements) {
                 toggleEditModeOfAttribute(container.valueLabel, container.textField);
             }
 
@@ -153,7 +153,7 @@ public class CareOfferView extends VBox {
         } else {
             isEditMode = false;
 
-            for (UiElementsContainer container : uiElements) {
+            for (ObjectPageAttributeElementsContainer container : uiElements) {
                 toggleEditModeOfAttribute(container.valueLabel, container.textField);
             }
 
