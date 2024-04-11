@@ -7,6 +7,7 @@ import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,12 +22,15 @@ public class CareOfferView extends VBox {
 
     private boolean isEditMode;
 
-    Label titleLabelValue;
-    TextField titleTextField;
-    Label descriptionLabelValue;
-    TextField descriptionTextField;
-    Label numberOfSeatsLabelValue;
-    TextField numberOfSeatsTextField;
+    public Label titleLabelValue;
+    public TextField titleTextField;
+    public Label descriptionLabelValue;
+    public TextField descriptionTextField;
+    public Label numberOfSeatsLabelValue;
+    public TextField numberOfSeatsTextField;
+    public Label youngestGradeLabelValue;
+    public TextField youngestGradeTextField;
+
     public CareOfferView(CareOffer offer) {
         super(15); // Adds spacing between child elements of the VBox
         controller = new CareOfferController(this);
@@ -43,7 +47,7 @@ public class CareOfferView extends VBox {
         // Create a button to edit details
         Button editButton = new Button("Edit");
         editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-        editButton.setOnAction(event -> this.editButtonPressed(editButton));
+        editButton.setOnAction(event -> this.changeEditView(editButton));
 
         HBox topRightContainer = new HBox(backButton, editButton);
         topRightContainer.setAlignment(Pos.TOP_LEFT);
@@ -52,29 +56,36 @@ public class CareOfferView extends VBox {
         // Create labels for the offer's title and description
         Label titleLabel = new Label("Titel: ");
         titleLabel.setFont(new Font(14)); // Set font size for title
-        titleLabelValue  = new Label(offer.getName());
+        titleLabelValue  = new Label();
         titleLabelValue.setFont(new Font(14)); // Set font size for title
         titleTextField = new TextField();
-        titleTextField.setText(titleLabelValue.getText());
         titleTextField.setVisible(false);
 
         Label descriptionLabel = new Label("Beschreibung: ");
         descriptionLabel.setFont(new Font(14)); // Set font size for title
-        descriptionLabelValue = new Label(offer.getDescription());
+        descriptionLabelValue = new Label();
         descriptionLabelValue.setFont(new Font(14)); // Set font size for description
         descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         descriptionTextField = new TextField();
-        descriptionTextField.setText(descriptionLabelValue.getText());
         descriptionTextField.setVisible(false);
 
         Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
         numberOfSeatsLabel.setFont(new Font(14)); // Set font size for title
-        numberOfSeatsLabelValue = new Label(String.valueOf(offer.getNumberOfSeats()));
+        numberOfSeatsLabelValue = new Label();
         numberOfSeatsLabelValue.setFont(new Font(14)); // Set font size for description
         numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         numberOfSeatsTextField = new TextField();
-        numberOfSeatsTextField.setText(numberOfSeatsLabelValue.getText());
         numberOfSeatsTextField.setVisible(false);
+
+        Label youngestGradeLabel = new Label("Jüngste Stufe: ");
+        youngestGradeLabel.setFont(new Font(14)); // Set font size for title
+        youngestGradeLabelValue = new Label();
+        youngestGradeLabelValue.setFont(new Font(14)); // Set font size for description
+        youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        youngestGradeTextField = new TextField();
+        youngestGradeTextField.setVisible(false);
+
+        controller.updateValuesFromObject(careOffer);
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -91,6 +102,10 @@ public class CareOfferView extends VBox {
         gridPane.add(numberOfSeatsLabel, 0, 2);
         gridPane.add(numberOfSeatsLabelValue, 1, 2);
         gridPane.add(numberOfSeatsTextField, 1, 2);
+
+        gridPane.add(youngestGradeLabel, 0, 3);
+        gridPane.add(youngestGradeLabelValue, 1, 3);
+        gridPane.add(youngestGradeTextField, 1, 3);
 
         // Create a button to register for this care offer
         Button registerButton = new Button("Anmelden");
@@ -109,35 +124,36 @@ public class CareOfferView extends VBox {
 
     }
 
-    private void editButtonPressed(Button editButton) {
-        if (editButton.getText().equals("Edit")) {
+    private void changeEditView(Button editButton) {
+        if (!isEditMode) {
             isEditMode = true;
-            titleLabelValue.setVisible(false);
-            titleTextField.setVisible(true);
-            descriptionLabelValue.setVisible(false);
-            descriptionTextField.setVisible(true);
-            numberOfSeatsLabelValue.setVisible(false);
-            numberOfSeatsTextField.setVisible(true);
+
+            toggleEditModeOfAttribute(titleLabelValue, titleTextField);
+            toggleEditModeOfAttribute(descriptionLabelValue, descriptionTextField);
+            toggleEditModeOfAttribute(numberOfSeatsLabelValue, numberOfSeatsTextField);
+            toggleEditModeOfAttribute(youngestGradeLabelValue, youngestGradeTextField);
+
             editButton.setText("Save");
-        } else if (editButton.getText().equals("Save")) {
+        } else {
             isEditMode = false;
-            titleLabelValue.setVisible(true);
-            titleTextField.setVisible(false);
-            careOffer.setName(titleTextField.getText());
-            descriptionLabelValue.setVisible(true);
-            descriptionTextField.setVisible(false);
-            careOffer.setDescription(descriptionTextField.getText());
-            numberOfSeatsLabelValue.setVisible(true);
-            numberOfSeatsTextField.setVisible(false);
-            careOffer.setNumberOfSeats(Integer.parseInt(numberOfSeatsTextField.getText()));
-            updateValuesFromObject();
+
+            toggleEditModeOfAttribute(titleLabelValue, titleTextField);
+            toggleEditModeOfAttribute(descriptionLabelValue, descriptionTextField);
+            toggleEditModeOfAttribute(numberOfSeatsLabelValue, numberOfSeatsTextField);
+            toggleEditModeOfAttribute(youngestGradeLabelValue, youngestGradeTextField);
+
+            controller.setValuesOfObject(careOffer);
+            controller.updateValuesFromObject(careOffer);
             editButton.setText("Edit");
         }
     }
 
-    private void updateValuesFromObject() {
-        titleLabelValue.setText(careOffer.getName());
-        descriptionLabelValue.setText(careOffer.getDescription());
-        numberOfSeatsLabelValue.setText(String.valueOf(careOffer.getNumberOfSeats()));
+    private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
+        toggleVisibilityOfNode(value);
+        toggleVisibilityOfNode(valueEditNode);
+    }
+
+    private void toggleVisibilityOfNode(Node node) {
+        node.setVisible(!node.isVisible());
     }
 }

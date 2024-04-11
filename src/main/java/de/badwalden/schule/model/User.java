@@ -8,7 +8,7 @@ public abstract class User {
     private String first_name;
     private Calendar birthday;
     private String residence;
-    private List<Notification> notefications;
+    private List<Notification> notifications;
 
     public User() {
 
