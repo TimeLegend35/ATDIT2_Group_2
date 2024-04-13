@@ -1,10 +1,12 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -17,15 +19,16 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CareOfferMarketplaceView extends VBox {
+public class CareOfferMarketplaceView extends ScrollPane {
     private CareOfferMarketplaceController controller;
+    private VBox contentBox;
 
-    public CareOfferMarketplaceView(MainView mainview) {
-        super(15); // Adds spacing between child elements of the VBox
-        controller = new CareOfferMarketplaceController(mainview);
+    public CareOfferMarketplaceView() {
+        super(); // Adds spacing between child elements of the VBox
+        controller = new CareOfferMarketplaceController();
 
-        // Set padding around the entire VBox container
-        setPadding(new Insets(15));
+        contentBox = new VBox(15); // Adds spacing between child elements of the VBox
+        contentBox.setPadding(new Insets(15)); // Set padding around the VBox container
 
         for (CareOffer offer : controller.getCareOffers()) {
             // Create labels for the offer's title and description
@@ -39,7 +42,7 @@ public class CareOfferMarketplaceView extends VBox {
             // Create a button to view details
             Button detailsButton = new Button("View Details");
             detailsButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            detailsButton.setOnAction(event -> controller.navigateToCareOffer(detailsButton.getId(), offer));
+            detailsButton.setOnAction(event -> controller.showObjectPage(offer));
 
 
             // Create a container for each offer's details and add them to the VBox
@@ -49,8 +52,12 @@ public class CareOfferMarketplaceView extends VBox {
             offerBox.setPadding(new Insets(10)); // Add padding inside the border
             offerBox.getChildren().addAll(titleLabel, descriptionLabel, detailsButton);
 
-            this.getChildren().add(offerBox);
+            contentBox.getChildren().add(offerBox);
         }
+
+        // Set the VBox as the content of the ScrollPane
+        this.setContent(contentBox);
+        this.setFitToWidth(true); // Optional: Makes the ScrollPane fit the width of the contentBox, removing horizontal scroll bars if possible
     }
 
 }

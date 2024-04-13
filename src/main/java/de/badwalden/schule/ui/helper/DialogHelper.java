@@ -1,10 +1,10 @@
-package de.badwalden.schule.ui.views;
+package de.badwalden.schule.ui.helper;
 
 import javafx.scene.control.Alert;
 
-public class Dialog {
+public class DialogHelper {
 
-    public Dialog() {
+    public DialogHelper() {
 
     }
 

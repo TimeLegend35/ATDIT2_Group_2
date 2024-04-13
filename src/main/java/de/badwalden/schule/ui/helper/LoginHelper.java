@@ -2,7 +2,6 @@ package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.dao.LoginHelperDAO;
 import de.badwalden.schule.ui.controller.LoginController;
-import de.badwalden.schule.ui.views.Dialog;
 import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -32,7 +31,7 @@ public class LoginHelper {
         auth = BCrypt.checkpw(db_password, hashed_password);
 
         if (!auth) {
-            Dialog.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Wrong Username or Password");
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Wrong Username or Password");
         }
     }
 }

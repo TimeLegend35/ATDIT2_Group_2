@@ -1,13 +1,12 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.Main;
 import de.badwalden.schule.ui.helper.LoginHelper;
-import de.badwalden.schule.ui.views.Dialog;
+import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.views.LoginView;
-import de.badwalden.schule.ui.views.MainView;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.util.Locale;
 
 public class LoginController {
 
@@ -29,7 +28,7 @@ public class LoginController {
         if (loginHelper.get_auth()) {
             showMainView();
         } else {
-            Dialog.showAlertDialog(AlertType.ERROR, "Login Failed", "Invalid username or password.");
+            DialogHelper.showAlertDialog(AlertType.ERROR, "Login Failed", "Invalid username or password.");
         }
     }
 
@@ -39,21 +38,26 @@ public class LoginController {
     }
 
     private void showMainView() {
-        MainView mainView = new MainView();
-        MainController mainController = new MainController(mainView);  // Associate MainController
-
-        Scene mainScene = new Scene(mainView, 1280, 720);  // Consider extracting scene size as constants or configuration
-
-        Stage primaryStage = (Stage) loginView.getSignInButton().getScene().getWindow();
-        primaryStage.setScene(mainScene);
-        primaryStage.setTitle("Main View - Bad Walden");  // Set the title for the main window
-        primaryStage.show();  // Refresh the stage to show the MainView
+        Main.navigationHelper.navigateTo("MainView");
     }
 
     public void handleLanguageChange(String newLanguage) {
         // For demonstration, print the selected language
         System.out.println("Language selected: " + newLanguage);
         // Here, you could add more complex logic, like updating the UI text based on the selected language
+    }
+
+    public Locale getLocaleForLanguage(String newLanguage) {
+      switch (newLanguage) {
+          case "English":
+              return new Locale("en","US");
+          case "Deutsch":
+              return new Locale("de","DE");
+          case "Français":
+              return new Locale("fr","FR");
+          default:
+              return Locale.getDefault();
+      }
     }
 
     public LoginView getLoginView() {
