@@ -1,6 +1,7 @@
 package de.badwalden.schule;
 
 import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.NavigationHelper;
 import de.badwalden.schule.ui.views.LoginView;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ public class Main extends Application {
         //LoginView loginView = new LoginView();
         //Scene scene = new Scene(loginView, 1280, 720);
 
+        LanguageHelper.setLocale("English");
         navigationHelper = new NavigationHelper(primaryStage);
         navigationHelper.navigateTo("LoginView");
         primaryStage.show();
