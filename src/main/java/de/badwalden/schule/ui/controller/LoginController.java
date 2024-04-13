@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.Main;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.LoginHelper;
 import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.views.LoginView;
@@ -44,20 +45,7 @@ public class LoginController {
     public void handleLanguageChange(String newLanguage) {
         // For demonstration, print the selected language
         System.out.println("Language selected: " + newLanguage);
-        // Here, you could add more complex logic, like updating the UI text based on the selected language
-    }
-
-    public Locale getLocaleForLanguage(String newLanguage) {
-      switch (newLanguage) {
-          case "English":
-              return new Locale("en","US");
-          case "Deutsch":
-              return new Locale("de","DE");
-          case "Français":
-              return new Locale("fr","FR");
-          default:
-              return Locale.getDefault();
-      }
+        LanguageHelper.setLocale(newLanguage);
     }
 
     public LoginView getLoginView() {

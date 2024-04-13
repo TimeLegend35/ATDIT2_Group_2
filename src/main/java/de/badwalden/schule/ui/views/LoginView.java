@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.views;
 
 import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -42,7 +43,8 @@ public class LoginView extends BorderPane {
         scenetitle = new Text("Learning Hub\nBad Walden");
         scenetitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        userNameLabel = new Text("Benutzername:");
+//        userNameLabel = new Text("Benutzername:");
+        userNameLabel = new Text(LanguageHelper.getString("username"));
         userNameTextField = new TextField();
         userNameTextField.setPromptText("Benutzername");
         userNameTextField.setMaxWidth(200);
