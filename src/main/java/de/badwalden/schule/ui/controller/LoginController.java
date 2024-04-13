@@ -6,6 +6,8 @@ import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.views.LoginView;
 import javafx.scene.control.Alert.AlertType;
 
+import java.util.Locale;
+
 public class LoginController {
 
     private LoginView loginView;
@@ -43,6 +45,19 @@ public class LoginController {
         // For demonstration, print the selected language
         System.out.println("Language selected: " + newLanguage);
         // Here, you could add more complex logic, like updating the UI text based on the selected language
+    }
+
+    public Locale getLocaleForLanguage(String newLanguage) {
+      switch (newLanguage) {
+          case "English":
+              return new Locale("en","US");
+          case "Deutsch":
+              return new Locale("de","DE");
+          case "Français":
+              return new Locale("fr","FR");
+          default:
+              return Locale.getDefault();
+      }
     }
 
     public LoginView getLoginView() {
