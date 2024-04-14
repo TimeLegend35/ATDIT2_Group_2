@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.Main;
+import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.LoginHelper;
 import de.badwalden.schule.ui.helper.DialogHelper;
@@ -20,17 +21,10 @@ public class LoginController {
     public void handleLoginButtonPressed() {
         // auth
         LoginHelper loginHelper = new LoginHelper(this);
-        loginHelper.authenticate();
-        // backdoor temp
-        if (loginView.getPasswordField().getText().equals("admin")) {
-            showMainView();
-            return;
-        }
-        if (loginHelper.get_auth()) {
-            showMainView();
-        } else {
-            DialogHelper.showAlertDialog(AlertType.ERROR, "Login Failed", "Invalid username or password.");
-        }
+        boolean loggin = loginHelper.authenticate();
+
+        showMainView();
+
     }
 
     private boolean isValidCredentials(String username, String password) {

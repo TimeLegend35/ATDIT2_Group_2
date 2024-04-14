@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d67caaab-69bf-4f0e-9c42-e48eb3d35a89" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/KalenderView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/LoginView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/SidebarView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="d67caaab-69bf-4f0e-9c42-e48eb3d35a89" name="Changes" comment="View &amp; controller logic change">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/Session.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CalenderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CalenderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +35,13 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="master" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,7 +116,18 @@
       <updated>1711565648568</updated>
       <workItem from="1711565650217" duration="695000" />
       <workItem from="1712592433683" duration="6124000" />
+      <workItem from="1712919260262" duration="1384000" />
+      <workItem from="1713123769957" duration="2942000" />
     </task>
+    <task id="LOCAL-00001" summary="View &amp; controller logic change">
+      <option name="closed" value="true" />
+      <created>1712659765931</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712659765931</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,5 +160,30 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="View &amp; controller logic change" />
+    <option name="LAST_COMMIT_MESSAGE" value="View &amp; controller logic change" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

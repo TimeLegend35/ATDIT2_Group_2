@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;

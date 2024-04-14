@@ -1,6 +1,9 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.MainController;
+import de.badwalden.schule.ui.helper.Session;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
@@ -13,22 +16,26 @@ public class MainView extends BorderPane {
     private MainController mainController;
 
     public MainView() {
-        sidebarView = new SidebarView();
-        mainSplitPane = new SplitPane();
-        mainController = new MainController(this);
+        // check what user type is logged in and plot according
+        User user = Session.getInstance().getCurrentUser();
 
-        // Place the sidebar on the left side of the mainSplitPane
-        mainSplitPane.getItems().add(sidebarView);
+        if (user instanceof Admin) {
+            sidebarView = new SidebarView();
+            mainSplitPane = new SplitPane();
+            mainController = new MainController(this);
 
-        // Set the initial position of the divider (adjust as needed)
-        mainSplitPane.setDividerPosition(0, 0.3); // 30% of the total width for the sidebar
+            // Place the sidebar on the left side of the mainSplitPane
+            mainSplitPane.getItems().add(sidebarView);
 
-        // The rest of the mainSplitPane will contain the dynamic content views
-        mainSplitPane.getItems().add(new VBox()); // Placeholder for content views
+            // Set the initial position of the divider (adjust as needed)
+            mainSplitPane.setDividerPosition(0, 0.3); // 30% of the total width for the sidebar
 
-        setCenter(mainSplitPane);
+            // The rest of the mainSplitPane will contain the dynamic content views
+            mainSplitPane.getItems().add(new VBox()); // Placeholder for content views
+
+            setCenter(mainSplitPane);
+        }
     }
-
 
     public SidebarView getSidebarView() {
         return sidebarView;

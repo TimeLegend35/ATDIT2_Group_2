@@ -1,9 +1,12 @@
 package de.badwalden.schule.ui.views;
 
 import de.badwalden.schule.Main;
+import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
+import de.badwalden.schule.ui.helper.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -42,90 +45,96 @@ public class CareOfferView extends VBox {
         controller = new CareOfferController(this);
         this.careOffer = offer;
 
-        // Set padding around the entire VBox container
-        setPadding(new Insets(15));
+        // check what user type is logged in and plot according
+        User user = Session.getInstance().getCurrentUser();
 
-        // Create a button to go back
-        Button backButton = new Button("Zurück");
-        backButton.setId("back"); // Set the button's ID to the offer's ID
-        backButton.setOnAction(event -> Main.navigationHelper.setContentView("Betreuungsmarktplatz"));
+        if (user instanceof Admin) {
 
-        // Create a button to edit details
-        Button editButton = new Button("Edit");
-        editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-        editButton.setOnAction(event -> this.changeEditView(editButton));
+            // Set padding around the entire VBox container
+            setPadding(new Insets(15));
 
-        HBox topRightContainer = new HBox(backButton, editButton);
-        topRightContainer.setAlignment(Pos.TOP_LEFT);
-        topRightContainer.setPadding(new Insets(10));
+            // Create a button to go back
+            Button backButton = new Button("Zurück");
+            backButton.setId("back"); // Set the button's ID to the offer's ID
+            backButton.setOnAction(event -> Main.navigationHelper.setContentView("Betreuungsmarktplatz"));
 
-        // Create labels for the offer's title and description
-        Label titleLabel = new Label("Titel: ");
-        titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        titleLabelValue  = new Label();
-        titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
-        titleTextField = new TextField();
-        titleTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
+            // Create a button to edit details
+            Button editButton = new Button("Edit");
+            editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+            editButton.setOnAction(event -> this.changeEditView(editButton));
 
-        Label descriptionLabel = new Label("Beschreibung: ");
-        descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        descriptionLabelValue = new Label();
-        descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        descriptionTextField = new TextField();
-        descriptionTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
+            HBox topRightContainer = new HBox(backButton, editButton);
+            topRightContainer.setAlignment(Pos.TOP_LEFT);
+            topRightContainer.setPadding(new Insets(10));
 
-        Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
-        numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        numberOfSeatsLabelValue = new Label();
-        numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        numberOfSeatsTextField = new TextField();
-        numberOfSeatsTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
+            // Create labels for the offer's title and description
+            Label titleLabel = new Label("Titel: ");
+            titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+            titleLabelValue = new Label();
+            titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
+            titleTextField = new TextField();
+            titleTextField.setVisible(false);
+            uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
 
-        Label youngestGradeLabel = new Label("Jüngste Stufe: ");
-        youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        youngestGradeLabelValue = new Label();
-        youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        youngestGradeTextField = new TextField();
-        youngestGradeTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
+            Label descriptionLabel = new Label("Beschreibung: ");
+            descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+            descriptionLabelValue = new Label();
+            descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+            descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+            descriptionTextField = new TextField();
+            descriptionTextField.setVisible(false);
+            uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
 
-        Label oldestGradeLabel = new Label("Jüngste Stufe: ");
-        oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        oldestGradeLabelValue = new Label();
-        oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        oldestGradeTextField = new TextField();
-        oldestGradeTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
+            Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
+            numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+            numberOfSeatsLabelValue = new Label();
+            numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+            numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+            numberOfSeatsTextField = new TextField();
+            numberOfSeatsTextField.setVisible(false);
+            uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
 
-        controller.updateValuesFromObject(careOffer);
+            Label youngestGradeLabel = new Label("Jüngste Stufe: ");
+            youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+            youngestGradeLabelValue = new Label();
+            youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+            youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+            youngestGradeTextField = new TextField();
+            youngestGradeTextField.setVisible(false);
+            uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
+            Label oldestGradeLabel = new Label("Jüngste Stufe: ");
+            oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+            oldestGradeLabelValue = new Label();
+            oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+            oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+            oldestGradeTextField = new TextField();
+            oldestGradeTextField.setVisible(false);
+            uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
 
-        addAllAttributesToGridPane(gridPane);
+            controller.updateValuesFromObject(careOffer);
 
-        // Create a button to register for this care offer
-        Button registerButton = new Button("Anmelden");
-        registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-        registerButton.setOnAction(event -> System.out.println("Register button was pressed"));
+            GridPane gridPane = new GridPane();
+            gridPane.setHgap(10);
+            gridPane.setVgap(10);
+
+            addAllAttributesToGridPane(gridPane);
+
+            // Create a button to register for this care offer
+            Button registerButton = new Button("Anmelden");
+            registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+            registerButton.setOnAction(event -> System.out.println("Register button was pressed"));
 
 
-        // Create a container for each offer's details and add them to the VBox
-        VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
-        offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY, new BorderWidths(2))));
-        offerBox.setPadding(new Insets(10)); // Add padding inside the border
-        offerBox.getChildren().addAll(gridPane, registerButton);
+            // Create a container for each offer's details and add them to the VBox
+            VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
+            offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+                    CornerRadii.EMPTY, new BorderWidths(2))));
+            offerBox.setPadding(new Insets(10)); // Add padding inside the border
+            offerBox.getChildren().addAll(gridPane, registerButton);
 
-        this.getChildren().addAll(topRightContainer, offerBox);
+            this.getChildren().addAll(topRightContainer, offerBox);
+        }
 
     }
 
