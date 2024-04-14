@@ -30,8 +30,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.0</version> <!-- Check for the latest version on Maven Central -->
+        </dependency>
     </dependencies>
 
     <build>
