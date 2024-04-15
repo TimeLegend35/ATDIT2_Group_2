@@ -1,6 +1,7 @@
 package de.badwalden.schule.dao;
 
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.Teacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -30,6 +31,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         careOffer1.setNumberOfSeats(12);
         careOffer1.setYoungestGrade(1);
         careOffer1.setOldestGrade(2);
+        careOffer1.setMainSupervisor(new Teacher());
 
         //Example Care Offer (mocked)
         CareOffer careOffer2 = new CareOffer();

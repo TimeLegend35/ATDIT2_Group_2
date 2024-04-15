@@ -10,6 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.util.Locale;
 
+import static de.badwalden.schule.Main.navigationHelper;
+
 public class LoginController {
 
     private LoginView loginView;
@@ -19,21 +21,15 @@ public class LoginController {
     }
 
     public void handleLoginButtonPressed() {
-        // auth
-        LoginHelper loginHelper = new LoginHelper(this);
-        boolean loggin = loginHelper.authenticate();
-
-        showMainView();
-
-    }
-
-    private boolean isValidCredentials(String username, String password) {
-        // Replace with real authentication logic
-        return "admin".equals(username) && "pw".equals(password);
+        // authenticate user
+        boolean login = LoginHelper.authenticate(loginView.getUserNameTextField().getText(), loginView.getPasswordField().getText());
+        if(login) {
+            showMainView();
+        }
     }
 
     private void showMainView() {
-        Main.navigationHelper.navigateTo("MainView");
+        navigationHelper.navigateTo("MainView");
     }
 
     public void handleLanguageChange(String newLanguage) {

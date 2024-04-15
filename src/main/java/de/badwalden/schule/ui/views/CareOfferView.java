@@ -1,25 +1,26 @@
 package de.badwalden.schule.ui.views;
 
 import de.badwalden.schule.Main;
-import de.badwalden.schule.model.Admin;
-import de.badwalden.schule.model.CareOffer;
-import de.badwalden.schule.model.User;
+import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.Session;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.util.List;
+import java.util.Optional;
+
+import static de.badwalden.schule.Main.navigationHelper;
 
 public class CareOfferView extends VBox {
     private CareOffer careOffer;
@@ -48,7 +49,7 @@ public class CareOfferView extends VBox {
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
 
-        if (user instanceof Admin) {
+        if (user instanceof Admin || user instanceof Parent) {
 
             // Set padding around the entire VBox container
             setPadding(new Insets(15));
@@ -56,16 +57,20 @@ public class CareOfferView extends VBox {
             // Create a button to go back
             Button backButton = new Button("Zurück");
             backButton.setId("back"); // Set the button's ID to the offer's ID
-            backButton.setOnAction(event -> Main.navigationHelper.setContentView("Betreuungsmarktplatz"));
+            backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
 
-            // Create a button to edit details
-            Button editButton = new Button("Edit");
-            editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            editButton.setOnAction(event -> this.changeEditView(editButton));
-
-            HBox topRightContainer = new HBox(backButton, editButton);
+            HBox topRightContainer = new HBox(backButton);
             topRightContainer.setAlignment(Pos.TOP_LEFT);
             topRightContainer.setPadding(new Insets(10));
+
+            // Only the Admin and the Main Supervisor should be able to edit Care Offers
+            if(user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
+                // Create a button to edit details
+                Button editButton = new Button("Edit");
+                editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+                editButton.setOnAction(event -> this.changeEditView(editButton));
+                topRightContainer.getChildren().add(editButton);
+            }
 
             // Create labels for the offer's title and description
             Label titleLabel = new Label("Titel: ");
@@ -121,9 +126,50 @@ public class CareOfferView extends VBox {
             addAllAttributesToGridPane(gridPane);
 
             // Create a button to register for this care offer
-            Button registerButton = new Button("Anmelden");
+            Button registerButton = new Button("Kind Anmelden");
             registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            registerButton.setOnAction(event -> System.out.println("Register button was pressed"));
+            registerButton.setOnAction(event -> {
+                // Create a dialog
+                Dialog<User> dialog = new Dialog<>();
+                dialog.setTitle("Register Child");
+
+                // Set the button types
+                ButtonType registerButtonType = new ButtonType("Register", ButtonBar.ButtonData.OK_DONE);
+                dialog.getDialogPane().getButtonTypes().addAll(registerButtonType, ButtonType.CANCEL);
+
+                // Create a dropdown for children
+                ComboBox<User> childrenDropdown = new ComboBox<>();
+                // Assuming you have a method to get the list of children of a user object
+                if(Session.getInstance().getCurrentUser() instanceof Parent) {
+                    List<Student> childrenList = ((Parent) Session.getInstance().getCurrentUser()).getChildren();
+                    childrenDropdown.getItems().addAll(childrenList);
+                }
+
+
+                // Set the dialog content
+                GridPane grid = new GridPane();
+                grid.add(new Label("Select Child:"), 0, 0);
+                grid.add(childrenDropdown, 0, 1);
+                dialog.getDialogPane().setContent(grid);
+
+                // Request focus on the child dropdown by default
+                Platform.runLater(childrenDropdown::requestFocus);
+
+                // Convert the result to a user object when the register button is clicked
+                dialog.setResultConverter(dialogButton -> {
+                    if (dialogButton == registerButtonType) {
+                        return childrenDropdown.getValue();
+                    }
+                    return null;
+                });
+
+                // Show the dialog and handle the result
+                Optional<User> result = dialog.showAndWait();
+                result.ifPresent(selectedChild -> {
+                    // Do something with the selected child
+                    System.out.println("Selected child: " + selectedChild.getFirstName());
+                });
+            });
 
 
             // Create a container for each offer's details and add them to the VBox

@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import static de.badwalden.schule.Main.navigationHelper;
+
 public class SidebarView extends VBox {
 
     public SidebarView() {
@@ -80,6 +82,7 @@ public class SidebarView extends VBox {
         Button logoutButton = new Button("Logout");
         logoutButton.getStyleClass().add("logout-button");
         logoutButton.setId("logoutButton");
+        logoutButton.setOnAction(event -> navigationHelper.navigateTo("LoginView"));
 
         VBox.setVgrow(bottomBox, Priority.ALWAYS); // Allow bottomBox to grow vertically
         setAlignment(Pos.TOP_CENTER); // Align children to top center

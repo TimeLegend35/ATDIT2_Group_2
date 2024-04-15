@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.views;
 
 import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.MainController;
 import de.badwalden.schule.ui.helper.Session;
@@ -19,7 +20,7 @@ public class MainView extends BorderPane {
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
 
-        if (user instanceof Admin) {
+        if (user instanceof Admin || user instanceof Parent) {
             sidebarView = new SidebarView();
             mainSplitPane = new SplitPane();
             mainController = new MainController(this);

@@ -9,16 +9,12 @@ public class Parent extends User {
 
     }
 
-    public void registerChildForService() {
-
+    public List<Student> getChildren() {
+        return children;
     }
 
-    public void deregisterChildFromService() {
-
-    }
-
-    public void reportChildSick() {
-
+    public void setChildren(List<Student> children) {
+        this.children = children;
     }
 
 }

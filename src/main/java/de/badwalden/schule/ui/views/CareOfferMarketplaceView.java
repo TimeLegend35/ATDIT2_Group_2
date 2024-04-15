@@ -3,6 +3,7 @@ package de.badwalden.schule.ui.views;
 import de.badwalden.schule.Main;
 import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.Session;
@@ -33,7 +34,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
 
-        if (user instanceof Admin) {
+        if (user instanceof Admin || user instanceof Parent) {
 
             contentBox = new VBox(15); // Adds spacing between child elements of the VBox
             contentBox.setPadding(new Insets(15)); // Set padding around the VBox container

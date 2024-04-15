@@ -13,4 +13,20 @@ public abstract class User {
     public User() {
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName){
+        this.first_name = firstName;
+    }
+
+    public String getFirstName() {
+        return first_name;
+    }
 }

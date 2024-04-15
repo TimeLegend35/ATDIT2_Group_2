@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.dao.LoginHelperDAO;
+import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.controller.LoginController;
 import de.badwalden.schule.model.User;
@@ -8,44 +9,51 @@ import de.badwalden.schule.model.Admin;
 import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.ArrayList;
+
 public class LoginHelper {
-    private LoginController loginController;
-    private boolean auth;
-    private String username, password;
-    private final int salt = 5;
+//    private final int salt = 5;
 
-    public LoginHelper(LoginController loginController) {
-        this.loginController = loginController;
-        this.username =  loginController.getLoginView().getUserNameTextField().getText();
-        this.password = loginController.getLoginView().getPasswordField().getText();;
-        auth = false;
+    public LoginHelper() {
+
     }
 
-    public boolean get_auth() {
-        return auth;
-    }
+    public static boolean authenticate(String username, String password) {
+//        LoginHelperDAO dbconn = new LoginHelperDAO();
+//        String db_password = "";
+//
+//        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
+//
+//        auth = BCrypt.checkpw(db_password, hashed_password);
 
-    public boolean authenticate() {
-        LoginHelperDAO dbconn = new LoginHelperDAO();
-        String db_password = "";
 
-        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
-
-        auth = BCrypt.checkpw(db_password, hashed_password);
-
-        // for now just return an admin user
-        User user;
         if (password.equals("admin")) {
-            user = new Admin();
+            Admin user = new Admin();
             // save user in Session
             Session.getInstance().setCurrentUser(user);
             System.out.println("Admin logged in");
+            return true;
+        } else if (password.equals("parent")) {
+            Parent parent = new Parent();
+            parent.setId(1);
+
+            Student child1 = new Student();
+            child1.setFirstName("Friedrich");
+            Student child2 = new Student();
+            child2.setFirstName("Felix");
+
+            ArrayList<Student> children = new ArrayList<>();
+            children.add(child1);
+            children.add(child2);
+            parent.setChildren(children);
+
+            // save user in Session
+            Session.getInstance().setCurrentUser(parent);
+            System.out.println("Parent logged in");
             return true;
         } else {
             DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             return false;
         }
-
-
     }
 }
