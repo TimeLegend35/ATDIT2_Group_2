@@ -51,6 +51,21 @@ public class LoginHelper {
             Session.getInstance().setCurrentUser(parent);
             System.out.println("Parent logged in");
             return true;
+        } else if (password.equals("parentOneChild")) {
+            Parent parent = new Parent();
+            parent.setId(1);
+
+            Student child1 = new Student();
+            child1.setFirstName("Friedrich");
+
+            ArrayList<Student> children = new ArrayList<>();
+            children.add(child1);
+            parent.setChildren(children);
+
+            // save user in Session
+            Session.getInstance().setCurrentUser(parent);
+            System.out.println("Parent logged in");
+            return true;
         } else {
             DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
             return false;

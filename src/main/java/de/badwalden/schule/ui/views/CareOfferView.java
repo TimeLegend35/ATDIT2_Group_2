@@ -4,6 +4,7 @@ import de.badwalden.schule.Main;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
+import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.Session;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -137,37 +138,59 @@ public class CareOfferView extends VBox {
                 ButtonType registerButtonType = new ButtonType("Register", ButtonBar.ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().addAll(registerButtonType, ButtonType.CANCEL);
 
-                // Create a dropdown for children
-                ComboBox<User> childrenDropdown = new ComboBox<>();
-                // Assuming you have a method to get the list of children of a user object
-                if(Session.getInstance().getCurrentUser() instanceof Parent) {
-                    List<Student> childrenList = ((Parent) Session.getInstance().getCurrentUser()).getChildren();
-                    childrenDropdown.getItems().addAll(childrenList);
+                if(user instanceof Parent) {
+                    // If the user has multiple children, create a dropdown
+                    if (((Parent) user).getChildren().size() > 1){
+                        // Create a dropdown for children
+                        ComboBox<User> childrenDropdown = new ComboBox<>();
+                        // Assuming you have a method to get the list of children of a user object
+                        if(Session.getInstance().getCurrentUser() instanceof Parent) {
+                            List<Student> childrenList = ((Parent) Session.getInstance().getCurrentUser()).getChildren();
+                            childrenDropdown.getItems().addAll(childrenList);
+                        }
+
+
+                        // Set the dialog content
+                        GridPane grid = new GridPane();
+                        grid.add(new Label("Select Child:"), 0, 0);
+                        grid.add(childrenDropdown, 0, 1);
+                        dialog.getDialogPane().setContent(grid);
+
+                        // Request focus on the child dropdown by default
+                        Platform.runLater(childrenDropdown::requestFocus);
+
+                        // Convert the result to a user object when the register button is clicked
+                        dialog.setResultConverter(dialogButton -> {
+                            if (dialogButton == registerButtonType) {
+                                return childrenDropdown.getValue();
+                            }
+                            return null;
+                        });
+                    // If the User has only one child
+                    } else if (((Parent) user).getChildren().size() == 1){
+                        Student child = ((Parent) Session.getInstance().getCurrentUser()).getChildren().get(0);
+                        GridPane grid = new GridPane();
+                        grid.add(new Label("Do you want to register " + String.valueOf(child) + "?"), 0, 0);
+                        dialog.getDialogPane().setContent(grid);
+                        dialog.setResultConverter(dialogButton -> {
+                            if (dialogButton == registerButtonType) {
+                                return child;
+                            }
+                            return null;
+                        });
+
+                    } else {
+                        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Register Child", "No Children are connected to the current user. Please contact an Administrator.");
+                    }
                 }
 
-
-                // Set the dialog content
-                GridPane grid = new GridPane();
-                grid.add(new Label("Select Child:"), 0, 0);
-                grid.add(childrenDropdown, 0, 1);
-                dialog.getDialogPane().setContent(grid);
-
-                // Request focus on the child dropdown by default
-                Platform.runLater(childrenDropdown::requestFocus);
-
-                // Convert the result to a user object when the register button is clicked
-                dialog.setResultConverter(dialogButton -> {
-                    if (dialogButton == registerButtonType) {
-                        return childrenDropdown.getValue();
-                    }
-                    return null;
-                });
 
                 // Show the dialog and handle the result
                 Optional<User> result = dialog.showAndWait();
                 result.ifPresent(selectedChild -> {
                     // Do something with the selected child
                     System.out.println("Selected child: " + selectedChild.getFirstName());
+                    careOffer.addStudentToStudentList((Student) selectedChild);
                 });
             });
 

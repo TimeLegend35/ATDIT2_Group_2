@@ -71,6 +71,10 @@ public class Service {
         this.studentList = studentList;
     }
 
+    public void addStudentToStudentList(Student student) {
+        this.studentList.add(student);
+    }
+
     public int getNumberOfSeats() {
         return numberOfSeats;
     }
