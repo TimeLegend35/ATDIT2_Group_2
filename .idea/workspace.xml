@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d67caaab-69bf-4f0e-9c42-e48eb3d35a89" name="Changes" comment="View &amp; controller logic change">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CalenderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CalenderView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +27,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="master" />
-      </list>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "paulKlarer"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="ff401272-9759-4b03-868f-5a41a658e9f4" />
+        <option name="url" value="https://github.com/TimeLegend35/ATDIT2_Group_2" />
+      </UrlAndAccount>
     </option>
   </component>
   <component name="MarkdownSettingsMigration">
@@ -57,28 +55,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Launcher.executor": "Run",
-    "Maven.ATDIT2_Group_2 [compile].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "app-design",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/leanf/IdeaProjects/ATDIT2_Group_2/src/main/java/de/badwalden/schule/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ATDIT2_Group_2 [compile].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;app-design&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/leanf/IdeaProjects/ATDIT2_Group_2/src/main/java/de/badwalden/schule/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.badwalden.schule.Launcher" />
