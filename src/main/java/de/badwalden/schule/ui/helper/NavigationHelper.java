@@ -61,7 +61,6 @@ public class NavigationHelper {
     public void setContentView(String viewId) {
         System.out.println("Navigating to content view with viewId: " + viewId);
         Node contentView = switch (viewId) {
-            case "Kalender" -> new CalenderView();
             case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
 
             // ... more cases for other views

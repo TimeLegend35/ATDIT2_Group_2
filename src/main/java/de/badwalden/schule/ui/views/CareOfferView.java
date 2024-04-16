@@ -50,161 +50,181 @@ public class CareOfferView extends VBox {
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
 
-        if (user instanceof Admin || user instanceof Parent) {
+        // Set padding around the entire VBox container
+        setPadding(new Insets(15));
 
-            // Set padding around the entire VBox container
-            setPadding(new Insets(15));
+        // Create a button to go back
+        Button backButton = new Button("Zurück");
+        backButton.setId("back"); // Set the button's ID to the offer's ID
+        backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
 
-            // Create a button to go back
-            Button backButton = new Button("Zurück");
-            backButton.setId("back"); // Set the button's ID to the offer's ID
-            backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
+        HBox topRightContainer = new HBox(backButton);
+        topRightContainer.setAlignment(Pos.TOP_LEFT);
+        topRightContainer.setPadding(new Insets(10));
 
-            HBox topRightContainer = new HBox(backButton);
-            topRightContainer.setAlignment(Pos.TOP_LEFT);
-            topRightContainer.setPadding(new Insets(10));
-
-            // Only the Admin and the Main Supervisor should be able to edit Care Offers
-            if(user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
-                // Create a button to edit details
-                Button editButton = new Button("Edit");
-                editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-                editButton.setOnAction(event -> this.changeEditView(editButton));
-                topRightContainer.getChildren().add(editButton);
-            }
-
-            // Create labels for the offer's title and description
-            Label titleLabel = new Label("Titel: ");
-            titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-            titleLabelValue = new Label();
-            titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
-            titleTextField = new TextField();
-            titleTextField.setVisible(false);
-            uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
-
-            Label descriptionLabel = new Label("Beschreibung: ");
-            descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-            descriptionLabelValue = new Label();
-            descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-            descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-            descriptionTextField = new TextField();
-            descriptionTextField.setVisible(false);
-            uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
-
-            Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
-            numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-            numberOfSeatsLabelValue = new Label();
-            numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-            numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-            numberOfSeatsTextField = new TextField();
-            numberOfSeatsTextField.setVisible(false);
-            uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
-
-            Label youngestGradeLabel = new Label("Jüngste Stufe: ");
-            youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-            youngestGradeLabelValue = new Label();
-            youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-            youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-            youngestGradeTextField = new TextField();
-            youngestGradeTextField.setVisible(false);
-            uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
-
-            Label oldestGradeLabel = new Label("Jüngste Stufe: ");
-            oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-            oldestGradeLabelValue = new Label();
-            oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-            oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-            oldestGradeTextField = new TextField();
-            oldestGradeTextField.setVisible(false);
-            uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
-
-            controller.updateValuesFromObject(careOffer);
-
-            GridPane gridPane = new GridPane();
-            gridPane.setHgap(10);
-            gridPane.setVgap(10);
-
-            addAllAttributesToGridPane(gridPane);
-
-            // Create a button to register for this care offer
-            Button registerButton = new Button("Kind Anmelden");
-            registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-            registerButton.setOnAction(event -> {
-                // Create a dialog
-                Dialog<User> dialog = new Dialog<>();
-                dialog.setTitle("Register Child");
-
-                // Set the button types
-                ButtonType registerButtonType = new ButtonType("Register", ButtonBar.ButtonData.OK_DONE);
-                dialog.getDialogPane().getButtonTypes().addAll(registerButtonType, ButtonType.CANCEL);
-
-                if(user instanceof Parent) {
-                    // If the user has multiple children, create a dropdown
-                    if (((Parent) user).getChildren().size() > 1){
-                        // Create a dropdown for children
-                        ComboBox<User> childrenDropdown = new ComboBox<>();
-                        // Assuming you have a method to get the list of children of a user object
-                        if(Session.getInstance().getCurrentUser() instanceof Parent) {
-                            List<Student> childrenList = ((Parent) Session.getInstance().getCurrentUser()).getChildren();
-                            childrenDropdown.getItems().addAll(childrenList);
-                        }
-
-
-                        // Set the dialog content
-                        GridPane grid = new GridPane();
-                        grid.add(new Label("Select Child:"), 0, 0);
-                        grid.add(childrenDropdown, 0, 1);
-                        dialog.getDialogPane().setContent(grid);
-
-                        // Request focus on the child dropdown by default
-                        Platform.runLater(childrenDropdown::requestFocus);
-
-                        // Convert the result to a user object when the register button is clicked
-                        dialog.setResultConverter(dialogButton -> {
-                            if (dialogButton == registerButtonType) {
-                                return childrenDropdown.getValue();
-                            }
-                            return null;
-                        });
-                    // If the User has only one child
-                    } else if (((Parent) user).getChildren().size() == 1){
-                        Student child = ((Parent) Session.getInstance().getCurrentUser()).getChildren().get(0);
-                        GridPane grid = new GridPane();
-                        grid.add(new Label("Do you want to register " + String.valueOf(child) + "?"), 0, 0);
-                        dialog.getDialogPane().setContent(grid);
-                        dialog.setResultConverter(dialogButton -> {
-                            if (dialogButton == registerButtonType) {
-                                return child;
-                            }
-                            return null;
-                        });
-
-                    } else {
-                        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Register Child", "No Children are connected to the current user. Please contact an Administrator.");
-                    }
-                }
-
-
-                // Show the dialog and handle the result
-                Optional<User> result = dialog.showAndWait();
-                result.ifPresent(selectedChild -> {
-                    // Do something with the selected child
-                    System.out.println("Selected child: " + selectedChild.getFirstName());
-                    careOffer.addStudentToStudentList((Student) selectedChild);
-                });
-            });
-
-
-            // Create a container for each offer's details and add them to the VBox
-            VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
-            offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-                    CornerRadii.EMPTY, new BorderWidths(2))));
-            offerBox.setPadding(new Insets(10)); // Add padding inside the border
-            offerBox.getChildren().addAll(gridPane, registerButton);
-
-            this.getChildren().addAll(topRightContainer, offerBox);
+        // Only the Admin and the Main Supervisor should be able to edit Care Offers
+        if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
+            // Create a button to edit details
+            Button editButton = new Button("Edit");
+            editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+            editButton.setOnAction(event -> this.changeEditView(editButton));
+            topRightContainer.getChildren().add(editButton);
         }
 
+        instantiateAttributes();
+
+        controller.updateValuesFromObject(careOffer);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        addAllAttributesToGridPane(gridPane);
+
+        // Create a button to register for this care offer
+        Button registerButton = new Button("Kind Anmelden");
+        registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+        registerButton.setOnAction(event -> {this.openRegistrationDialog(offer, Session.getInstance().getCurrentUser());});
+
+        // Create a container for each offer's details and add them to the VBox
+        VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
+        offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, new BorderWidths(2))));
+        offerBox.setPadding(new Insets(10)); // Add padding inside the border
+        offerBox.getChildren().addAll(gridPane, registerButton);
+
+        this.getChildren().addAll(topRightContainer, offerBox);
+    }
+
+    /**
+     * Opens a registration dialog for a care offer based on the number of children a parent has.
+     *
+     * @param  offer  the CareOffer for which registration is being opened
+     * @param  user   the User initiating the registration
+     */
+    private void openRegistrationDialog(CareOffer offer, User user) {
+        Dialog<User> dialog = new Dialog<>();
+        dialog.setTitle("Register Child");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        if (user instanceof Parent) {
+            Parent parent = (Parent) user;
+            if (parent.getChildren().size() > 1) {
+                configureDialogForMultipleChildren(dialog, parent);
+            } else if (parent.getChildren().size() == 1) {
+                configureDialogForSingleChild(dialog, parent);
+            } else {
+                showNoChildrenAlert();
+            }
+        }
+
+        Optional<User> result = dialog.showAndWait();
+        result.ifPresent(selectedChild -> registerChildForOffer(selectedChild, offer));
+    }
+
+    /**
+     * Configures the dialog for multiple children.
+     *
+     * @param  dialog  the dialog to be configured
+     * @param  parent  the parent object containing the children
+     */
+    private void configureDialogForMultipleChildren(Dialog<User> dialog, Parent parent) {
+        ComboBox<User> childrenDropdown = new ComboBox<>();
+        childrenDropdown.getItems().addAll(parent.getChildren());
+
+        GridPane grid = new GridPane();
+        grid.add(new Label("Select Child:"), 0, 0);
+        grid.add(childrenDropdown, 1, 0);
+        dialog.getDialogPane().setContent(grid);
+
+        Platform.runLater(childrenDropdown::requestFocus);
+        dialog.setResultConverter(dialogButton -> dialogButton == ButtonType.OK ? childrenDropdown.getValue() : null);
+    }
+
+    /**
+     * Configures the dialog for registering a single child.
+     *
+     * @param  dialog  the dialog to be configured
+     * @param  parent  the parent object containing the child
+     */
+    private void configureDialogForSingleChild(Dialog<User> dialog, Parent parent) {
+        Student child = parent.getChildren().get(0);
+        Label registrationPrompt = new Label("Do you want to register " + child.getFirstName() + "?");
+
+        GridPane grid = new GridPane();
+        grid.add(registrationPrompt, 0, 0);
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> dialogButton == ButtonType.OK ? child : null);
+    }
+
+    /**
+     * Displays an alert dialog indicating that there are no children connected to the current user.
+     */
+    private void showNoChildrenAlert() {
+        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Register Child", "No Children are connected to the current user. Please contact an Administrator.");
+    }
+
+    /**
+     * Registers a child for a care offer.
+     *
+     * @param  child  the child user to register
+     * @param  offer  the care offer to register the child for
+     */
+    private void registerChildForOffer(User child, CareOffer offer) {
+        System.out.println("Selected child: " + child.getFirstName());
+        offer.addStudentToStudentList((Student) child);
+    }
+
+    /**
+     * Instantiates the attributes for the offer, including labels and text fields for each attribute.
+     * Sets the font size for each label and text field, and adds the attributes to the uiElements list.
+     */
+    public void instantiateAttributes() {
+        // Create labels for the offer's title and description
+        Label titleLabel = new Label("Titel: ");
+        titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        titleLabelValue = new Label();
+        titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
+        titleTextField = new TextField();
+        titleTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
+
+        Label descriptionLabel = new Label("Beschreibung: ");
+        descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        descriptionLabelValue = new Label();
+        descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        descriptionTextField = new TextField();
+        descriptionTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
+
+        Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
+        numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        numberOfSeatsLabelValue = new Label();
+        numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        numberOfSeatsTextField = new TextField();
+        numberOfSeatsTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
+
+        Label youngestGradeLabel = new Label("Jüngste Stufe: ");
+        youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        youngestGradeLabelValue = new Label();
+        youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        youngestGradeTextField = new TextField();
+        youngestGradeTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
+
+        Label oldestGradeLabel = new Label("Jüngste Stufe: ");
+        oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
+        oldestGradeLabelValue = new Label();
+        oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        oldestGradeTextField = new TextField();
+        oldestGradeTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
     }
 
     /**
@@ -216,6 +236,7 @@ public class CareOfferView extends VBox {
             this.initialUiNode = initialUiNode;
             this.editModeUiNode = editModeUiNode;
         }
+
         public Label titleLabel;
         public Node initialUiNode;
         public Node editModeUiNode;
@@ -224,7 +245,7 @@ public class CareOfferView extends VBox {
     /**
      * Add all attributes to the provided GridPane.
      *
-     * @param  gridPane   the GridPane to which attributes will be added
+     * @param gridPane the GridPane to which attributes will be added
      */
     private void addAllAttributesToGridPane(GridPane gridPane) {
         for (ObjectPageAttributeElementsContainer container : uiElements) {
@@ -235,10 +256,10 @@ public class CareOfferView extends VBox {
     /**
      * Adds a Single attribute to a GridPane.
      *
-     * @param  gridPane         the GridPane to which the attribute will be added
-     * @param  label            the label for the attribute
-     * @param  initialUiNode    the initial UI node for the attribute
-     * @param  editModeUiNode   the UI node for the attribute in edit mode
+     * @param gridPane       the GridPane to which the attribute will be added
+     * @param label          the label for the attribute
+     * @param initialUiNode  the initial UI node for the attribute
+     * @param editModeUiNode the edit mode UI node for the attribute
      */
     private void addAttributeToGridPane(GridPane gridPane, Label label, Node initialUiNode, Node editModeUiNode) {
         int rowCount = gridPane.getRowCount();
@@ -250,7 +271,7 @@ public class CareOfferView extends VBox {
     /**
      * Changes the edit view based on the current mode.
      *
-     * @param  editButton  the Button used to toggle edit mode
+     * @param editButton the Button used to toggle edit mode
      */
     private void changeEditView(Button editButton) {
         if (!isEditMode) {
@@ -273,11 +294,12 @@ public class CareOfferView extends VBox {
             editButton.setText("Edit");
         }
     }
+
     /**
      * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
      *
-     * @param  value         the attribute node
-     * @param  valueEditNode the edit node of the attribute
+     * @param value         the attribute node
+     * @param valueEditNode the edit node of the attribute
      */
     private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
         toggleVisibilityOfNode(value);
@@ -287,7 +309,7 @@ public class CareOfferView extends VBox {
     /**
      * Toggles the visibility of a given node.
      *
-     * @param  node   the node to toggle visibility
+     * @param node the node to toggle visibility
      */
     private void toggleVisibilityOfNode(Node node) {
         node.setVisible(!node.isVisible());

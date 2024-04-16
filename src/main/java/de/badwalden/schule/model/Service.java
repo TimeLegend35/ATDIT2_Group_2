@@ -1,5 +1,6 @@
 package de.badwalden.schule.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,7 +10,8 @@ public class Service {
     private String description;
     private User mainSupervisor;
     private List<User> coSupervisors;
-    private List<Student> studentList;
+    private List<Student> studentList = new ArrayList<>() {
+    };
     private int numberOfSeats;
     private Calendar startTime;
     private Calendar endTime;
