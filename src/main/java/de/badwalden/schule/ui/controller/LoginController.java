@@ -36,6 +36,7 @@ public class LoginController {
         // For demonstration, print the selected language
         System.out.println("Language selected: " + newLanguage);
         LanguageHelper.setLocale(newLanguage);
+        loginView.updateTextsFromResourceBundle();
     }
 
     public LoginView getLoginView() {

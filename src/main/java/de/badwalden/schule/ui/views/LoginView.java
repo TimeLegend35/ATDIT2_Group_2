@@ -44,19 +44,19 @@ public class LoginView extends BorderPane {
         scenetitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
 //        userNameLabel = new Text("Benutzername:");
-        userNameLabel = new Text(LanguageHelper.getString("username"));
+        userNameLabel = new Text(LanguageHelper.getString("username") + ":");
         userNameTextField = new TextField();
-        userNameTextField.setPromptText("Benutzername");
+        userNameTextField.setPromptText(LanguageHelper.getString("username"));
         userNameTextField.setMaxWidth(200);
 
-        passwordLabel = new Text("Passwort:");
+        passwordLabel = new Text(LanguageHelper.getString("password") + ":");
         passwordField = new PasswordField();
-        passwordField.setPromptText("Passwort");
+        passwordField.setPromptText(LanguageHelper.getString("password"));
         passwordField.setMaxWidth(200);
 
-        stayLoggedInCheckBox = new CheckBox("Angemeldet bleiben");
+        stayLoggedInCheckBox = new CheckBox(LanguageHelper.getString("stayLoggedIn"));
 
-        signInButton = new Button("Anmelden");
+        signInButton = new Button(LanguageHelper.getString("signIn"));
         signInButton.setDefaultButton(true);
         signInButton.setOnAction(event -> loginController.handleLoginButtonPressed());
 
@@ -68,6 +68,15 @@ public class LoginView extends BorderPane {
         centerContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         setCenter(centerContainer);
+    }
+
+    public void updateTextsFromResourceBundle() {
+        userNameLabel.setText(LanguageHelper.getString("username"));
+        userNameTextField.setPromptText(LanguageHelper.getString("username"));
+        passwordLabel.setText(LanguageHelper.getString("password"));
+        passwordField.setPromptText(LanguageHelper.getString("password"));
+        stayLoggedInCheckBox.setText(LanguageHelper.getString("stayLoggedIn"));
+        signInButton.setText(LanguageHelper.getString("signIn"));
     }
 
     public TextField getUserNameTextField() {
