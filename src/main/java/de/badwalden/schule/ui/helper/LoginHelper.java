@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.helper;
 
+import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.LoginHelperDAO;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
@@ -32,6 +33,10 @@ public class LoginHelper {
             // save user in Session
             Session.getInstance().setCurrentUser(user);
             System.out.println("Admin logged in");
+
+            // test remove me
+            // DBConnector.executeQuery("Select * from arsch");
+
             return true;
         } else if (password.equals("parent")) {
             Parent parent = new Parent();
