@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 public class DBConnector {
 
     private static Connection connect() {
-        Dotenv dotenv = Dotenv.configure().directory("../../../../..").load();
+        Dotenv dotenv = Dotenv.configure().load();
         String jdbcUrl = dotenv.get("DB_URL");
         String username = dotenv.get("USER_NAME");
         String password = dotenv.get("PW");
