@@ -32,4 +32,12 @@ public abstract class User {
     public String getFirstName() {
         return first_name;
     }
+
+    public void setResidence(String residence) {
+        this.residence = residence;
+    }
+
+    public String getResidence() {
+        return residence;
+    }
 }

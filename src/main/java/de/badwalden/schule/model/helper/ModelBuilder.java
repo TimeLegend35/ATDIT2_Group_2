@@ -13,7 +13,7 @@ public class ModelBuilder {
     public static Parent buildModelFromParent(int id) {
         // build base parent
         List<Object[]> results = ParentDAO.get(id);
-        Parent parent = new Parent(id, results.get(0)[1].toString());
+        Parent parent = new Parent(id, results.get(0)[1].toString(), results.get(0)[2].toString());
 
         // build children
         results = StudentDAO.getStudentsFromParent(id);

@@ -228,9 +228,18 @@ public class CareOfferView extends VBox {
     }
 
     /**
-     * Internal class for storing elements related to an object pages attributes.
+     * Represents a container for elements related to an object page attribute.
+     * This class encapsulates the title label and UI nodes for both initial and edit modes.
      */
     public class ObjectPageAttributeElementsContainer {
+
+        /**
+         * Constructs a new ObjectPageAttributeElementsContainer with the provided elements.
+         *
+         * @param titleLabel     The label representing the title of the attribute.
+         * @param initialUiNode  The UI node representing the attribute in initial mode.
+         * @param editModeUiNode The UI node representing the attribute in edit mode.
+         */
         public ObjectPageAttributeElementsContainer(Label titleLabel, Node initialUiNode, Node editModeUiNode) {
             this.titleLabel = titleLabel;
             this.initialUiNode = initialUiNode;
