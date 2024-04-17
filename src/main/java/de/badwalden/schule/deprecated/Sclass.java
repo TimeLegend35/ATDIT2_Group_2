@@ -1,4 +1,8 @@
-package de.badwalden.schule.model;
+package de.badwalden.schule.deprecated;
+
+import de.badwalden.schule.deprecated.Attendance;
+import de.badwalden.schule.model.Student;
+import de.badwalden.schule.model.Teacher;
 
 import java.util.List;
 

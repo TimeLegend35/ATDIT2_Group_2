@@ -1,5 +1,7 @@
 package de.badwalden.schule.model;
 
+import de.badwalden.schule.deprecated.Notification;
+
 import java.util.Calendar;
 import java.util.List;
 

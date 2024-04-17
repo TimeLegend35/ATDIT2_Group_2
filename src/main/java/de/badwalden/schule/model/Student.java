@@ -1,5 +1,8 @@
 package de.badwalden.schule.model;
 
+import de.badwalden.schule.deprecated.Sclass;
+import de.badwalden.schule.deprecated.Subject;
+
 import java.util.List;
 
 public class Student extends User {
