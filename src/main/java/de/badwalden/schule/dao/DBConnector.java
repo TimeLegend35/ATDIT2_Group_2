@@ -25,8 +25,7 @@ public class DBConnector {
         }
     }
 
-    private static void close() {
-        Connection connection = connect();
+    private static void close(Connection connection) {
         try {
             connection.close();
         } catch (SQLException e) {
