@@ -1,4 +1,4 @@
-package de.badwalden.schule.deprecated;
+package de.badwalden.schule.model.outOfScope;
 
 import de.badwalden.schule.model.User;
 

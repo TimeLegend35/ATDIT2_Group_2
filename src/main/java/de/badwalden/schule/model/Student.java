@@ -1,7 +1,8 @@
 package de.badwalden.schule.model;
 
-import de.badwalden.schule.deprecated.Sclass;
-import de.badwalden.schule.deprecated.Subject;
+import de.badwalden.schule.dao.StudentDAO;
+import de.badwalden.schule.model.outOfScope.Sclass;
+import de.badwalden.schule.model.outOfScope.Subject;
 
 import java.util.List;
 
@@ -9,11 +10,23 @@ public class Student extends User {
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private Sclass sclass;
+    private int class_year; // we only need class year for the implementation of the age checks for care_offers
     private List<Service> serviceList;
     private List<Subject> grades;
 
-    public Student() {
+    public Student(int id, String firstName, int class_year, boolean rightOfService, List<Service> serviceList) {
+        super();
 
+        this.setId(id);
+        this.setFirstName(firstName);
+
+        this.setClass_year(class_year);
+        this.setRightOfService(rightOfService);
+        this.setServiceList(serviceList);
+    }
+
+    public Student() {
+        super();
     }
 
     @Override
@@ -28,6 +41,8 @@ public class Student extends User {
     public void setCompulsorySchooling(boolean compulsorySchooling) {
         this.compulsorySchooling = compulsorySchooling;
     }
+
+    public void setClass_year(int class_year) { this.class_year = class_year; }
 
     public boolean isRightOfService() {
         return rightOfService;

@@ -1,12 +1,23 @@
 package de.badwalden.schule.model;
 
+import de.badwalden.schule.dao.ParentDAO;
+
 import java.util.List;
 
 public class Parent extends User {
     private List<Student> children;
 
-    public Parent() {
+    public Parent(int id, String firstName, String cityOfResidence) {
+        super();
 
+        this.setId(id);
+        this.setFirstName(firstName);
+        this.setResidence(cityOfResidence);
+    }
+
+    // leave a empty parent constructor for mocking / REMOVE LATER!
+    public Parent() {
+        super();
     }
 
     public List<Student> getChildren() {
