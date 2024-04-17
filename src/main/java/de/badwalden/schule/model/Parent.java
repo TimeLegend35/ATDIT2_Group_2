@@ -5,6 +5,11 @@ import java.util.List;
 public class Parent extends User {
     private List<Student> children;
 
+    public Parent(String username) {
+
+    }
+
+    // leave a empty parent constructor for mocking / REMOVE LATER!
     public Parent() {
 
     }

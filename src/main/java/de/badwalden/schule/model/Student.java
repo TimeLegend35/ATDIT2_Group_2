@@ -1,7 +1,7 @@
 package de.badwalden.schule.model;
 
-import de.badwalden.schule.deprecated.Sclass;
-import de.badwalden.schule.deprecated.Subject;
+import de.badwalden.schule.model.outOfScope.Sclass;
+import de.badwalden.schule.model.outOfScope.Subject;
 
 import java.util.List;
 

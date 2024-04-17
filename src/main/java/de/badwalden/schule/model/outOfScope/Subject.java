@@ -1,4 +1,4 @@
-package de.badwalden.schule.deprecated;
+package de.badwalden.schule.model.outOfScope;
 
 import java.util.Calendar;
 import java.util.Map;

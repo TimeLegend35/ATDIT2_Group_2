@@ -1,6 +1,6 @@
 package de.badwalden.schule.model;
 
-import de.badwalden.schule.deprecated.Attendance;
+import de.badwalden.schule.model.outOfScope.Attendance;
 
 import java.util.ArrayList;
 import java.util.Calendar;

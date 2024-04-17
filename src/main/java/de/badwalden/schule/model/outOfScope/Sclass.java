@@ -1,6 +1,5 @@
-package de.badwalden.schule.deprecated;
+package de.badwalden.schule.model.outOfScope;
 
-import de.badwalden.schule.deprecated.Attendance;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.Teacher;
 
