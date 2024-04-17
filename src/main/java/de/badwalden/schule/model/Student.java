@@ -1,5 +1,6 @@
 package de.badwalden.schule.model;
 
+import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.outOfScope.Sclass;
 import de.badwalden.schule.model.outOfScope.Subject;
 
@@ -13,8 +14,19 @@ public class Student extends User {
     private List<Service> serviceList;
     private List<Subject> grades;
 
-    public Student() {
+    public Student(int id, String firstName, int class_year, boolean rightOfService, List<Service> serviceList) {
+        super();
 
+        this.setId(id);
+        this.setFirstName(firstName);
+
+        this.setClass_year(class_year);
+        this.setRightOfService(rightOfService);
+        this.setServiceList(serviceList);
+    }
+
+    public Student() {
+        super();
     }
 
     @Override
@@ -29,6 +41,8 @@ public class Student extends User {
     public void setCompulsorySchooling(boolean compulsorySchooling) {
         this.compulsorySchooling = compulsorySchooling;
     }
+
+    public void setClass_year(int class_year) { this.class_year = class_year; }
 
     public boolean isRightOfService() {
         return rightOfService;

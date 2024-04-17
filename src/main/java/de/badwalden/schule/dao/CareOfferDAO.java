@@ -5,21 +5,7 @@ import de.badwalden.schule.model.Teacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class CareOfferDAO implements DatabaseInteractions {
-    @Override
-    public void get() {
-
-    }
-
-    @Override
-    public void add() {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
+public class CareOfferDAO {
 
     public static ObservableList getAll(){
         ObservableList<CareOffer> careOffers = FXCollections.observableArrayList();

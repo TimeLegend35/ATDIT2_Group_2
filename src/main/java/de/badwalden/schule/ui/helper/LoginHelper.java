@@ -4,6 +4,7 @@ import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.LoginHelperDAO;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
+import de.badwalden.schule.model.helper.ModelBuilder;
 import de.badwalden.schule.ui.controller.LoginController;
 import de.badwalden.schule.model.User;
 import de.badwalden.schule.model.Admin;
@@ -34,23 +35,13 @@ public class LoginHelper {
             Session.getInstance().setCurrentUser(user);
             System.out.println("Admin logged in");
 
-            // test remove me
-            // DBConnector.executeQuery("Select * from arsch");
-
             return true;
         } else if (password.equals("parent")) {
-            Parent parent = new Parent();
-            parent.setId(1);
+            // mocked parent id to use for parent example
+            int parentId = 6;
 
-            Student child1 = new Student();
-            child1.setFirstName("Friedrich");
-            Student child2 = new Student();
-            child2.setFirstName("Felix");
-
-            ArrayList<Student> children = new ArrayList<>();
-            children.add(child1);
-            children.add(child2);
-            parent.setChildren(children);
+            // build model
+            Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
             // save user in Session
             Session.getInstance().setCurrentUser(parent);
@@ -76,4 +67,5 @@ public class LoginHelper {
             return false;
         }
     }
+
 }

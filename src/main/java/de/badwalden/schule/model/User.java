@@ -12,6 +12,7 @@ public abstract class User {
     private String residence;
     private List<Notification> notifications;
 
+    // default constructor for mocking purpose
     public User() {
 
     }

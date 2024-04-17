@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBConnector {
 
@@ -35,22 +37,36 @@ public class DBConnector {
 
     }
 
-    public static void executeQuery(String sql) {
+    public static List<Object[]> executeQuery(String sql) {
+        List<Object[]> results = new ArrayList<>();
         Connection connection = connect();
         if (connection != null) {
             try (Statement stmt = connection.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
+                int columnCount = rs.getMetaData().getColumnCount();
+
                 while (rs.next()) {
-                    // Assuming you're fetching a string from the first column in your result set
-                    System.out.println(rs.getString(1));
+                    Object[] row = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        row[i] = rs.getObject(i + 1); // ResultSet uses 1-based indexing for columns
+                    }
+                    results.add(row);
                 }
 
             } catch (SQLException e) {
                 System.out.println("Error executing query");
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Failed to close connection");
+                    e.printStackTrace();
+                }
             }
         }
+        return results;
     }
 }
 
