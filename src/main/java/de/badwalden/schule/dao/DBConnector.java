@@ -1,6 +1,7 @@
 package de.badwalden.schule.dao;
 
 import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,6 +25,17 @@ public class DBConnector {
         }
     }
 
+    private static void close() {
+        Connection connection = connect();
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Failed to close connection");
+            e.printStackTrace();
+        }
+
+    }
+
     public static void executeQuery(String sql) {
         Connection connection = connect();
         if (connection != null) {
@@ -38,13 +50,6 @@ public class DBConnector {
             } catch (SQLException e) {
                 System.out.println("Error executing query");
                 e.printStackTrace();
-            } finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Failed to close connection");
-                    e.printStackTrace();
-                }
             }
         }
     }

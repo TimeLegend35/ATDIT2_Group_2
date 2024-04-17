@@ -9,6 +9,7 @@ public class Student extends User {
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private Sclass sclass;
+    private int class_year; // we only need class year for the implementation of the age checks for care_offers
     private List<Service> serviceList;
     private List<Subject> grades;
 
