@@ -1,4 +1,3 @@
-import de.badwalden.schule.deprecated.Subject;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.LoginHelper;
@@ -82,22 +81,22 @@ public class SchoolTest {
         //assert
         assertEquals(serviceList, student.getServiceList(), "Service list should match after setting");
     }
-
+// is out of scope and not implemented therefore tests are not needed.
     //TestStudentClass
-    @Test
-    public void testGrades(){
-        //assemble
-        Student student = new Student();
-        List<Subject> grades = new ArrayList<>();
-        Subject math = new Subject();
-        Subject science = new Subject();
-        //act
-        grades.add(3, math);
-        grades.add(1, science);
-        student.setGrades(grades);
-        //assert
-        assertEquals(grades, student.getGrades(), "Grades list should match after setting");
-    }
+//    @Test
+//    public void testGrades(){
+//        //assemble
+//        Student student = new Student();
+//        List<Subject> grades = new ArrayList<>();
+//        Subject math = new Subject();
+//        Subject science = new Subject();
+//        //act
+//        grades.add(3, math);
+//        grades.add(1, science);
+//        student.setGrades(grades);
+//        //assert
+//        assertEquals(grades, student.getGrades(), "Grades list should match after setting");
+//    }
 
     //TestParentClass
     @Test
