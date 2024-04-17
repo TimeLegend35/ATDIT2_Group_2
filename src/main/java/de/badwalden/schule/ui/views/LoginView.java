@@ -15,9 +15,9 @@ import javafx.scene.text.Text;
 public class LoginView extends BorderPane {
     private final LoginController loginController = new LoginController(this);
     private ComboBox<String> languageComboBox;
-    private Text userNameLabel;
+    public Text userNameLabel;
     private TextField userNameTextField;
-    private Text passwordLabel;
+    public Text passwordLabel;
     private PasswordField passwordField;
     private CheckBox stayLoggedInCheckBox;
     private Button signInButton;

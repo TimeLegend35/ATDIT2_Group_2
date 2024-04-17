@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class LanguageHelper {
 
-    static Locale locale;
+    public static Locale locale;
 
     public static void setLocale(String language) {
         switch (language) {
