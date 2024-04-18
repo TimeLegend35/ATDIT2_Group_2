@@ -5,14 +5,16 @@ import java.util.Objects;
 
 public class ParentDAO implements DatabaseInteractions{
 
-    public static List<Object[]> get(int id) {
+    public static List<Object[]> get(int parentId) {
         // edit SQL query to fit database ERM
-        List<Object[]> results = dbConnection.executeQuery("Select * FROM parents WHERE id = " + id);
+        List<Object[]> results = dbConnection.executeQuery("Select * FROM dbo.parents WHERE parent_id = " + parentId);
+
+        System.out.println(results);
 
         // only one parent should be returned
         if (results.size() != 1) {
             // throw exception
-            System.out.println("Error: More than one parent!!! throw exception here");
+            System.out.println("Error: More or less than one parent!!! throw exception here");
         }
 
         return results;

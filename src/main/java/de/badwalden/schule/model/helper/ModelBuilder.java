@@ -36,15 +36,7 @@ public class ModelBuilder {
         for (Object[] row : results) {
             // this wont work!!!
             id = (int) row[0];
-            int class_year = (int) row[1];
-            firstName = (String) row[2];
-            lastName = (String) row[3];
-            int age = (int) row[4];
-            boolean compulsorySchooling = (boolean) row[5];
-            boolean rightOfService = (boolean) row[6];
-            List<Service> serviceList = buildServiceListForStudent(id);
-            newChild = new Student(id, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
-            chlidrenList.add(newChild);
+            chlidrenList.add(buildModelFromStudent(id));
         }
 
         // Link children to base parent
