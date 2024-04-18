@@ -1,5 +1,6 @@
 package de.badwalden.schule.dao;
 
+import de.badwalden.schule.model.Student;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.Connection;
@@ -69,14 +70,7 @@ public class DBConnector {
             } catch (SQLException e) {
                 System.out.println("Error executing query");
                 e.printStackTrace();
-            } finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Failed to close connection");
-                    e.printStackTrace();
-                }
-            }
+               }
         }
         return results;
     }
@@ -84,6 +78,9 @@ public class DBConnector {
     // to test database connection
     public static void main(String[] args) {
         DBConnector instance = DBConnector.getInstance();
+        Object o = instance.executeQuery("Select * FROM parents WHERE parent_id = 1");
+        List<Integer> = instance.executeQuery("Select from ");
+        System.out.println(o);
         instance.close();
     }
 }
