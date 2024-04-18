@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static de.badwalden.schule.Main.navigationHelper;
 
-public class CareOfferView extends VBox {
+public class CareOfferView extends VBox implements DataView {
     private CareOffer careOffer;
     private CareOfferController controller;
 
@@ -42,10 +42,10 @@ public class CareOfferView extends VBox {
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
 
-    public CareOfferView(CareOffer offer) {
+    public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
         controller = new CareOfferController(this);
-        this.careOffer = offer;
+        getData();
 
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
@@ -66,7 +66,7 @@ public class CareOfferView extends VBox {
         if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
             // Create a button to edit details
             Button editButton = new Button("Edit");
-            editButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
+            editButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
             editButton.setOnAction(event -> this.changeEditView(editButton));
             topRightContainer.getChildren().add(editButton);
         }
@@ -83,8 +83,8 @@ public class CareOfferView extends VBox {
 
         // Create a button to register for this care offer
         Button registerButton = new Button("Kind Anmelden");
-        registerButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
-        registerButton.setOnAction(event -> {this.openRegistrationDialog(offer, Session.getInstance().getCurrentUser());});
+        registerButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
+        registerButton.setOnAction(event -> {this.openRegistrationDialog(careOffer, Session.getInstance().getCurrentUser());});
 
         // Create a container for each offer's details and add them to the VBox
         VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
@@ -97,12 +97,19 @@ public class CareOfferView extends VBox {
     }
 
     /**
+     * Retrieves the data for the care offer from the cached data.
+     */
+    public void getData() {
+        this.careOffer = Session.getInstance().getCachedCareOffer();
+    }
+
+    /**
      * Opens a registration dialog for a care offer based on the number of children a parent has.
      *
-     * @param  offer  the CareOffer for which registration is being opened
+     * @param  careOffer  the CareOffer for which registration is being opened
      * @param  user   the User initiating the registration
      */
-    private void openRegistrationDialog(CareOffer offer, User user) {
+    private void openRegistrationDialog(CareOffer careOffer, User user) {
         Dialog<User> dialog = new Dialog<>();
         dialog.setTitle("Register Child");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -119,7 +126,7 @@ public class CareOfferView extends VBox {
         }
 
         Optional<User> result = dialog.showAndWait();
-        result.ifPresent(selectedChild -> registerChildForOffer(selectedChild, offer));
+        result.ifPresent(selectedChild -> registerChildForOffer(selectedChild, careOffer));
     }
 
     /**
@@ -169,11 +176,11 @@ public class CareOfferView extends VBox {
      * Registers a child for a care offer.
      *
      * @param  child  the child user to register
-     * @param  offer  the care offer to register the child for
+     * @param  careOffer  the care offer to register the child for
      */
-    private void registerChildForOffer(User child, CareOffer offer) {
+    private void registerChildForOffer(User child, CareOffer careOffer) {
         System.out.println("Selected child: " + child.getFirstName());
-        offer.addStudentToStudentList((Student) child);
+        careOffer.addStudentToStudentList((Student) child);
     }
 
     /**
@@ -226,6 +233,8 @@ public class CareOfferView extends VBox {
         oldestGradeTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
     }
+
+
 
     /**
      * Represents a container for elements related to an object page attribute.
