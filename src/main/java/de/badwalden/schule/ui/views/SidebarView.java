@@ -82,6 +82,7 @@ public class SidebarView extends VBox {
         Button logoutButton = new Button("Logout");
         logoutButton.getStyleClass().add("logout-button");
         logoutButton.setId("logoutButton");
+        // Session should be reseted here!!!
         logoutButton.setOnAction(event -> navigationHelper.navigateTo("LoginView"));
 
         VBox.setVgrow(bottomBox, Priority.ALWAYS); // Allow bottomBox to grow vertically

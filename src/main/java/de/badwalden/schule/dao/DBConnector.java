@@ -26,7 +26,7 @@ public class DBConnector {
         return instance;
     }
 
-    private static Connection connect() {
+    private Connection connect() {
         Dotenv dotenv = Dotenv.configure().load();
         String jdbcUrl = dotenv.get("DB_URL");
         String username = dotenv.get("USER_NAME");
@@ -41,7 +41,7 @@ public class DBConnector {
         }
     }
 
-    private  void close() {
+    private void close() {
         try {
             this.connection.close();
         } catch (SQLException e) {
