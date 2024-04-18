@@ -79,7 +79,6 @@ public class DBConnector {
     public static void main(String[] args) {
         DBConnector instance = DBConnector.getInstance();
         Object o = instance.executeQuery("Select * FROM parents WHERE parent_id = 1");
-        List<Integer> = instance.executeQuery("Select from ");
         System.out.println(o);
         instance.close();
     }
