@@ -3,12 +3,11 @@ package de.badwalden.schule.dao;
 import java.util.List;
 
 public class StudentDAO implements DatabaseInteractions{
-    public static List<Object[]> getStudentsFromParent(int parentId) {
+    public static List<Object[]> getStudentsIdFromParent(int parentId) {
         List<Object[]> results = dbConnection.executeQuery(
                 """
-                        SELECT *
+                        SELECT child_id
                         FROM parent_child_assignment pca
-                        JOIN children ch ON pca.child_id = ch.student_id
                         WHERE pca.parent_id = 
                     """ + parentId
         );

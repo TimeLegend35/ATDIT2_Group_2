@@ -4,6 +4,7 @@ import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.dao.ParentDAO;
 import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.*;
+import de.badwalden.schule.ui.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +28,17 @@ public class ModelBuilder {
         Parent parent = new Parent(id, firstName, lastName, residence);
 
         // build children
-        results = StudentDAO.getStudentsFromParent(id);
+        results = StudentDAO.getStudentsIdFromParent(id);
 
         // Student List
         List<Student> chlidrenList = new ArrayList<>();
-        Student newChild;
 
         for (Object[] row : results) {
             // this wont work!!!
             id = (int) row[0];
             chlidrenList.add(buildModelFromStudent(id));
         }
+
 
         // Link children to base parent
         parent.setChildren(chlidrenList);
@@ -66,16 +67,7 @@ public class ModelBuilder {
         List<Service> serviceList = buildServiceListForStudent(id);
         Student student = new Student(id, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
 
-        results = CareOfferDAO.getCareOffersForStudent(student.getId());
-
-        // CareOffer List
-        CareOffer newCareOffer;
-
-        for (Object[] row : results) {
-            // this wont work!!!
-            newCareOffer = new CareOffer((int) row[0], (String) row[1], (String) row[2], (int) row[3], (int) row[4], (int) row[5]);
-            student.getServiceList().add(newCareOffer);
-        }
+        student.getServiceList().addAll(serviceList);
 
         return student;
     }
@@ -90,7 +82,16 @@ public class ModelBuilder {
 
         for (Object[] row : results) {
 
-            newCareOffer = new CareOffer((int) row[0], (String) row[1], (String) row[2], (int) row[3], (int) row[4], (int) row[5]);
+            System.out.println("ModelBuilder: Created Service: " + row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
+
+            int id = (int) row[1];
+            String name = (String) row[6];
+            String description = (String) row[7];
+            int numberOfSeats = (int) row[8];
+            int youngestGrade = (int) row[4];
+            int oldestGrade = (int) row[5];
+
+            newCareOffer = new CareOffer(id, name, description, numberOfSeats, youngestGrade, oldestGrade);
             careOffers.add(newCareOffer);
         }
 
