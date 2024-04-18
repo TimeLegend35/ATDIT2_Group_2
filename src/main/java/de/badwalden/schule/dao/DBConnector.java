@@ -83,6 +83,7 @@ public class DBConnector {
         return results;
     }
 
+    // to test database connection
     public static void main(String[] args) {
         DBConnector instance = DBConnector.getInstance();
         instance.close();

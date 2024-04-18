@@ -10,17 +10,20 @@ public class Student extends User {
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private Sclass sclass;
+    private int age;
     private int class_year; // we only need class year for the implementation of the age checks for care_offers
     private List<Service> serviceList;
     private List<Subject> grades;
 
-    public Student(int id, String firstName, int class_year, boolean rightOfService, List<Service> serviceList) {
+    public Student(int id, int class_year, String firstName, String lastName, int age, boolean compulsorySchooling, boolean rightOfService, List<Service> serviceList) {
         super();
 
         this.setId(id);
         this.setFirstName(firstName);
-
+        this.setLastName(lastName);
+        this.setAge(age);
         this.setClass_year(class_year);
+        this.setCompulsorySchooling(compulsorySchooling);
         this.setRightOfService(rightOfService);
         this.setServiceList(serviceList);
     }
@@ -43,6 +46,8 @@ public class Student extends User {
     }
 
     public void setClass_year(int class_year) { this.class_year = class_year; }
+
+    public void setAge(int Age) { this.age = age; }
 
     public boolean isRightOfService() {
         return rightOfService;

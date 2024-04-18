@@ -20,7 +20,11 @@ public class ModelBuilder {
 
         // build base parent
         List<Object[]> results = ParentDAO.get(id);
-        Parent parent = new Parent(id, results.get(0)[1].toString(), results.get(0)[2].toString());
+        String firstName = (String) results.get(0)[1];
+        String lastName = (String) results.get(0)[2];
+        String residence = (String) results.get(0)[3];
+
+        Parent parent = new Parent(id, firstName, lastName, residence);
 
         // build children
         results = StudentDAO.getStudentsFromParent(id);
@@ -31,26 +35,20 @@ public class ModelBuilder {
 
         for (Object[] row : results) {
             // this wont work!!!
-            newChild = new Student((int) row[0], (String) row[1], (int) row[2], (boolean) row[3], (List) row[4]);
+            id = (int) row[0];
+            int class_year = (int) row[1];
+            firstName = (String) row[2];
+            lastName = (String) row[3];
+            int age = (int) row[4];
+            boolean compulsorySchooling = (boolean) row[5];
+            boolean rightOfService = (boolean) row[6];
+            List<Service> serviceList = buildServiceListForStudent(id);
+            newChild = new Student(id, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
             chlidrenList.add(newChild);
         }
 
         // Link children to base parent
         parent.setChildren(chlidrenList);
-
-        for (Student child : chlidrenList) {
-            // build care offers
-            results = CareOfferDAO.getCareOffersForStudent(child.getId());
-
-            // CareOffer List
-            CareOffer newCareOffer;
-
-            for (Object[] row : results) {
-                // this wont work!!!
-                newCareOffer = new CareOffer((int) row[0], (String) row[1], (String) row[2], (int) row[3], (int) row[4], (int) row[5]);
-                child.getServiceList().add(newCareOffer);
-            }
-        }
 
         return parent;
     }
@@ -66,7 +64,15 @@ public class ModelBuilder {
         // build base Student
         List<Object[]> results = StudentDAO.getStudent(id);
         Object[] resultStudent = results.get(0);
-        Student student = new Student((int) resultStudent[0], (String) resultStudent[1], (int) resultStudent[2], (boolean) resultStudent[3], (List<Service>) resultStudent[4]);
+
+        int class_year = (int) resultStudent[1];
+        String firstName = (String) resultStudent[2];
+        String lastName = (String) resultStudent[3];
+        int age = (int) resultStudent[4];
+        boolean compulsorySchooling = (boolean) resultStudent[5];
+        boolean rightOfService = (boolean) resultStudent[6];
+        List<Service> serviceList = buildServiceListForStudent(id);
+        Student student = new Student(id, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
 
         results = CareOfferDAO.getCareOffersForStudent(student.getId());
 
@@ -80,5 +86,22 @@ public class ModelBuilder {
         }
 
         return student;
+    }
+
+    private static List<Service> buildServiceListForStudent(int studentId) {
+        // base data
+        List<Object[]> results = CareOfferDAO.getCareOffersForStudent(studentId);
+
+        // create care offers
+        List<Service> careOffers = new ArrayList<>();
+        Service newCareOffer;
+
+        for (Object[] row : results) {
+
+            newCareOffer = new CareOffer((int) row[0], (String) row[1], (String) row[2], (int) row[3], (int) row[4], (int) row[5]);
+            careOffers.add(newCareOffer);
+        }
+
+        return careOffers;
     }
 }

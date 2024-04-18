@@ -38,7 +38,7 @@ public class LoginHelper {
             return true;
         } else if (password.equals("parent")) {
             // mocked parent id to use for parent example
-            int parentId = 6;
+            int parentId = 1;
 
             // build model
             Parent parent = ModelBuilder.buildModelFromParent(parentId);

@@ -7,11 +7,12 @@ import java.util.List;
 public class Parent extends User {
     private List<Student> children;
 
-    public Parent(int id, String firstName, String cityOfResidence) {
+    public Parent(int id, String firstName, String lastName, String cityOfResidence) {
         super();
 
         this.setId(id);
         this.setFirstName(firstName);
+        this.setLastName(lastName);
         this.setResidence(cityOfResidence);
     }
 
