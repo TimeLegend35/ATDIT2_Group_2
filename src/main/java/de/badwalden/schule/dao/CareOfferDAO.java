@@ -7,11 +7,11 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class CareOfferDAO {
+public class CareOfferDAO implements DatabaseInteractions{
 
     public static List<Object[]> getCareOffer(int careOfferId) {
         // edit SQL query to fit database ERM
-        List<Object[]> results = DBConnector.executeQuery("Select * FROM care_offers WHERE id=" + careOfferId);
+        List<Object[]> results = dbConnection.executeQuery("Select * FROM care_offers WHERE care_offer_id=" + careOfferId);
 
         // only one care offer should be returned
         if (results.size() != 1) {
@@ -24,7 +24,14 @@ public class CareOfferDAO {
 
     public static List<Object[]> getCareOffersForStudent(int studentId) {
         // edit SQL query to fit database ERM
-        List<Object[]> results = DBConnector.executeQuery("");
+        List<Object[]> results = dbConnection.executeQuery(
+                """
+                SELECT *
+                FROM child_care_offer_assignment cca
+                JOIN care_offers co ON cca.care_offer_id = co.care_offer_id
+                WHERE cca.student_id = 
+                """ + studentId
+        );
 
         // only one care offer should be returned
         if (results.isEmpty()) {
@@ -37,7 +44,7 @@ public class CareOfferDAO {
 
     public static List<Object[]> getAllCareOffers() {
         // edit SQL query to fit database ERM
-        List<Object[]> results = DBConnector.executeQuery("SELECT * from care_offers");
+        List<Object[]> results = dbConnection.executeQuery("SELECT * from care_offers");
 
         // only one care offer should be returned
         if (results.isEmpty()) {

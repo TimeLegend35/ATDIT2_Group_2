@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class User {
     private int id;
     private String first_name;
+    private String last_name;
     private Calendar birthday;
     private String residence;
     private List<Notification> notifications;
@@ -28,6 +29,8 @@ public abstract class User {
     public void setFirstName(String firstName){
         this.first_name = firstName;
     }
+
+    public void setLastName(String last_name) { this.last_name = last_name; }
 
     public String getFirstName() {
         return first_name;

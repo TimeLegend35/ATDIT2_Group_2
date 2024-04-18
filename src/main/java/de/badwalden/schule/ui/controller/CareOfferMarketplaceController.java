@@ -3,6 +3,7 @@ package de.badwalden.schule.ui.controller;
 import de.badwalden.schule.Main;
 import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.ui.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.MainView;
@@ -21,6 +22,9 @@ public class CareOfferMarketplaceController {
     }
 
     public void showObjectPage(CareOffer offer) {
+        // Save the offer in the session
+        Session.getInstance().setCachedCareOffer(offer);
+        // Navigate into the careOffer Object Page
         Main.navigationHelper.setContentView(offer);
     }
 

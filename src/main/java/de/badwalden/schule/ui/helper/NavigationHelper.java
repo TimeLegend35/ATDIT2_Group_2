@@ -75,7 +75,7 @@ public class NavigationHelper {
         System.out.println("Navigating to Object Page of obj: " + object.toString());
         VBox contentView;
         if (object instanceof CareOffer) {
-            contentView = new CareOfferView((CareOffer) object); // Cast to CareOffer
+            contentView = new CareOfferView(); // Cast to CareOffer
         }
 
         // ... add else if blocks for other object types
