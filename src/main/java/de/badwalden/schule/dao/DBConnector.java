@@ -28,12 +28,10 @@ public class DBConnector {
 
     private Connection connect() {
         Dotenv dotenv = Dotenv.configure().load();
-        String jdbcUrl = dotenv.get("DB_URL");
-        String username = dotenv.get("USER_NAME");
-        String password = dotenv.get("PW");
+        String large_url = dotenv.get("connection_url");
 
         try {
-            return DriverManager.getConnection(jdbcUrl, username, password);
+            return DriverManager.getConnection(large_url);
         } catch (SQLException e) {
             System.out.println("Failed to establish connection");
             e.printStackTrace();
