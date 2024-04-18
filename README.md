@@ -36,6 +36,73 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
 **ERD - nur Primärschlüssel - ohne vollständige Attribute**
 ![grafik](https://raw.githubusercontent.com/TimeLegend35/ATDIT2_Group_2/master/ERD%20-%2003.04.jpg)
 
+## Datenbankschema für usnseren Use Case:
+
+### Table: class_levels
+
+| Field        | Type  | Constraint |
+|--------------|-------|------------|
+| class_level  | INT   | PRIMARY KEY|
+| class_size   | INT   |            |
+
+### Table: employees
+
+| Field            | Type        | Constraint |
+|------------------|-------------|------------|
+| employee_number  | INT         | PRIMARY KEY|
+| given_name       | VARCHAR(255)|            |
+| surname          | VARCHAR(255)|            |
+
+### Table: children
+
+| Field                  | Type        | Constraint                       |
+|------------------------|-------------|----------------------------------|
+| student_id             | INT         | PRIMARY KEY                      |
+| class_year             | INT         | FOREIGN KEY (class_year) REFERENCES class_levels(class_level) |
+| given_name             | VARCHAR(255)|                                  |
+| surname                | VARCHAR(255)|                                  |
+| age                    | INT         |                                  |
+| compulsory_school_attendance| bit   |                                  |
+| allowed_for_care_offers    | bit       |                                  |
+
+### Table: parents
+
+| Field            | Type        | Constraint |
+|------------------|-------------|------------|
+| parent_id        | INT         | PRIMARY KEY|
+| given_name       | VARCHAR(255)|            |
+| surname          | VARCHAR(255)|            |
+| city_of_residence| VARCHAR(255)|            |
+
+### Table: care_offers
+
+| Field                  | Type        | Constraint                                    |
+|------------------------|-------------|-----------------------------------------------|
+| care_offer_id          | INT         | PRIMARY KEY                                   |
+| supervisor_employee_number| INT       | FOREIGN KEY (supervisor_employee_number) REFERENCES employees(employee_number)|
+| oldest_class_level     | INT         | FOREIGN KEY (oldest_class_level) REFERENCES class_levels(class_level)|
+| youngest_class_level   | INT         | FOREIGN KEY (youngest_class_level) REFERENCES class_levels(class_level)|
+| care_offer_name        | VARCHAR(255)|                                               |
+| description            | TEXT        |                                               |
+| places_available       | INT         |                                               |
+
+### Table: parent_child_assignment
+
+| Field            | Type  | Constraint                            |
+|------------------|-------|---------------------------------------|
+| parent_id        | INT   | FOREIGN KEY (parent_id) REFERENCES parents(parent_id) |
+| child_id         | INT   | FOREIGN KEY (child_id) REFERENCES children(student_id)|
+| PRIMARY KEY      |       | (parent_id, child_id)                 |
+
+### Table: child_care_offer_assignment
+
+| Field            | Type  | Constraint                                |
+|------------------|-------|-------------------------------------------|
+| student_id       | INT   | FOREIGN KEY (student_id) REFERENCES children(student_id)|
+| care_offer_id    | INT   | FOREIGN KEY (care_offer_id) REFERENCES care_offers(care_offer_id)|
+| PRIMARY KEY      |       | (student_id, care_offer_id)              |
+
+
 ## UI Design Prototypen:
 
 Hier haben wir verschiedene UI Designs für die 3 verschiedenen Personas erstellt.
