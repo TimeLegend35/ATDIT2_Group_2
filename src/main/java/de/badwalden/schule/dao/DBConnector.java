@@ -12,6 +12,20 @@ import java.util.List;
 
 public class DBConnector {
 
+    private Connection connection;
+    private static DBConnector instance;
+
+    private DBConnector() {
+        this.connection = connect();
+    }
+
+    public static synchronized DBConnector getInstance() {
+        if (instance == null) {
+            instance = new DBConnector();
+        }
+        return instance;
+    }
+
     private static Connection connect() {
         Dotenv dotenv = Dotenv.configure().load();
         String jdbcUrl = dotenv.get("DB_URL");
@@ -27,9 +41,9 @@ public class DBConnector {
         }
     }
 
-    private static void close(Connection connection) {
+    private  void close() {
         try {
-            connection.close();
+            this.connection.close();
         } catch (SQLException e) {
             System.out.println("Failed to close connection");
             e.printStackTrace();
@@ -37,11 +51,11 @@ public class DBConnector {
 
     }
 
-    public static List<Object[]> executeQuery(String sql) {
+    public List<Object[]> executeQuery(String sql) {
         List<Object[]> results = new ArrayList<>();
-        Connection connection = connect();
-        if (connection != null) {
-            try (Statement stmt = connection.createStatement();
+
+        if (this.connection != null) {
+            try (Statement stmt = this.connection.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
                 int columnCount = rs.getMetaData().getColumnCount();
@@ -67,6 +81,11 @@ public class DBConnector {
             }
         }
         return results;
+    }
+
+    public static void main(String[] args) {
+        DBConnector instance = DBConnector.getInstance();
+        instance.close();
     }
 }
 
