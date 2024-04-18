@@ -76,7 +76,12 @@ public class Service {
     }
 
     public void addStudentToStudentList(Student student) {
-        this.studentList.add(student);
+        //this.studentList.add(student);
+        if (studentList.size() < getNumberOfSeats()){
+            this.studentList.add(student);
+        } else {
+            System.out.println("Cannot add student, the service is full.");
+        }
     }
 
     public int getNumberOfSeats() {

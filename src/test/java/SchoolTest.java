@@ -29,7 +29,6 @@ public class SchoolTest {
         parent = new Parent();
         children = new ArrayList<>();
         //act
-
         //assert
         assertEquals(0, parent.getChildren().size(), "Initially, no children should be present");
     }
