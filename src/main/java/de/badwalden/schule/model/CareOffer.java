@@ -2,13 +2,16 @@ package de.badwalden.schule.model;
 
 public class CareOffer extends Service{
 
-        public CareOffer(int id, String name, String description, int numberOfSeats, int youngestGrade, int oldestGrade) {
+        public CareOffer(int id, Supervisor supervisor, int oldestClassLevel, int youngestClassLevel, String careOfferName, String description, int seatsAvailable) {
+        super();
+
         this.setId(id);
-        this.setName(name);
+        this.setMainSupervisor(supervisor);
+        this.setOldestGrade(oldestClassLevel);
+        this.setYoungestGrade(youngestClassLevel);
+        this.setName(careOfferName);
         this.setDescription(description);
-        this.setNumberOfSeats(numberOfSeats);
-        this.setYoungestGrade(youngestGrade);
-        this.setOldestGrade(oldestGrade);
+        this.setSeatsAvailable(seatsAvailable);
     }
 
 

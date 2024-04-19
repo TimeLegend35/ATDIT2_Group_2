@@ -19,26 +19,18 @@ public class ModelBuilder {
      */
     public static Parent buildModelFromParent(int id) {
 
-        // build base parent
-        List<Object[]> results = ParentDAO.get(id);
-        String firstName = (String) results.get(0)[1];
-        String lastName = (String) results.get(0)[2];
-        String residence = (String) results.get(0)[3];
-
-        Parent parent = new Parent(id, firstName, lastName, residence);
+        Parent parent = buildParent(id);
 
         // build children
-        results = StudentDAO.getStudentsIdFromParent(id);
+        List<Object[]> results = StudentDAO.getStudentsIdFromParent(id);
 
         // Student List
         List<Student> chlidrenList = new ArrayList<>();
 
         for (Object[] row : results) {
-            // this wont work!!!
             id = (int) row[0];
             chlidrenList.add(buildModelFromStudent(id));
         }
-
 
         // Link children to base parent
         parent.setChildren(chlidrenList);
@@ -53,9 +45,22 @@ public class ModelBuilder {
      * @return     the Student instance with the data
      */
     public static Student buildModelFromStudent(int id) {
+        return buildStudent(id);
+    }
 
+    private static Parent buildParent(int parentId) {
+        // build base parent
+        List<Object[]> results = ParentDAO.get(parentId);
+        String firstName = (String) results.get(0)[1];
+        String lastName = (String) results.get(0)[2];
+        String residence = (String) results.get(0)[3];
+
+        return new Parent(parentId, firstName, lastName, residence);
+    }
+
+    private static Student buildStudent(int studentId) {
         // build base Student
-        List<Object[]> results = StudentDAO.getStudent(id);
+        List<Object[]> results = StudentDAO.getStudent(studentId);
         Object[] resultStudent = results.get(0);
 
         int class_year = (int) resultStudent[1];
@@ -64,12 +69,13 @@ public class ModelBuilder {
         int age = (int) resultStudent[4];
         boolean compulsorySchooling = (boolean) resultStudent[5];
         boolean rightOfService = (boolean) resultStudent[6];
-        List<Service> serviceList = buildServiceListForStudent(id);
-        Student student = new Student(id, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+        List<Service> serviceList = buildServiceListForStudent(studentId);
 
-        student.getServiceList().addAll(serviceList);
+        return new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+    }
 
-        return student;
+    private static CareOffer buildCareOffer(int careOfferId) {
+        return null;
     }
 
     private static List<Service> buildServiceListForStudent(int studentId) {
@@ -84,14 +90,16 @@ public class ModelBuilder {
 
             System.out.println("ModelBuilder: Created Service: " + row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
 
-            int id = (int) row[1];
-            String name = (String) row[6];
-            String description = (String) row[7];
-            int numberOfSeats = (int) row[8];
-            int youngestGrade = (int) row[4];
-            int oldestGrade = (int) row[5];
+            int id = (int) row[0];
+            int supervisorId = (int) row[1];
+            Supervisor supervisor = new Supervisor(supervisorId, "MasterSupervisor") ;
+            int oldestClassLevel = (int) row[2];
+            int youngestClassLevel = (int) row[3];
+            String careOfferName = (String) row[4];
+            String description = (String) row[5];
+            int seatsAvailable = (int) row[6];
 
-            newCareOffer = new CareOffer(id, name, description, numberOfSeats, youngestGrade, oldestGrade);
+            newCareOffer = new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
             careOffers.add(newCareOffer);
         }
 

@@ -15,6 +15,7 @@ public class Service {
     private List<Student> studentList = new ArrayList<>() {
     };
     private int numberOfSeats;
+    private int seatsAvailable;
     private Calendar startTime;
     private Calendar endTime;
     private int youngestGrade;
@@ -34,6 +35,7 @@ public class Service {
     public void setId(int id) {
         this.id = id;
     }
+    public void setSeatsAvailable(int seatsAvailable) { this.seatsAvailable = seatsAvailable;}
 
     public String getName() {
         return name;
