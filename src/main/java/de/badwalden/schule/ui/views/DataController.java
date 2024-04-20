@@ -1,9 +1,9 @@
 package de.badwalden.schule.ui.views;
 
-public interface DataView {
+public interface DataController {
 
     /**
      * Retrieves the data from the specified source.
      */
-    public void getData();
+    public Object[] getData();
 }

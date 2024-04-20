@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import static de.badwalden.schule.Main.navigationHelper;
 
-public class CareOfferView extends VBox implements DataView {
+public class CareOfferView extends VBox {
     private CareOffer careOffer;
     private CareOfferController controller;
 
@@ -45,7 +45,7 @@ public class CareOfferView extends VBox implements DataView {
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
         controller = new CareOfferController(this);
-        getData();
+        careOffer = (CareOffer) controller.getData()[0];
 
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
@@ -94,13 +94,6 @@ public class CareOfferView extends VBox implements DataView {
         offerBox.getChildren().addAll(gridPane, registerButton);
 
         this.getChildren().addAll(topRightContainer, offerBox);
-    }
-
-    /**
-     * Retrieves the data for the care offer from the cached data.
-     */
-    public void getData() {
-        this.careOffer = Session.getInstance().getCachedCareOffer();
     }
 
     /**

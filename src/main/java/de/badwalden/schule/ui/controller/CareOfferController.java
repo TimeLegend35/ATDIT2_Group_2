@@ -1,14 +1,22 @@
 package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.ui.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
+import de.badwalden.schule.ui.views.DataController;
 import de.badwalden.schule.ui.views.MainView;
 
-public class CareOfferController {
+public class CareOfferController implements DataController {
     CareOfferView careOfferView;
     public CareOfferController(CareOfferView careOfferView) {
         this.careOfferView = careOfferView;
+    }
+
+    @Override
+    public Object[] getData(){
+        CareOffer careOffer = Session.getInstance().getCachedCareOffer();
+        return new Object[] {careOffer};
     }
 
     /**

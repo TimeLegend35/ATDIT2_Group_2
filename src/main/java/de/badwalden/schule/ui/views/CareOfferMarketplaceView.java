@@ -39,7 +39,8 @@ public class CareOfferMarketplaceView extends ScrollPane {
             contentBox = new VBox(15); // Adds spacing between child elements of the VBox
             contentBox.setPadding(new Insets(15)); // Set padding around the VBox container
 
-            for (CareOffer offer : controller.getCareOffers()) {
+            for (Object careOfferObject : controller.getData()) {
+                CareOffer offer = (CareOffer) careOfferObject;
                 // Create labels for the offer's title and description
                 Label titleLabel = new Label(offer.getName());
                 titleLabel.setFont(new Font(18)); // Set font size for title

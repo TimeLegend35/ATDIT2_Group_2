@@ -19,6 +19,7 @@ public class NavigationHelper {
     private final Stack<Scene> history = new Stack<>();
     private MainView mainView;
 
+
     public NavigationHelper(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
