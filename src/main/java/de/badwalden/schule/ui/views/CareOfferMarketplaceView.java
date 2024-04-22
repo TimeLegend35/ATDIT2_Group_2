@@ -6,6 +6,7 @@ import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -50,7 +51,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
                 descriptionLabel.setWrapText(true); // Allows the description to wrap within the label width
 
                 // Create a button to view details
-                Button detailsButton = new Button("View Details");
+                Button detailsButton = new Button(LanguageHelper.getString("view_details"));
                 detailsButton.setId(String.valueOf(offer.getId())); // Set the button's ID to the offer's ID
                 detailsButton.setOnAction(event -> controller.showObjectPage(offer));
 

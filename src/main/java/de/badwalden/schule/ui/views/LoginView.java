@@ -40,7 +40,7 @@ public class LoginView extends BorderPane {
         centerContent.setAlignment(Pos.CENTER);
         centerContent.setSpacing(10);
 
-        scenetitle = new Text("Learning Hub\nBad Walden");
+        scenetitle = new Text(LanguageHelper.getString("sidebar_title")+ "\nBad Walden");
         scenetitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
 //        userNameLabel = new Text("Benutzername:");

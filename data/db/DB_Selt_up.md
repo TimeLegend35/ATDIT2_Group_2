@@ -110,7 +110,7 @@ VALUES
 INSERT INTO children (student_id, class_year, given_name, surname, age, compulsory_school_attendance, allowed_for_care_offers)
 VALUES
     (1, 1, 'Max', 'Schulz', 7, 1, 1),
-    (2, 2, 'Emma', 'Schulz', 5, 0, 1),
+    (2, 4, 'Emma', 'Schulz', 10, 1, 1),
     (3, 1, 'Paul', 'Meier', 8, 1, 1),
     (4, 3, 'Sophie', 'Meier', 4, 0, 1),
     (5, 1, 'Lukas', 'Becker', 7, 1, 1),
