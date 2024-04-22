@@ -80,7 +80,7 @@ public class SidebarView extends VBox {
         nameLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
         // Logout button
-        Button logoutButton = new Button("Logout");
+        Button logoutButton = new Button(LanguageHelper.getString("logout"));
         logoutButton.getStyleClass().add("logout-button");
         logoutButton.setId("logoutButton");
         // Session should be reseted here!!!
