@@ -29,7 +29,7 @@ public class DBConnector {
 
     private Connection connect() {
         Dotenv dotenv = Dotenv.configure().load();
-        String large_url = dotenv.get("Connection_url");
+        String large_url = dotenv.get("CONNECTION_URL");
 
         try {
             return DriverManager.getConnection(large_url);
