@@ -5,6 +5,7 @@ import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.DialogHelper;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -55,7 +56,7 @@ public class CareOfferView extends VBox {
         setPadding(new Insets(15));
 
         // Create a button to go back
-        Button backButton = new Button("Zurück");
+        Button backButton = new Button(LanguageHelper.getString("return_button"));
         backButton.setId("back"); // Set the button's ID to the offer's ID
         backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
 
@@ -66,7 +67,7 @@ public class CareOfferView extends VBox {
         // Only the Admin and the Main Supervisor should be able to edit Care Offers
         if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
             // Create a button to edit details
-            Button editButton = new Button("Edit");
+            Button editButton = new Button(LanguageHelper.getString("edit_button"));
             editButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
             editButton.setOnAction(event -> this.changeEditView(editButton));
             topRightContainer.getChildren().add(editButton);
@@ -83,7 +84,7 @@ public class CareOfferView extends VBox {
         addAllAttributesToGridPane(gridPane);
 
         // Create a button to register for this care offer
-        Button registerButton = new Button("Kind Anmelden");
+        Button registerButton = new Button(LanguageHelper.getString("sign_up_child"));
         registerButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
         registerButton.setOnAction(event -> {this.openRegistrationDialog(Session.getInstance().getCurrentUser());});
 
@@ -104,7 +105,7 @@ public class CareOfferView extends VBox {
      */
     private void openRegistrationDialog(User user) {
         Dialog<User> dialog = new Dialog<>();
-        dialog.setTitle("Register Child");
+        dialog.setTitle(LanguageHelper.getString("sign_up_child"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         if (user instanceof Parent) {
@@ -133,9 +134,9 @@ public class CareOfferView extends VBox {
             Button dialogRegistrationButton = new Button();
 
             if(controller.isChildRegisteredForOffer(child)) {
-                dialogRegistrationButton.setText("Unregister");
+                dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
             } else {
-                dialogRegistrationButton.setText("Register");
+                dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             }
 
             dialogRegistrationButton.setOnAction(event -> {
@@ -154,7 +155,9 @@ public class CareOfferView extends VBox {
 
     private void openDialogForSingleChild(Dialog<User> dialog, Parent parent) {
         Student child = parent.getChildren().get(0);
-        Label registrationPrompt = new Label("Do you want to register " + child.getFirstName() + "?");
+        String registration = LanguageHelper.getString("registration");
+        registration= registration.replace("{child_name}", child.getFirstName());
+        Label registrationPrompt = new Label(registration);
 
         GridPane grid = new GridPane();
         grid.add(registrationPrompt, 0, 0);
@@ -174,7 +177,7 @@ public class CareOfferView extends VBox {
      * Displays an alert dialog indicating that there are no children connected to the current user.
      */
     private void showNoChildrenAlert() {
-        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Register Child", "No Children are connected to the current user. Please contact an Administrator.");
+        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("sign_up_child"), LanguageHelper.getString("no_child_alert"));
     }
 
 
@@ -184,7 +187,7 @@ public class CareOfferView extends VBox {
      */
     public void instantiateAttributes() {
         // Create labels for the offer's title and description
-        Label titleLabel = new Label("Titel: ");
+        Label titleLabel = new Label(LanguageHelper.getString("title"));
         titleLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         titleLabelValue = new Label();
         titleLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -192,7 +195,7 @@ public class CareOfferView extends VBox {
         titleTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(titleLabel, titleLabelValue, titleTextField));
 
-        Label descriptionLabel = new Label("Beschreibung: ");
+        Label descriptionLabel = new Label(LanguageHelper.getString("description"));
         descriptionLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         descriptionLabelValue = new Label();
         descriptionLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
@@ -201,7 +204,7 @@ public class CareOfferView extends VBox {
         descriptionTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
 
-        Label numberOfSeatsLabel = new Label("Verfügbare Plätze: ");
+        Label numberOfSeatsLabel = new Label(LanguageHelper.getString("open_seats"));
         numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         numberOfSeatsLabelValue = new Label();
         numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
@@ -210,7 +213,7 @@ public class CareOfferView extends VBox {
         numberOfSeatsTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
 
-        Label youngestGradeLabel = new Label("Jüngste Stufe: ");
+        Label youngestGradeLabel = new Label(LanguageHelper.getString("youngest_class"));
         youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         youngestGradeLabelValue = new Label();
         youngestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
@@ -219,7 +222,7 @@ public class CareOfferView extends VBox {
         youngestGradeTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
 
-        Label oldestGradeLabel = new Label("Jüngste Stufe: ");
+        Label oldestGradeLabel = new Label(LanguageHelper.getString("oldest_class"));
         oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
         oldestGradeLabelValue = new Label();
         oldestGradeLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
