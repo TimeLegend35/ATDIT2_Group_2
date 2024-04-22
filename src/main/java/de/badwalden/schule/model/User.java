@@ -36,6 +36,8 @@ public abstract class User {
         return first_name;
     }
 
+    public String getLastName() { return last_name; }
+
     public void setResidence(String residence) {
         this.residence = residence;
     }
