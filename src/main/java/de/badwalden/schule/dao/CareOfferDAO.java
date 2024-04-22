@@ -72,7 +72,7 @@ public class CareOfferDAO implements DatabaseInteractions {
             dbConnection.executeQuery("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" +student_ID+","+careOffer_ID+")" );
 
         }catch (Exception e){
-            System.err.println("Remove Child From Care Offer" + e.getMessage());
+            System.err.println("add Child From Care Offer" + e.getMessage());
             e.printStackTrace();
         }
     }
