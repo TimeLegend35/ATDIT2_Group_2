@@ -6,6 +6,7 @@ import de.badwalden.schule.model.Teacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class CareOfferDAO implements DatabaseInteractions {
@@ -56,16 +57,25 @@ public class CareOfferDAO implements DatabaseInteractions {
         return results;
     }
 
-    // Can be deleted / MOCKED. Real way would be to call getAllCareOffers() from the CareOfferController for getting
-    // the careOffers
-    public static ObservableList getAll() {
-        ObservableList<CareOffer> careOffers = FXCollections.observableArrayList();
-        //Example Care Offer (mocked)
-        CareOffer careOffer1 = new CareOffer(1, new Supervisor(1, "Test Supervisor"), 1, 1, "Test Care offer", "This is a care offer", 0);
 
-        careOffers.add(careOffer1);
+    public static void removeChildFromCareOffer(int student_ID, int careOffer_ID){
+        try {
+            dbConnection.executeQuery("DELETE FROM child_care_offer_assignment WHERE student_id = " + student_ID +" AND care_offer_id = " +careOffer_ID );
 
-        return careOffers;
+        }catch (Exception e){
+            System.err.println("Remove Child From Care Offer" + e.getMessage());
+            e.printStackTrace();
+        }
     }
+    public static void addChildtoCareoffer(int student_ID, int careOffer_ID){
+        try {
+            dbConnection.executeQuery("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" +student_ID+","+careOffer_ID+")" );
+
+        }catch (Exception e){
+            System.err.println("Remove Child From Care Offer" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 }
