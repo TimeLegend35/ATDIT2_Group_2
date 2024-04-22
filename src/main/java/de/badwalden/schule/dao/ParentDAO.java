@@ -9,8 +9,6 @@ public class ParentDAO implements DatabaseInteractions{
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery("Select * FROM parents WHERE parent_id = " + parentId);
 
-        System.out.println("ParentDAO: "+ results);
-
         // only one parent should be returned
         if (results.size() != 1) {
             // throw exception
