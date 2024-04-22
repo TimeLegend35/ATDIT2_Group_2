@@ -9,7 +9,7 @@ public class Session {
     private CareOffer cachedCareOffer;
 
     // Private constructor to prevent instantiation from other classes
-    private Session() {}
+    public Session() {}
 
     // Method to get the instance of the class
     public static synchronized Session getInstance() {
