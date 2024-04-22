@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,40 +20,40 @@ public class SidebarView extends VBox {
         setPadding(new Insets(10));
         setSpacing(8);
 
-        Label titleLabel = new Label("Learning Hub\nBad Walden");
+        Label titleLabel = new Label(LanguageHelper.getString("sidebar_title")+"\nBad Walden");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleLabel.setPadding(new Insets(10, 0, 10, 0));
 
         getChildren().add(titleLabel);
 
-        Label schoolLabel = new Label("Schulisches");
+        Label schoolLabel = new Label(LanguageHelper.getString("school"));
         schoolLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
         // You might want to add a style class to your buttons for CSS styling
-        Button calendarButton = new Button("Kalender");
+        Button calendarButton = new Button(LanguageHelper.getString("calendar"));
         calendarButton.setId("Kalender");
-        Button gradesButton = new Button("Noten");
+        Button gradesButton = new Button(LanguageHelper.getString("grades"));
         gradesButton.setId("Noten");
-        Button absencesButton = new Button("Krankmeldungen");
+        Button absencesButton = new Button(LanguageHelper.getString("sick_note"));
         absencesButton.setId("Krankmeldungen");
-        Button classButton = new Button("Klasse");
+        Button classButton = new Button(LanguageHelper.getString("class"));
         classButton.setId("Klasse");
 
-        Label careLabel = new Label("Betreuung");
+        Label careLabel = new Label(LanguageHelper.getString("care_offer"));
         careLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button betreuungsmarktplatzButton = new Button("Betreuungsmarktplatz");
+        Button betreuungsmarktplatzButton = new Button(LanguageHelper.getString("care_offer_market_place"));
         betreuungsmarktplatzButton.setId("Betreuungsmarktplatz");
 
-        Label notificationLabel = new Label("Benachrichtigungen");
+        Label notificationLabel = new Label(LanguageHelper.getString("notifications"));
         notificationLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button notificationsButton = new Button("Benachrichtigungen");
+        Button notificationsButton = new Button(LanguageHelper.getString("notifications"));
         notificationsButton.setId("Benachrichtigungen");
 
-        Label organizationalLabel = new Label("Organisatorisches");
+        Label organizationalLabel = new Label(LanguageHelper.getString("organisation"));
         organizationalLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button registrationButton = new Button("Schulanmeldung");
+        Button registrationButton = new Button(LanguageHelper.getString("school_registration"));
         registrationButton.setId("Schulanmeldung");
-        Button deregistrationButton = new Button("Schulabmeldung");
+        Button deregistrationButton = new Button(LanguageHelper.getString("school_cancellation"));
         deregistrationButton.setId("Schulabmeldung");
 
         getChildren().addAll(
