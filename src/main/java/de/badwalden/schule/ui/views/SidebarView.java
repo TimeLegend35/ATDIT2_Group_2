@@ -1,6 +1,8 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.ui.helper.LanguageHelper;
+import de.badwalden.schule.ui.helper.Session;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,6 +13,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static de.badwalden.schule.Main.navigationHelper;
 
@@ -71,12 +76,22 @@ public class SidebarView extends VBox {
         bottomBox.setSpacing(10);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
 
+        String fullName = Session.getInstance().getCurrentUser().getFirstName() + " " + Session.getInstance().getCurrentUser().getLastName();
+        String initials = Arrays.stream(fullName.split(" "))
+                .map(name -> name.substring(0, 1))
+                .collect(Collectors.joining());
+
+        if(Session.getInstance().getCurrentUser() instanceof Admin) {
+            fullName = "Administrator";
+            initials = "ADMIN";
+        }
+
         // Placeholder for logo (replace with your logo)
-        Label logoLabel = new Label("Logo");
+        Label logoLabel = new Label(initials);
         logoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
         // Placeholder for name (replace with actual name)
-        Label nameLabel = new Label("Your Name");
+        Label nameLabel = new Label(fullName);
         nameLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
         // Logout button
