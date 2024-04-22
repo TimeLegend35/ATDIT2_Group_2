@@ -1,17 +1,10 @@
 package de.badwalden.schule.dao;
 
-import de.badwalden.schule.model.CareOffer;
-import de.badwalden.schule.model.Supervisor;
-import de.badwalden.schule.model.Teacher;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public class CareOfferDAO implements DatabaseInteractions {
 
-    public static List<Object[]> getCareOffer(int careOfferId) {
+    public static List<Object[]> get(int careOfferId) {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery("Select * FROM care_offers WHERE care_offer_id=" + careOfferId);
 
@@ -22,6 +15,10 @@ public class CareOfferDAO implements DatabaseInteractions {
         }
 
         return results;
+    }
+
+    public static boolean write() {
+        return false;
     }
 
     public static List<Object[]> getCareOffersForStudent(int studentId) {

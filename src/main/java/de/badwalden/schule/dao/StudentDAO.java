@@ -15,7 +15,7 @@ public class StudentDAO implements DatabaseInteractions{
         return results;
     }
 
-    public static List<Object[]> getStudent(int id) {
+    public static List<Object[]> get(int id) {
         List<Object[]> results = dbConnection.executeQuery("SELECT * FROM children WHERE student_id = " + id);
 
         // only one parent should be returned
@@ -25,5 +25,9 @@ public class StudentDAO implements DatabaseInteractions{
         }
 
         return results;
+    }
+
+    public static boolean write() {
+        return false;
     }
 }

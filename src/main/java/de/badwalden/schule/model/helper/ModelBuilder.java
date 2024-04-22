@@ -60,7 +60,7 @@ public class ModelBuilder {
 
     private static Student buildStudent(int studentId) {
         // build base Student
-        List<Object[]> results = StudentDAO.getStudent(studentId);
+        List<Object[]> results = StudentDAO.get(studentId);
         Object[] resultStudent = results.get(0);
 
         int class_year = (int) resultStudent[1];

@@ -1,10 +1,8 @@
 package de.badwalden.schule.dao;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ParentDAO implements DatabaseInteractions{
-
     public static List<Object[]> get(int parentId) {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery("Select * FROM parents WHERE parent_id = " + parentId);
@@ -16,6 +14,10 @@ public class ParentDAO implements DatabaseInteractions{
         }
 
         return results;
+    }
+
+    public static boolean write() {
+        return false;
     }
 
 }
