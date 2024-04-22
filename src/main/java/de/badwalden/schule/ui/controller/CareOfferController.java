@@ -1,11 +1,14 @@
 package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.Service;
+import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
 import de.badwalden.schule.ui.views.MainView;
+import javafx.scene.control.Button;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
@@ -17,6 +20,38 @@ public class CareOfferController implements DataController {
     public Object[] getData(){
         CareOffer careOffer = Session.getInstance().getCachedCareOffer();
         return new Object[] {careOffer};
+    }
+
+    public void changeCareOfferAttendance(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
+        if( isChildRegisteredForOffer(student) ) {
+            careOffer.getStudentList().remove(student);
+            student.getServiceList().remove(careOffer);
+            dialogRegistrationButton.setText("Register");
+        } else {
+            careOffer.getStudentList().add(student);
+            student.getServiceList().add(careOffer);
+            dialogRegistrationButton.setText("Unregister");
+        }
+    }
+
+    public void changeCareOfferAttendance(CareOffer careOffer, Student student) {
+        if( isChildRegisteredForOffer(student) ) {
+            careOffer.getStudentList().remove(student);
+            student.getServiceList().remove(careOffer);
+        } else {
+            careOffer.getStudentList().add(student);
+            student.getServiceList().add(careOffer);
+        }
+    }
+
+    public boolean isChildRegisteredForOffer(Student student) {
+        for (Service service  : student.getServiceList()) {
+            CareOffer careOffer = (CareOffer) service;
+            if (careOffer.getStudentList().contains(student)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
