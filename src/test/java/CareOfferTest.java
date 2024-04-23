@@ -1,4 +1,5 @@
 import de.badwalden.schule.model.CareOffer;
+import de.badwalden.schule.model.Supervisor;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferView;
@@ -23,7 +24,8 @@ public class CareOfferTest {
     @Test
     public void testGetData() {
         //assemble
-        CareOffer expectedCareOffer = new CareOffer();
+        Supervisor supervisor = new Supervisor(1, "Alice Bauer");
+        CareOffer expectedCareOffer = new CareOffer(1, supervisor, 4, 1, "Test Care Offer", "Test description", 10);
         sessionMock.setCachedCareOffer(expectedCareOffer);
         //act
         Object[] data = careOfferController.getData();
