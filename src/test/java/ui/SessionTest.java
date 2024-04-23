@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.helper.Session;

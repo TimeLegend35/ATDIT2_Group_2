@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.ui.views.SidebarView;
 import javafx.application.Platform;
 import javafx.scene.control.Label;

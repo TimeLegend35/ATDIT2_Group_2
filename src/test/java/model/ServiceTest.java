@@ -1,3 +1,5 @@
+package model;
+
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void testAddAndGetStudentToStudentList(){
+    public void testAddStudentToStudentList(){
         //assemble
         //act
         basteln.setNumberOfSeats(2);

@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import org.junit.jupiter.api.Test;
 import java.util.Locale;

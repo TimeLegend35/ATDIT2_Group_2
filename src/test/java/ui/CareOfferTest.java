@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Supervisor;
 import de.badwalden.schule.ui.controller.CareOfferController;

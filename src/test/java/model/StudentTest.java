@@ -1,3 +1,5 @@
+package model;
+
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;

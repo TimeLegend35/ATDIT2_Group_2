@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.ui.helper.NavigationHelper;
 import de.badwalden.schule.ui.views.MainView;
 import javafx.application.Platform;

@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.ui.controller.LoginController;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.views.LoginView;

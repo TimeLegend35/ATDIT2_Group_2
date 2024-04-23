@@ -1,3 +1,5 @@
+package ui;
+
 import de.badwalden.schule.Main;
 import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.model.CareOffer;

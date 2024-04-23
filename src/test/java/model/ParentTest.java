@@ -1,3 +1,5 @@
+package model;
+
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +54,19 @@ public class ParentTest {
         parent.setId(id);
         //assert
         assertEquals(id, parent.getId(), "IDs should match");
+    }
+
+    @Test
+    public void testSetAndGetName(){
+        //assemble
+        //act
+        String firstName = "Bob";
+        parent.setFirstName(firstName);
+        String lastName = "Bauer";
+        parent.setLastName(lastName);
+        //assert
+        assertEquals(firstName, parent.getFirstName(), "FirstNames should match");
+        assertEquals(lastName, parent.getLastName(), "LastNames should match");
     }
 
 }
