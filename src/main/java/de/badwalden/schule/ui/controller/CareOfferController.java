@@ -58,6 +58,14 @@ public class CareOfferController implements DataController {
         }
     }
 
+    public boolean isRightOfSerice(CareOffer careOffer, Student student) {
+        if(student.getClassYear() >= careOffer.getYoungestGrade() && student.getClassYear() <= careOffer.getOldestGrade()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private void lowerSeatsAvailable(CareOffer careOffer) {
         careOffer.setSeatsAvailable(careOffer.getSeatsAvailable() - 1);
     }

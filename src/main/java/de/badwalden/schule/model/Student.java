@@ -11,7 +11,7 @@ public class Student extends User {
     private boolean rightOfService;
     private Sclass sclass;
     private int age;
-    private int class_year; // we only need class year for the implementation of the age checks for care_offers
+    private int classYear; // we only need class year for the implementation of the age checks for care_offers
     private List<Service> serviceList;
     private List<Subject> grades;
 
@@ -22,7 +22,7 @@ public class Student extends User {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setAge(age);
-        this.setClass_year(class_year);
+        this.setClassYear(class_year);
         this.setCompulsorySchooling(compulsorySchooling);
         this.setRightOfService(rightOfService);
         this.setServiceList(serviceList);
@@ -45,8 +45,12 @@ public class Student extends User {
         this.compulsorySchooling = compulsorySchooling;
     }
 
-    public void setClass_year(int class_year) {
-        this.class_year = class_year;
+    public void setClassYear(int class_year) {
+        this.classYear = class_year;
+    }
+
+    public int getClassYear() {
+        return classYear;
     }
 
     public void setAge(int Age) {

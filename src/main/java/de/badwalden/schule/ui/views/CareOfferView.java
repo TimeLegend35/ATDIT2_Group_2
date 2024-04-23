@@ -129,22 +129,29 @@ public class CareOfferView extends VBox {
 
         int row = 0;
         for (Student child : parent.getChildren()) {
-            Label childNameLabel = new Label(child.getFirstName() + " ");
-            Button dialogRegistrationButton = new Button();
+            if(controller.isRightOfSerice(careOffer, child)) {
+                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + child.getClassYear() + ")");
+                Button dialogRegistrationButton = new Button();
 
-            if(child.isRegisteredForOffer(careOffer)) {
-                dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
+                if(child.isRegisteredForOffer(careOffer)) {
+                    dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
+                } else {
+                    dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
+                }
+
+                dialogRegistrationButton.setOnAction(event -> {
+                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
+                });
+
+                grid.add(childNameLabel, 0, row);
+                grid.add(dialogRegistrationButton, 1, row);
+                row++;
             } else {
-                dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
+                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
+                grid.add(childNameLabel, 0, row);
+                row++;
             }
 
-            dialogRegistrationButton.setOnAction(event -> {
-                controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
-            });
-
-            grid.add(childNameLabel, 0, row);
-            grid.add(dialogRegistrationButton, 1, row);
-            row++;
         }
 
         dialog.getDialogPane().setContent(grid);
