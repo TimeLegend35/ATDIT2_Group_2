@@ -45,9 +45,13 @@ public class Student extends User {
         this.compulsorySchooling = compulsorySchooling;
     }
 
-    public void setClass_year(int class_year) { this.class_year = class_year; }
+    public void setClass_year(int class_year) {
+        this.class_year = class_year;
+    }
 
-    public void setAge(int Age) { this.age = age; }
+    public void setAge(int Age) {
+        this.age = age;
+    }
 
     public boolean isRightOfService() {
         return rightOfService;
@@ -55,14 +59,6 @@ public class Student extends User {
 
     public void setRightOfService(boolean rightOfService) {
         this.rightOfService = rightOfService;
-    }
-
-    public Sclass getSclass() {
-        return sclass;
-    }
-
-    public void setSclass(Sclass sclass) {
-        this.sclass = sclass;
     }
 
     public List<Service> getServiceList() {
@@ -73,11 +69,13 @@ public class Student extends User {
         this.serviceList = serviceList;
     }
 
-    public List<Subject> getGrades() {
-        return grades;
+    public boolean isRegisteredForOffer(CareOffer careOffer) {
+        for (Service currentService : this.getServiceList()) {
+            if (careOffer.getId() == currentService.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setGrades(List<Subject> grades) {
-        this.grades = grades;
-    }
 }

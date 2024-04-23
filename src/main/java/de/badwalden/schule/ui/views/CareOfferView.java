@@ -132,7 +132,7 @@ public class CareOfferView extends VBox {
             Label childNameLabel = new Label(child.getFirstName() + " ");
             Button dialogRegistrationButton = new Button();
 
-            if(controller.isChildRegisteredForOffer(careOffer, child)) {
+            if(child.isRegisteredForOffer(careOffer)) {
                 dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             } else {
                 dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));

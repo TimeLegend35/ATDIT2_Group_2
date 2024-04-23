@@ -4,6 +4,7 @@ import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
+import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
@@ -11,23 +12,25 @@ import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
 import de.badwalden.schule.ui.views.MainView;
 import javafx.animation.PauseTransition;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
+
     public CareOfferController(CareOfferView careOfferView) {
         this.careOfferView = careOfferView;
     }
 
     @Override
-    public Object[] getData(){
+    public Object[] getData() {
         CareOffer careOffer = Session.getInstance().getCachedCareOffer();
-        return new Object[] {careOffer};
+        return new Object[]{careOffer};
     }
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
-        if( isChildRegisteredForOffer(careOffer, student) ) {
+        if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
             higherSeatsAvailable(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
@@ -43,7 +46,7 @@ public class CareOfferController implements DataController {
     }
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
-        if( isChildRegisteredForOffer(careOffer, student) ) {
+        if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             higherSeatsAvailable(careOffer);
@@ -77,19 +80,11 @@ public class CareOfferController implements DataController {
         pause.play();
     }
 
-    public boolean isChildRegisteredForOffer(CareOffer careOffer, Student student) {
-        for(Service co : student.getServiceList()) {
-            if( careOffer.getId() == co.getId() ) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Sets the values of a CareOffer object based on the input from a CareOfferView.
      *
-     * @param  careOffer  the CareOffer object to set values for
+     * @param careOffer the CareOffer object to set values for
      */
     public void setValuesOfObject(CareOffer careOffer) {
         careOffer.setName(careOfferView.titleTextField.getText());
@@ -102,7 +97,7 @@ public class CareOfferController implements DataController {
     /**
      * Updates the values in the care offer view based on the provided CareOffer object.
      *
-     * @param  careOffer  the CareOffer object containing the values to update the view with
+     * @param careOffer the CareOffer object containing the values to update the view with
      */
     public void updateValuesFromObject(CareOffer careOffer) {
         careOfferView.titleLabelValue.setText(careOffer.getName());
