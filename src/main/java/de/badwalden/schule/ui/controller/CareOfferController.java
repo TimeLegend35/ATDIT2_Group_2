@@ -26,38 +26,41 @@ public class CareOfferController implements DataController {
         return new Object[] {careOffer};
     }
 
-    public void changeCareOfferAttendance(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
+    public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
         if( isChildRegisteredForOffer(careOffer, student) ) {
-            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
-            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
+            higherSeatsAvailable(careOffer);
+            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
             pauseButton(dialogRegistrationButton, 2);
-
-            System.out.println("-------------------");
-            System.out.println("" + careOffer.getName());
-            System.out.println("" + student);
-            // System.out.println("" + careOffer.getStudentList());
-            System.out.println("-------------------");
         } else {
-            careOffer.addStudentToStudentList(student);
             student.getServiceList().add(careOffer);
-            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
+            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
+            lowerSeatsAvailable(careOffer);
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             pauseButton(dialogRegistrationButton, 2);
         }
     }
 
-    public void changeCareOfferAttendance(CareOffer careOffer, Student student) {
+    public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
         if( isChildRegisteredForOffer(careOffer, student) ) {
-            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
+            higherSeatsAvailable(careOffer);
         } else {
-            careOffer.addStudentToStudentList(student);
+            student.getServiceList().add(careOffer);
             student.getServiceList().add(careOffer);
             CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
+            lowerSeatsAvailable(careOffer);
         }
+    }
+
+    private void lowerSeatsAvailable(CareOffer careOffer) {
+        careOffer.setSeatsAvailable(careOffer.getSeatsAvailable() - 1);
+    }
+
+    public void higherSeatsAvailable(CareOffer careOffer) {
+        careOffer.setSeatsAvailable(careOffer.getSeatsAvailable() + 1);
     }
 
     public void pauseButton(Button button, int seconds) {

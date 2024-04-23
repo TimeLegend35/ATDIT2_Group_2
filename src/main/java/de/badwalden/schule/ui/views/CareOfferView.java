@@ -139,7 +139,7 @@ public class CareOfferView extends VBox {
             }
 
             dialogRegistrationButton.setOnAction(event -> {
-                controller.changeCareOfferAttendance(careOffer, child, dialogRegistrationButton);
+                controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
             });
 
             grid.add(childNameLabel, 0, row);
@@ -166,7 +166,7 @@ public class CareOfferView extends VBox {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
                 // Call the method to change the attendance when OK is pressed.
-                controller.changeCareOfferAttendance(careOffer, child);
+                controller.changeCareOfferRegistration(careOffer, child);
                 return child; // Return the child as the result if OK is pressed.
             }
             return null; // Return null if the dialog is canceled or closed without confirmation.
