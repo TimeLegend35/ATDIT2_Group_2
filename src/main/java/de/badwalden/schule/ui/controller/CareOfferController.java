@@ -37,7 +37,7 @@ public class CareOfferController implements DataController {
             System.out.println("-------------------");
             System.out.println("" + careOffer.getName());
             System.out.println("" + student);
-            System.out.println("" + careOffer.getStudentList());
+            // System.out.println("" + careOffer.getStudentList());
             System.out.println("-------------------");
         } else {
             careOffer.addStudentToStudentList(student);

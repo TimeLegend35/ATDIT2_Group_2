@@ -12,7 +12,6 @@ public class Service {
     private String description;
     private User mainSupervisor;
     private List<User> coSupervisors;
-    private List<Student> studentList = new ArrayList<>() {};
     private int numberOfSeats;
     private int seatsAvailable;
     private Calendar startTime;
@@ -68,29 +67,6 @@ public class Service {
 
     public void setCoSupervisors(List<User> coSupervisors) {
         this.coSupervisors = coSupervisors;
-    }
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
-
-    public void addStudentToStudentList(Student student) {
-        //this.studentList.add(student);
-        if (0 < getSeatsAvailable()){
-            this.studentList.add(student);
-            this.seatsAvailable -= 1;
-        } else {
-            System.out.println("Cannot add student, the service is full.");
-        }
-    }
-    public void removeStudentFromStudentList(Student student) {
-        //this.studentList.add(student);
-        this.studentList.remove(student);
-        this.seatsAvailable += 1;
     }
 
     public int getNumberOfSeats() {
