@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CareOfferMarketplaceController {
+public class CareOfferMarketplaceController implements DataController {
 
     public CareOfferMarketplaceController() {}
 
@@ -29,6 +29,11 @@ public class CareOfferMarketplaceController {
         Session.getInstance().setCachedCareOffer(offer);
         // Navigate into the careOffer Object Page
         Main.navigationHelper.setContentView(offer);
+    }
+
+    @Override
+    public Object[] getData() {
+        return Session.getInstance().getCachedCareOfferList().toArray();
     }
 }
 
