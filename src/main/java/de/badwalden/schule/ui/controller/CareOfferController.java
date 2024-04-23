@@ -27,14 +27,20 @@ public class CareOfferController implements DataController {
     }
 
     public void changeCareOfferAttendance(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
-        if( isChildRegisteredForOffer(student) ) {
-            careOffer.getStudentList().remove(student);
+        if( isChildRegisteredForOffer(careOffer, student) ) {
+            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
             CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
             pauseButton(dialogRegistrationButton, 2);
+
+            System.out.println("-------------------");
+            System.out.println("" + careOffer.getName());
+            System.out.println("" + student);
+            System.out.println("" + careOffer.getStudentList());
+            System.out.println("-------------------");
         } else {
-            careOffer.getStudentList().add(student);
+            careOffer.addStudentToStudentList(student);
             student.getServiceList().add(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
@@ -43,12 +49,12 @@ public class CareOfferController implements DataController {
     }
 
     public void changeCareOfferAttendance(CareOffer careOffer, Student student) {
-        if( isChildRegisteredForOffer(student) ) {
-            careOffer.getStudentList().remove(student);
+        if( isChildRegisteredForOffer(careOffer, student) ) {
+            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
         } else {
-            careOffer.getStudentList().add(student);
+            careOffer.addStudentToStudentList(student);
             student.getServiceList().add(careOffer);
             CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
         }
@@ -68,13 +74,10 @@ public class CareOfferController implements DataController {
         pause.play();
     }
 
-    public boolean isChildRegisteredForOffer(Student student) {
-        for (Service service  : student.getServiceList()) {
-            CareOffer careOffer = (CareOffer) service;
-            for(Student child : careOffer.getStudentList()) {
-                if(child.getId() == student.getId()) {
-                    return true;
-                }
+    public boolean isChildRegisteredForOffer(CareOffer careOffer, Student student) {
+        for(Student studentObj : careOffer.getStudentList()) {
+            if( studentObj.getId() == student.getId() ) {
+                return true;
             }
         }
         return false;

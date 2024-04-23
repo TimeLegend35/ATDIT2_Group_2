@@ -108,8 +108,7 @@ public class CareOfferView extends VBox {
         dialog.setTitle(LanguageHelper.getString("sign_up_child"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        if (user instanceof Parent) {
-            Parent parent = (Parent) user;
+        if (user instanceof Parent parent) {
             if (parent.getChildren().size() > 1) {
                 openDialogForMultipleChildren(dialog, parent);
             } else if (parent.getChildren().size() == 1) {
@@ -133,7 +132,7 @@ public class CareOfferView extends VBox {
             Label childNameLabel = new Label(child.getFirstName() + " ");
             Button dialogRegistrationButton = new Button();
 
-            if(controller.isChildRegisteredForOffer(child)) {
+            if(controller.isChildRegisteredForOffer(careOffer, child)) {
                 dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             } else {
                 dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));

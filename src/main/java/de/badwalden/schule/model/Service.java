@@ -87,6 +87,10 @@ public class Service {
             System.out.println("Cannot add student, the service is full.");
         }
     }
+    public void removeStudentFromStudentList(Student student) {
+        //this.studentList.add(student);
+        this.studentList.remove(student);
+    }
 
     public int getNumberOfSeats() {
         return numberOfSeats;

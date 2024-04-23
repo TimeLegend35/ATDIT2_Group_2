@@ -71,7 +71,13 @@ public class ModelBuilder {
         boolean rightOfService = (boolean) resultStudent[6];
         List<Service> serviceList = buildServiceListForStudent(studentId);
 
-        return new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+        Student student = new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+
+        for(Service service : serviceList) {
+            service.addStudentToStudentList(student);
+        }
+
+        return student;
     }
 
     private static CareOffer buildCareOffer(int careOfferId) {
@@ -100,6 +106,7 @@ public class ModelBuilder {
             int seatsAvailable = (int) row[6];
 
             newCareOffer = new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
+
             careOffers.add(newCareOffer);
         }
 
