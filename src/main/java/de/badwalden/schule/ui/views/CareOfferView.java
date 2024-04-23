@@ -86,7 +86,9 @@ public class CareOfferView extends VBox {
         // Create a button to register for this care offer
         Button registerButton = new Button(LanguageHelper.getString("sign_up_child"));
         registerButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
-        registerButton.setOnAction(event -> {this.openRegistrationDialog(Session.getInstance().getCurrentUser());});
+        registerButton.setOnAction(event -> {
+            this.openRegistrationDialog(Session.getInstance().getCurrentUser());
+        });
 
         // Create a container for each offer's details and add them to the VBox
         VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
@@ -101,7 +103,7 @@ public class CareOfferView extends VBox {
     /**
      * Opens a registration dialog for a care offer based on the number of children a parent has.
      *
-     * @param  user   the User initiating the registration
+     * @param user the User initiating the registration
      */
     private void openRegistrationDialog(User user) {
         Dialog<User> dialog = new Dialog<>();
@@ -129,11 +131,11 @@ public class CareOfferView extends VBox {
 
         int row = 0;
         for (Student child : parent.getChildren()) {
-            if(controller.isRightOfSerice(careOffer, child)) {
+            if (controller.isRightOfSerice(careOffer, child)) {
                 Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + child.getClassYear() + ")");
                 Button dialogRegistrationButton = new Button();
 
-                if(child.isRegisteredForOffer(careOffer)) {
+                if (child.isRegisteredForOffer(careOffer)) {
                     dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
                 } else {
                     dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
@@ -146,9 +148,23 @@ public class CareOfferView extends VBox {
                 grid.add(childNameLabel, 0, row);
                 grid.add(dialogRegistrationButton, 1, row);
                 row++;
+
             } else {
+
+                // If the child has no right of service, just show the label and the class year
                 Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
                 grid.add(childNameLabel, 0, row);
+
+                // Add a button if the child is registered but has no right of service
+                if (child.isRegisteredForOffer(careOffer)) {
+                    Button unregisterChildNoRightOfService = new Button(LanguageHelper.getString("remove_child"));
+                    unregisterChildNoRightOfService.setOnAction(event -> {
+                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService);
+                        unregisterChildNoRightOfService.setVisible(false);
+                    });
+                    grid.add(unregisterChildNoRightOfService, 1, row);
+                }
+
                 row++;
             }
 
@@ -159,11 +175,10 @@ public class CareOfferView extends VBox {
     }
 
 
-
     private void openDialogForSingleChild(Dialog<User> dialog, Parent parent) {
         Student child = parent.getChildren().get(0);
         String registration = LanguageHelper.getString("registration");
-        registration= registration.replace("{child_name}", child.getFirstName());
+        registration = registration.replace("{child_name}", child.getFirstName());
         Label registrationPrompt = new Label(registration);
 
         GridPane grid = new GridPane();
@@ -239,7 +254,6 @@ public class CareOfferView extends VBox {
         oldestGradeTextField.setVisible(false);
         uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
     }
-
 
 
     /**
