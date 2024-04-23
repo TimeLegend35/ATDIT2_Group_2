@@ -1,29 +1,43 @@
+package ui;
+
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import org.junit.jupiter.api.Test;
 import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the LanguageHelper class.
+ */
 public class LanguageHelperTest {
 
+    /**
+     * Tests the setLocale() method of the LanguageHelper class.
+     * Checks if the locale is correctly set to English (US).
+     */
     @Test
     public void testSetLocaleToEnglish (){
-        //assemble
+        // Assemble
         String language = "English";
-        //act
+        // Act
         LanguageHelper.setLocale(language);
-        //assert
+        // Assert
         assertEquals(Locale.US, LanguageHelper.locale, "Locale should be set to English (US)");
     }
 
+    /**
+     * Tests the getString() method of the LanguageHelper class.
+     * Checks if the correct string message is retrieved for the given key in German locale.
+     */
     @Test
     public void testGetString (){
-        //assemble
+        // Assemble
         LanguageHelper.setLocale("Deutsch");
         String key = "username";
-        //act
+        // Act
         String result = LanguageHelper.getString(key);
-        //assert
+        // Assert
         assertEquals("Benutzername", result, "Expected key message should be retrieved for German locale");
     }
 
 }
+

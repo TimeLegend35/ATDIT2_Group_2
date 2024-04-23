@@ -2,6 +2,7 @@ package de.badwalden.schule.dao;
 
 import java.util.List;
 
+
 public class CareOfferDAO implements DatabaseInteractions {
 
     public static List<Object[]> get(int careOfferId) {

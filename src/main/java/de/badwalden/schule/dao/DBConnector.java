@@ -27,7 +27,7 @@ public class DBConnector {
         return instance;
     }
 
-    private Connection connect() {
+    public Connection connect() {
         Dotenv dotenv = Dotenv.configure().load();
         String large_url = dotenv.get("CONNECTION_URL");
 
