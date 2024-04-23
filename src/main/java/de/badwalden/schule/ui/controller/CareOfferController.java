@@ -75,8 +75,8 @@ public class CareOfferController implements DataController {
     }
 
     public boolean isChildRegisteredForOffer(CareOffer careOffer, Student student) {
-        for(Student studentObj : careOffer.getStudentList()) {
-            if( studentObj.getId() == student.getId() ) {
+        for(Service co : student.getServiceList()) {
+            if( careOffer.getId() == co.getId() ) {
                 return true;
             }
         }
