@@ -37,6 +37,8 @@ public class Service {
     }
     public void setSeatsAvailable(int seatsAvailable) { this.seatsAvailable = seatsAvailable;}
 
+    public int getSeatsAvailable() { return seatsAvailable;}
+
     public String getName() {
         return name;
     }
@@ -79,7 +81,7 @@ public class Service {
 
     public void addStudentToStudentList(Student student) {
         //this.studentList.add(student);
-        if (studentList.size() < getNumberOfSeats()){
+        if (studentList.size() < getSeatsAvailable()){
             this.studentList.add(student);
         } else {
             System.out.println("Cannot add student, the service is full.");

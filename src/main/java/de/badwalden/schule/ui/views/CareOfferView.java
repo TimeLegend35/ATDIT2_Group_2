@@ -37,8 +37,8 @@ public class CareOfferView extends VBox {
     public TextField titleTextField;
     public Label descriptionLabelValue;
     public TextField descriptionTextField;
-    public Label numberOfSeatsLabelValue;
-    public TextField numberOfSeatsTextField;
+    public Label seatsAvailableLabelValue;
+    public TextField seatsAvailableTextField;
     public Label youngestGradeLabelValue;
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
@@ -208,12 +208,12 @@ public class CareOfferView extends VBox {
 
         Label numberOfSeatsLabel = new Label(LanguageHelper.getString("open_seats"));
         numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        numberOfSeatsLabelValue = new Label();
-        numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        numberOfSeatsTextField = new TextField();
-        numberOfSeatsTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
+        seatsAvailableLabelValue = new Label();
+        seatsAvailableLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        seatsAvailableLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        seatsAvailableTextField = new TextField();
+        seatsAvailableTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, seatsAvailableLabelValue, seatsAvailableTextField));
 
         Label youngestGradeLabel = new Label(LanguageHelper.getString("youngest_class"));
         youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title

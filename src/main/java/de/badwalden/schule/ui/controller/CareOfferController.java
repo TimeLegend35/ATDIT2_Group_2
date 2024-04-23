@@ -88,7 +88,7 @@ public class CareOfferController implements DataController {
     public void setValuesOfObject(CareOffer careOffer) {
         careOffer.setName(careOfferView.titleTextField.getText());
         careOffer.setDescription(careOfferView.descriptionTextField.getText());
-        careOffer.setNumberOfSeats(Integer.parseInt(careOfferView.numberOfSeatsTextField.getText()));
+        careOffer.setSeatsAvailable(Integer.parseInt(careOfferView.seatsAvailableTextField.getText()));
         careOffer.setYoungestGrade(Integer.parseInt(careOfferView.youngestGradeTextField.getText()));
         careOffer.setOldestGrade(Integer.parseInt(careOfferView.oldestGradeTextField.getText()));
     }
@@ -103,8 +103,8 @@ public class CareOfferController implements DataController {
         careOfferView.titleTextField.setText(careOffer.getName());
         careOfferView.descriptionLabelValue.setText(careOffer.getDescription());
         careOfferView.descriptionTextField.setText(careOffer.getDescription());
-        careOfferView.numberOfSeatsLabelValue.setText(String.valueOf(careOffer.getNumberOfSeats()));
-        careOfferView.numberOfSeatsTextField.setText(String.valueOf(careOffer.getNumberOfSeats()));
+        careOfferView.seatsAvailableLabelValue.setText(String.valueOf(careOffer.getSeatsAvailable()));
+        careOfferView.seatsAvailableTextField.setText(String.valueOf(careOffer.getSeatsAvailable()));
         careOfferView.youngestGradeLabelValue.setText(String.valueOf(careOffer.getYoungestGrade()));
         careOfferView.youngestGradeTextField.setText(String.valueOf(careOffer.getYoungestGrade()));
         careOfferView.oldestGradeLabelValue.setText(String.valueOf(careOffer.getOldestGrade()));
