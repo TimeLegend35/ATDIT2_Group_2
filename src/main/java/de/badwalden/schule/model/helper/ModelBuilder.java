@@ -11,6 +11,8 @@ import java.util.List;
 
 public class ModelBuilder {
 
+    final private static Session session = Session.getInstance();
+
     /**
      * A function to build the data model starting from a parent.
      *
@@ -18,18 +20,30 @@ public class ModelBuilder {
      * @return     the Parent instance with the data
      */
     public static Parent buildModelFromParent(int id) {
+        // pull multiple access object like CareOffers
+        List<Object[]> results = CareOfferDAO.getAllCareOffers();
+
+        // fill care offers into session to keep in runtime
+        List<CareOffer> careOfferList = new ArrayList<>();
+
+        for (Object[] row: results) {
+            careOfferList.add(buildCareOffer(row));
+        }
+
+        session.setCachedCareOfferList(careOfferList);
+
 
         Parent parent = buildParent(id);
 
         // build children
-        List<Object[]> results = StudentDAO.getStudentsIdFromParent(id);
+        results = StudentDAO.getStudentsIdFromParent(id);
 
         // Student List
         List<Student> chlidrenList = new ArrayList<>();
 
         for (Object[] row : results) {
             id = (int) row[0];
-            chlidrenList.add(buildModelFromStudent(id));
+            chlidrenList.add(buildStudent(id));
         }
 
         // Link children to base parent
@@ -76,34 +90,41 @@ public class ModelBuilder {
         return student;
     }
 
-    private static CareOffer buildCareOffer(int careOfferId) {
-        return null;
+    private static CareOffer buildCareOffer(Object[] row) {
+        System.out.println("ModelBuilder: Created Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
+
+        int id = (int) row[0];
+        int supervisorId = (int) row[1];
+        Supervisor supervisor = new Supervisor(supervisorId, "MasterSupervisor") ;
+        int oldestClassLevel = (int) row[2];
+        int youngestClassLevel = (int) row[3];
+        String careOfferName = (String) row[4];
+        String description = (String) row[5];
+        int seatsAvailable = (int) row[6];
+
+       return new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
     }
 
     private static List<Service> buildServiceListForStudent(int studentId) {
-        // base data
-        List<Object[]> results = CareOfferDAO.getCareOffersForStudent(studentId);
+        // check if careOffers are loaded
+        if (session.getCachedCareOfferList() == null) {
+            System.out.println("Big Problem here!!! Care Offers are not loaded!!! Cannot link Student to services");
+            return null;
+        }
+
+        // get care offer ids for student
+        List<Object[]> results = CareOfferDAO.getCareOffersIdForStudent(studentId);
 
         // create care offers
         List<Service> careOffers = new ArrayList<>();
-        Service newCareOffer;
 
         for (Object[] row : results) {
-
-            System.out.println("ModelBuilder: Created Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
-
-            int id = (int) row[0];
-            int supervisorId = (int) row[1];
-            Supervisor supervisor = new Supervisor(supervisorId, "MasterSupervisor") ;
-            int oldestClassLevel = (int) row[2];
-            int youngestClassLevel = (int) row[3];
-            String careOfferName = (String) row[4];
-            String description = (String) row[5];
-            int seatsAvailable = (int) row[6];
-
-            newCareOffer = new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
-
-            careOffers.add(newCareOffer);
+            int careOfferId = (int) row[0];
+            for (CareOffer cachedCareOffer : session.getCachedCareOfferList()) {
+                if (careOfferId == cachedCareOffer.getId()) {
+                    careOffers.add(cachedCareOffer);
+                }
+            }
         }
 
         return careOffers;

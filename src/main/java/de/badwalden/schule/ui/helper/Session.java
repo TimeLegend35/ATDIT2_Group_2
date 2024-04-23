@@ -3,10 +3,13 @@ package de.badwalden.schule.ui.helper;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.User;
 
+import java.util.List;
+
 public class Session {
     private static Session instance;
     private User currentUser;
     private CareOffer cachedCareOffer;
+    private List<CareOffer> cachedCareOfferList;
 
     // Private constructor to prevent instantiation from other classes
     public Session() {}
@@ -35,5 +38,13 @@ public class Session {
 
     public CareOffer getCachedCareOffer() {
         return this.cachedCareOffer;
+    }
+
+    public void setCachedCareOfferList(List<CareOffer> careOfferList) {
+        this.cachedCareOfferList = careOfferList;
+    }
+
+    public List<CareOffer> getCachedCareOfferList() {
+        return this.cachedCareOfferList;
     }
 }
