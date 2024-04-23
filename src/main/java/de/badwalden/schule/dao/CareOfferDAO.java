@@ -22,14 +22,14 @@ public class CareOfferDAO implements DatabaseInteractions {
         return false;
     }
 
-    public static List<Object[]> getCareOffersIdForStudent(int studentId) {
+    public static List<Object[]> getCareOffersIdsForStudent(int studentId) {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery(
-                    """
-                            SELECT care_offer_id
-                            FROM care_offers co
-                            RIGHT JOIN child_care_offer_assignment cca ON co.care_offer_id = cca.care_offer_id
-                            WHERE cca.student_id = 
+                """
+                        SELECT co.care_offer_id
+                        FROM care_offers co
+                        JOIN child_care_offer_assignment cca ON co.care_offer_id = cca.care_offer_id
+                        WHERE cca.student_id = 
                         """ + studentId
         );
 
