@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
@@ -27,10 +28,12 @@ public class CareOfferController implements DataController {
         if( isChildRegisteredForOffer(student) ) {
             careOffer.getStudentList().remove(student);
             student.getServiceList().remove(careOffer);
+            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
         } else {
             careOffer.getStudentList().add(student);
             student.getServiceList().add(careOffer);
+            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
         }
     }
