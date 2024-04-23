@@ -73,10 +73,6 @@ public class ModelBuilder {
 
         Student student = new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
 
-        for(Service service : serviceList) {
-            service.addStudentToStudentList(student);
-        }
-
         return student;
     }
 
