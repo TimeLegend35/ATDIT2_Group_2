@@ -118,7 +118,7 @@ public class CareOfferView extends VBox {
                 showNoChildrenAlert();
             }
         }
-        dialog.showAndWait();
+
     }
 
 
@@ -149,6 +149,7 @@ public class CareOfferView extends VBox {
         }
 
         dialog.getDialogPane().setContent(grid);
+        dialog.showAndWait();
     }
 
 
@@ -171,6 +172,7 @@ public class CareOfferView extends VBox {
             }
             return null; // Return null if the dialog is canceled or closed without confirmation.
         });
+        dialog.showAndWait();
     }
 
     /**

@@ -10,7 +10,9 @@ import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
 import de.badwalden.schule.ui.views.MainView;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
@@ -30,11 +32,13 @@ public class CareOfferController implements DataController {
             student.getServiceList().remove(careOffer);
             CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
+            pauseButton(dialogRegistrationButton, 2);
         } else {
             careOffer.getStudentList().add(student);
             student.getServiceList().add(careOffer);
             CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
+            pauseButton(dialogRegistrationButton, 2);
         }
     }
 
@@ -42,17 +46,35 @@ public class CareOfferController implements DataController {
         if( isChildRegisteredForOffer(student) ) {
             careOffer.getStudentList().remove(student);
             student.getServiceList().remove(careOffer);
+            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
         } else {
             careOffer.getStudentList().add(student);
             student.getServiceList().add(careOffer);
+            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
         }
+    }
+
+    public void pauseButton(Button button, int seconds) {
+        // Disable the button
+        button.setDisable(true);
+
+        // Create a PauseTransition that lasts for 2 seconds
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+
+        // Re-enable the button after the pause
+        pause.setOnFinished(e -> button.setDisable(false));
+
+        // Start the pause transition
+        pause.play();
     }
 
     public boolean isChildRegisteredForOffer(Student student) {
         for (Service service  : student.getServiceList()) {
             CareOffer careOffer = (CareOffer) service;
-            if (careOffer.getStudentList().contains(student)) {
-                return true;
+            for(Student child : careOffer.getStudentList()) {
+                if(child.getId() == student.getId()) {
+                    return true;
+                }
             }
         }
         return false;

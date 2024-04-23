@@ -57,7 +57,7 @@ public class CareOfferDAO implements DatabaseInteractions {
 
     public static void removeChildFromCareOffer(int student_ID, int careOffer_ID){
         try {
-            dbConnection.executeQuery("DELETE FROM child_care_offer_assignment WHERE student_id = " + student_ID +" AND care_offer_id = " +careOffer_ID );
+            dbConnection.executeUpdate("DELETE FROM child_care_offer_assignment WHERE student_id = " + student_ID +" AND care_offer_id = " +careOffer_ID );
 
         }catch (Exception e){
             System.err.println("Remove Child From Care Offer" + e.getMessage());
@@ -66,7 +66,7 @@ public class CareOfferDAO implements DatabaseInteractions {
     }
     public static void addChildtoCareoffer(int student_ID, int careOffer_ID){
         try {
-            dbConnection.executeQuery("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" +student_ID+","+careOffer_ID+")" );
+            dbConnection.executeUpdate("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" +student_ID+","+careOffer_ID+")" );
 
         }catch (Exception e){
             System.err.println("add Child From Care Offer" + e.getMessage());
