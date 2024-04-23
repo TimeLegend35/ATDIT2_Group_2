@@ -2,6 +2,7 @@ import de.badwalden.schule.ui.helper.NavigationHelper;
 import de.badwalden.schule.ui.views.MainView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ public class NavigationHelperTest {
     }
 
     @Test
-    void testNavigateBack() {
-            Platform.runLater(() -> {
+    public void testNavigateBack() {
+        Platform.runLater(() -> {
         //assemble
         Stage primaryStage = new Stage();
         NavigationHelper navigationHelper = new NavigationHelper(primaryStage);
@@ -48,4 +49,19 @@ public class NavigationHelperTest {
     });
     }
 
+    @Test
+    public void testButtonClick(){
+        Platform.runLater(() -> {
+        //assemble
+        Stage primaryStage = new Stage();
+        NavigationHelper navigationHelper = new NavigationHelper(primaryStage);
+        Scene scene = new Scene(new Button("Test Button"), 200, 200);
+        //act
+        primaryStage.setScene(scene);
+        //assert
+        assertNotNull(primaryStage.getScene(), "Scene should not be null after button click");
+        assertTrue(primaryStage.getScene().getRoot() instanceof Button, "Root node should be an instance of Button");
+        assertEquals("Test Button", ((Button) primaryStage.getScene().getRoot()).getText(), "Button text should match");
+        });
+    }
 }

@@ -1,3 +1,4 @@
+import de.badwalden.schule.ui.controller.LoginController;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.views.LoginView;
 import javafx.application.Platform;
@@ -19,7 +20,7 @@ public class LoginViewTest {
     }
 
     @Test
-    void testUpdateTextsFromResourceBundle() {
+    public void testUpdateTextsFromResourceBundle() {
         Platform.runLater(() -> {
             //assemble
             LoginView loginView = new LoginView();
@@ -40,4 +41,19 @@ public class LoginViewTest {
         });
     }
 
+    @Test
+    public void testUpdateTextWithLoginController(){
+        Platform.runLater(() -> {
+        //assemble
+        LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(loginView);
+        //act
+        loginController.handleLanguageChange("Français");
+        //assert
+        assertEquals("Nom d'utilisateur:", loginController.getLoginView().userNameLabel.getText(), "Username label should be updated");
+        assertEquals("Mot de passe:", loginController.getLoginView().passwordLabel.getText(), "Password label should be updated");
+        assertEquals("Rester connecté", loginController.getLoginView().getStayLoggedInCheckBox().getText(), "Stay logged in checkbox label should be updated");
+        assertEquals("Se connecter", loginController.getLoginView().getSignInButton().getText(), "Sign in button text should be updated");
+        });
+    }
 }
