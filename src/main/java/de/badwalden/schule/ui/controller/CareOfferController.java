@@ -1,5 +1,6 @@
 package de.badwalden.schule.ui.controller;
 
+import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
@@ -9,7 +10,9 @@ import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
 import de.badwalden.schule.ui.views.MainView;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
@@ -24,31 +27,56 @@ public class CareOfferController implements DataController {
     }
 
     public void changeCareOfferAttendance(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
-        if( isChildRegisteredForOffer(student) ) {
-            careOffer.getStudentList().remove(student);
+        if( isChildRegisteredForOffer(careOffer, student) ) {
+            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
+            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
+            pauseButton(dialogRegistrationButton, 2);
+
+            System.out.println("-------------------");
+            System.out.println("" + careOffer.getName());
+            System.out.println("" + student);
+            System.out.println("" + careOffer.getStudentList());
+            System.out.println("-------------------");
         } else {
-            careOffer.getStudentList().add(student);
+            careOffer.addStudentToStudentList(student);
             student.getServiceList().add(careOffer);
+            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
+            pauseButton(dialogRegistrationButton, 2);
         }
     }
 
     public void changeCareOfferAttendance(CareOffer careOffer, Student student) {
-        if( isChildRegisteredForOffer(student) ) {
-            careOffer.getStudentList().remove(student);
+        if( isChildRegisteredForOffer(careOffer, student) ) {
+            careOffer.removeStudentFromStudentList(student);
             student.getServiceList().remove(careOffer);
+            CareOfferDAO.removeChildFromCareOffer(student.getId(), careOffer.getId());
         } else {
-            careOffer.getStudentList().add(student);
+            careOffer.addStudentToStudentList(student);
             student.getServiceList().add(careOffer);
+            CareOfferDAO.addChildtoCareoffer(student.getId(), careOffer.getId());
         }
     }
 
-    public boolean isChildRegisteredForOffer(Student student) {
-        for (Service service  : student.getServiceList()) {
-            CareOffer careOffer = (CareOffer) service;
-            if (careOffer.getStudentList().contains(student)) {
+    public void pauseButton(Button button, int seconds) {
+        // Disable the button
+        button.setDisable(true);
+
+        // Create a PauseTransition that lasts for 2 seconds
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+
+        // Re-enable the button after the pause
+        pause.setOnFinished(e -> button.setDisable(false));
+
+        // Start the pause transition
+        pause.play();
+    }
+
+    public boolean isChildRegisteredForOffer(CareOffer careOffer, Student student) {
+        for(Student studentObj : careOffer.getStudentList()) {
+            if( studentObj.getId() == student.getId() ) {
                 return true;
             }
         }
@@ -63,7 +91,7 @@ public class CareOfferController implements DataController {
     public void setValuesOfObject(CareOffer careOffer) {
         careOffer.setName(careOfferView.titleTextField.getText());
         careOffer.setDescription(careOfferView.descriptionTextField.getText());
-        careOffer.setNumberOfSeats(Integer.parseInt(careOfferView.numberOfSeatsTextField.getText()));
+        careOffer.setSeatsAvailable(Integer.parseInt(careOfferView.seatsAvailableTextField.getText()));
         careOffer.setYoungestGrade(Integer.parseInt(careOfferView.youngestGradeTextField.getText()));
         careOffer.setOldestGrade(Integer.parseInt(careOfferView.oldestGradeTextField.getText()));
     }
@@ -78,8 +106,8 @@ public class CareOfferController implements DataController {
         careOfferView.titleTextField.setText(careOffer.getName());
         careOfferView.descriptionLabelValue.setText(careOffer.getDescription());
         careOfferView.descriptionTextField.setText(careOffer.getDescription());
-        careOfferView.numberOfSeatsLabelValue.setText(String.valueOf(careOffer.getNumberOfSeats()));
-        careOfferView.numberOfSeatsTextField.setText(String.valueOf(careOffer.getNumberOfSeats()));
+        careOfferView.seatsAvailableLabelValue.setText(String.valueOf(careOffer.getSeatsAvailable()));
+        careOfferView.seatsAvailableTextField.setText(String.valueOf(careOffer.getSeatsAvailable()));
         careOfferView.youngestGradeLabelValue.setText(String.valueOf(careOffer.getYoungestGrade()));
         careOfferView.youngestGradeTextField.setText(String.valueOf(careOffer.getYoungestGrade()));
         careOfferView.oldestGradeLabelValue.setText(String.valueOf(careOffer.getOldestGrade()));

@@ -37,8 +37,8 @@ public class CareOfferView extends VBox {
     public TextField titleTextField;
     public Label descriptionLabelValue;
     public TextField descriptionTextField;
-    public Label numberOfSeatsLabelValue;
-    public TextField numberOfSeatsTextField;
+    public Label seatsAvailableLabelValue;
+    public TextField seatsAvailableTextField;
     public Label youngestGradeLabelValue;
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
@@ -108,8 +108,7 @@ public class CareOfferView extends VBox {
         dialog.setTitle(LanguageHelper.getString("sign_up_child"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        if (user instanceof Parent) {
-            Parent parent = (Parent) user;
+        if (user instanceof Parent parent) {
             if (parent.getChildren().size() > 1) {
                 openDialogForMultipleChildren(dialog, parent);
             } else if (parent.getChildren().size() == 1) {
@@ -118,7 +117,7 @@ public class CareOfferView extends VBox {
                 showNoChildrenAlert();
             }
         }
-        dialog.showAndWait();
+
     }
 
 
@@ -133,7 +132,7 @@ public class CareOfferView extends VBox {
             Label childNameLabel = new Label(child.getFirstName() + " ");
             Button dialogRegistrationButton = new Button();
 
-            if(controller.isChildRegisteredForOffer(child)) {
+            if(controller.isChildRegisteredForOffer(careOffer, child)) {
                 dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             } else {
                 dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
@@ -149,6 +148,7 @@ public class CareOfferView extends VBox {
         }
 
         dialog.getDialogPane().setContent(grid);
+        dialog.showAndWait();
     }
 
 
@@ -171,6 +171,7 @@ public class CareOfferView extends VBox {
             }
             return null; // Return null if the dialog is canceled or closed without confirmation.
         });
+        dialog.showAndWait();
     }
 
     /**
@@ -206,12 +207,12 @@ public class CareOfferView extends VBox {
 
         Label numberOfSeatsLabel = new Label(LanguageHelper.getString("open_seats"));
         numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
-        numberOfSeatsLabelValue = new Label();
-        numberOfSeatsLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
-        numberOfSeatsLabelValue.setWrapText(true); // Allows the description to wrap within the label width
-        numberOfSeatsTextField = new TextField();
-        numberOfSeatsTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, numberOfSeatsLabelValue, numberOfSeatsTextField));
+        seatsAvailableLabelValue = new Label();
+        seatsAvailableLabelValue.setFont(new Font(FONT_SIZE)); // Set font size for description
+        seatsAvailableLabelValue.setWrapText(true); // Allows the description to wrap within the label width
+        seatsAvailableTextField = new TextField();
+        seatsAvailableTextField.setVisible(false);
+        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, seatsAvailableLabelValue, seatsAvailableTextField));
 
         Label youngestGradeLabel = new Label(LanguageHelper.getString("youngest_class"));
         youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title

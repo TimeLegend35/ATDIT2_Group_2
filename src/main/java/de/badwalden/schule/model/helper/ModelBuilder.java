@@ -60,7 +60,7 @@ public class ModelBuilder {
 
     private static Student buildStudent(int studentId) {
         // build base Student
-        List<Object[]> results = StudentDAO.getStudent(studentId);
+        List<Object[]> results = StudentDAO.get(studentId);
         Object[] resultStudent = results.get(0);
 
         int class_year = (int) resultStudent[1];
@@ -71,7 +71,13 @@ public class ModelBuilder {
         boolean rightOfService = (boolean) resultStudent[6];
         List<Service> serviceList = buildServiceListForStudent(studentId);
 
-        return new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+        Student student = new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+
+        for(Service service : serviceList) {
+            service.addStudentToStudentList(student);
+        }
+
+        return student;
     }
 
     private static CareOffer buildCareOffer(int careOfferId) {
@@ -88,7 +94,7 @@ public class ModelBuilder {
 
         for (Object[] row : results) {
 
-            System.out.println("ModelBuilder: Created Service: " + row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
+            System.out.println("ModelBuilder: Created Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString() + " " + row[7].toString()+ " " + row[8].toString());
 
             int id = (int) row[0];
             int supervisorId = (int) row[1];
@@ -100,6 +106,7 @@ public class ModelBuilder {
             int seatsAvailable = (int) row[6];
 
             newCareOffer = new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
+
             careOffers.add(newCareOffer);
         }
 

@@ -75,12 +75,24 @@ public class DBConnector {
         return results;
     }
 
-    // to test database connection
-    public static void main(String[] args) {
-        DBConnector instance = DBConnector.getInstance();
-        Object o = instance.executeQuery("Select * FROM parents WHERE parent_id = 1");
-        System.out.println(o);
-        instance.close();
+    /**
+     * Executes an update SQL statement.
+     *
+     * @param  sql   the SQL statement to be executed
+     * @return      the number of rows affected by the update
+     */
+    public int executeUpdate(String sql) {
+        if (this.connection != null) {
+            try (Statement stmt = this.connection.createStatement()) {
+                return stmt.executeUpdate(sql);
+            } catch (SQLException e) {
+                System.out.println("Error executing update");
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
+
+
 }
 
