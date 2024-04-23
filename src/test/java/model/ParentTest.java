@@ -9,12 +9,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Unit tests for the Parent class.
+ */
 public class ParentTest {
 
     private Parent parent;
     private Student alice;
     private Student bob;
 
+    /**
+     * Sets up the test environment before each test method.
+     */
     @BeforeEach
     public void setUp(){
         parent = new Parent();
@@ -22,49 +28,65 @@ public class ParentTest {
         bob = new Student();
     }
 
+    /**
+     * Tests the getChildren() method.
+     * Checks if initially no children are present.
+     */
     @Test
     public void testGetChildren(){
-        //assemble
+        // Assemble
         List<Student> children = new ArrayList<>();
-        //act
+        // Act
         parent.setChildren(children);
-        //assert
+        // Assert
         assertEquals(0, parent.getChildren().size(), "Initially, no children should be present");
     }
 
+    /**
+     * Tests the setChildren() method.
+     * Checks if the number of children and their presence match after setting.
+     */
     @Test
     public void testSetChildren(){
-        //assemble
+        // Assemble
         List<Student> children = new ArrayList<>();
-        //act
+        // Act
         children.add(alice);
         children.add(bob);
         parent.setChildren(children);
-        //assert
+        // Assert
         assertEquals(2, parent.getChildren().size(), "Number of children should match after setting");
         assertTrue(parent.getChildren().contains(alice), "A should be present");
         assertTrue(parent.getChildren().contains(bob), "B should be present");
     }
 
+    /**
+     * Tests the getId() method.
+     * Checks if the ID matches after setting.
+     */
     @Test
     public void testGetId(){
-        //assemble
-        //act
+        // Assemble
+        // Act
         int id = 123456;
         parent.setId(id);
-        //assert
+        // Assert
         assertEquals(id, parent.getId(), "IDs should match");
     }
 
+    /**
+     * Tests the set and getName() methods.
+     * Checks if first and last names match after setting.
+     */
     @Test
     public void testSetAndGetName(){
-        //assemble
-        //act
+        // Assemble
+        // Act
         String firstName = "Bob";
         parent.setFirstName(firstName);
         String lastName = "Bauer";
         parent.setLastName(lastName);
-        //assert
+        // Assert
         assertEquals(firstName, parent.getFirstName(), "FirstNames should match");
         assertEquals(lastName, parent.getLastName(), "LastNames should match");
     }

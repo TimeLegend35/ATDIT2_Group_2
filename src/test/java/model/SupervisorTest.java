@@ -1,22 +1,28 @@
 package model;
 
-import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Supervisor;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Unit tests for the Supervisor class.
+ */
 public class SupervisorTest {
 
+    /**
+     * Tests the constructor of the Supervisor class.
+     * Checks if the constructor initializes the Supervisor object with the correct ID and name.
+     */
     @Test
     public void testConstructor() {
-        //arrange
+        // Arrange
         int id = 1;
         String name = "Alice Bauer";
-        //act
+        // Act
         Supervisor supervisor = new Supervisor(id, name);
-        //assert
+        // Assert
         assertEquals(id, supervisor.getId());
         assertEquals(name, supervisor.getFirstName());
     }
 }
+

@@ -10,12 +10,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the CareOfferController class.
+ */
 public class CareOfferTest {
 
     private CareOfferView careOfferViewMock;
     private CareOfferController careOfferController;
     private Session sessionMock;
 
+    /**
+     * Sets up the test environment before each test method.
+     */
     @BeforeEach
     public void setUp() {
         careOfferViewMock = new CareOfferView();
@@ -23,18 +29,23 @@ public class CareOfferTest {
         careOfferController = new CareOfferController(careOfferViewMock);
     }
 
+    /**
+     * Tests the getData() method of the CareOfferController class.
+     * Checks if the method returns the expected data.
+     */
     @Test
     public void testGetData() {
-        //assemble
+        // Assemble
         Supervisor supervisor = new Supervisor(1, "Alice Bauer");
         CareOffer expectedCareOffer = new CareOffer(1, supervisor, 4, 1, "Test Care Offer", "Test description", 10);
         sessionMock.setCachedCareOffer(expectedCareOffer);
-        //act
+        // Act
         Object[] data = careOfferController.getData();
-        //assert
+        // Assert
         assertNotNull(data);
         assertTrue(data.length == 1);
         assertTrue(data[0] instanceof CareOffer);
         assertEquals(expectedCareOffer, data[0]);
     }
 }
+
