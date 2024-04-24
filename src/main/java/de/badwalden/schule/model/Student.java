@@ -57,8 +57,12 @@ public class Student extends User {
         this.age = age;
     }
 
-    public boolean isRightOfService() {
-        return rightOfService;
+    public boolean isRightOfService(CareOffer careOffer) {
+        if(this.getClassYear() >= careOffer.getYoungestGrade() && this.getClassYear() <= careOffer.getOldestGrade() && this.rightOfService) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setRightOfService(boolean rightOfService) {
