@@ -1,5 +1,8 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.helper.LanguageHelper;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -10,10 +13,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class LoginView extends BorderPane {
-
-    private Text userNameLabel;
+    private final LoginController loginController = new LoginController(this);
+    private ComboBox<String> languageComboBox;
+    public Text userNameLabel;
     private TextField userNameTextField;
-    private Text passwordLabel;
+    public Text passwordLabel;
     private PasswordField passwordField;
     private CheckBox stayLoggedInCheckBox;
     private Button signInButton;
@@ -21,27 +25,40 @@ public class LoginView extends BorderPane {
 
     public LoginView() {
 
+        // Language selection
+        languageComboBox = new ComboBox<>();
+        languageComboBox.setItems(FXCollections.observableArrayList("English", "Deutsch", "Français")); // Add languages as needed
+        languageComboBox.getSelectionModel().selectFirst(); // Select the first language by default
+        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> loginController.handleLanguageChange(newVal));
+
+        HBox topRightContainer = new HBox(languageComboBox);
+        topRightContainer.setAlignment(Pos.TOP_RIGHT);
+        topRightContainer.setPadding(new Insets(10));
+        setTop(topRightContainer);
+
         VBox centerContent = new VBox();
         centerContent.setAlignment(Pos.CENTER);
         centerContent.setSpacing(10);
 
-        scenetitle = new Text("Learning Hub\nBad Walden");
+        scenetitle = new Text(LanguageHelper.getString("sidebar_title")+ "\nBad Walden");
         scenetitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        userNameLabel = new Text("Benutzername:");
+//        userNameLabel = new Text("Benutzername:");
+        userNameLabel = new Text(LanguageHelper.getString("username") + ":");
         userNameTextField = new TextField();
-        userNameTextField.setPromptText("Benutzername");
+        userNameTextField.setPromptText(LanguageHelper.getString("username"));
         userNameTextField.setMaxWidth(200);
 
-        passwordLabel = new Text("Passwort:");
+        passwordLabel = new Text(LanguageHelper.getString("password") + ":");
         passwordField = new PasswordField();
-        passwordField.setPromptText("Passwort");
+        passwordField.setPromptText(LanguageHelper.getString("password"));
         passwordField.setMaxWidth(200);
 
-        stayLoggedInCheckBox = new CheckBox("Angemeldet bleiben");
+        stayLoggedInCheckBox = new CheckBox(LanguageHelper.getString("stayLoggedIn"));
 
-        signInButton = new Button("Anmelden");
+        signInButton = new Button(LanguageHelper.getString("signIn"));
         signInButton.setDefaultButton(true);
+        signInButton.setOnAction(event -> loginController.handleLoginButtonPressed());
 
         centerContent.getChildren().addAll(scenetitle, userNameLabel, userNameTextField, passwordLabel, passwordField, stayLoggedInCheckBox, signInButton);
 
@@ -51,6 +68,15 @@ public class LoginView extends BorderPane {
         centerContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         setCenter(centerContainer);
+    }
+
+    public void updateTextsFromResourceBundle() {
+        userNameLabel.setText(LanguageHelper.getString("username"));
+        userNameTextField.setPromptText(LanguageHelper.getString("username"));
+        passwordLabel.setText(LanguageHelper.getString("password"));
+        passwordField.setPromptText(LanguageHelper.getString("password"));
+        stayLoggedInCheckBox.setText(LanguageHelper.getString("stayLoggedIn"));
+        signInButton.setText(LanguageHelper.getString("signIn"));
     }
 
     public TextField getUserNameTextField() {

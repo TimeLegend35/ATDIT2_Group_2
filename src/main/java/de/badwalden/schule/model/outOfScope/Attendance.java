@@ -1,4 +1,7 @@
-package de.badwalden.schule.model;
+package de.badwalden.schule.model.outOfScope;
+
+import de.badwalden.schule.model.Student;
+import de.badwalden.schule.model.User;
 
 import java.util.Calendar;
 import java.util.Map;

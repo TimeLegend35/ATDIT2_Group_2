@@ -1,7 +1,8 @@
 package de.badwalden.schule.dao;
 
+import java.util.List;
+
 public interface DatabaseInteractions {
-    public void get();
-    public void add();
-    public void update();
+    DBConnector dbConnection = DBConnector.getInstance();
+
 }
