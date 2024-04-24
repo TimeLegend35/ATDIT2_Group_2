@@ -1,13 +1,10 @@
 package de.badwalden.schule.ui.views;
 
-import de.badwalden.schule.Main;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
-import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,11 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static de.badwalden.schule.Main.navigationHelper;
 
@@ -43,61 +35,92 @@ public class CareOfferView extends VBox {
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
+    private User user;
 
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
+        setPadding(new Insets(15)); // Set padding around the entire VBox container
+
+        // Get the Controller and set the current user
         controller = new CareOfferController(this);
         careOffer = (CareOffer) controller.getData()[0];
+        user = Session.getInstance().getCurrentUser();
 
-        // check what user type is logged in and plot according
-        User user = Session.getInstance().getCurrentUser();
+        // Create the top bar
+        HBox topRightContainer = createTopContainer();
 
-        // Set padding around the entire VBox container
-        setPadding(new Insets(15));
+        // Instantiate the CareOffer attributes
+        instantiateAttributes();
 
-        // Create a button to go back
+        // Pull the data and set the values in the UI
+        controller.updateValuesFromObject(careOffer);
+
+        // Create the main grid pane to display the attributes
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        // Add all instantiated attributes to the grid pane
+        addAllAttributesToGridPane(gridPane);
+
+        // Create a button to register for this care offer
+        Button registerButton = createRegisterButton();
+
+        // Create the container for the offer's details and add them to the VBox with spacing and padding
+        VBox offerBox = new VBox(10);
+        offerBox.setPadding(new Insets(10));
+        offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, new BorderWidths(2))));
+
+        // Add everything to the container of the offer's details
+        offerBox.getChildren().addAll(gridPane, registerButton);
+        this.getChildren().addAll(topRightContainer, offerBox);
+    }
+
+    /**
+     * Creates and returns a top navigation container with back and edit buttons.
+     *
+     * @return HBox containing navigation buttons.
+     */
+    private HBox createTopContainer() {
         Button backButton = new Button(LanguageHelper.getString("return_button"));
-        backButton.setId("back"); // Set the button's ID to the offer's ID
+        backButton.setId("back");
         backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
 
         HBox topRightContainer = new HBox(backButton);
         topRightContainer.setAlignment(Pos.TOP_LEFT);
         topRightContainer.setPadding(new Insets(10));
+        addEditButtonIfNeeded(topRightContainer);
 
-        // Only the Admin and the Main Supervisor should be able to edit Care Offers
+        return topRightContainer;
+    }
+
+    /**
+     * Adds an edit button to the top container if the user is authorized.
+     *
+     * @param container The container to which the edit button is added.
+     */
+    private void addEditButtonIfNeeded(HBox container) {
         if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
-            // Create a button to edit details
             Button editButton = new Button(LanguageHelper.getString("edit_button"));
-            editButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
+            editButton.setId(String.valueOf(careOffer.getId()));
             editButton.setOnAction(event -> this.changeEditView(editButton));
-            topRightContainer.getChildren().add(editButton);
+            container.getChildren().add(editButton);
         }
+    }
 
-        instantiateAttributes();
-
-        controller.updateValuesFromObject(careOffer);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        addAllAttributesToGridPane(gridPane);
-
-        // Create a button to register for this care offer
+    /**
+     * Instantiates and returns a registration button for the care offer.
+     *
+     * @return Button for registration.
+     */
+    private Button createRegisterButton() {
         Button registerButton = new Button(LanguageHelper.getString("sign_up_child"));
         registerButton.setId(String.valueOf(careOffer.getId())); // Set the button's ID to the offer's ID
         registerButton.setOnAction(event -> {
             this.openRegistrationDialog(Session.getInstance().getCurrentUser());
         });
-
-        // Create a container for each offer's details and add them to the VBox
-        VBox offerBox = new VBox(10); // Adds spacing between elements in each offer container
-        offerBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY, new BorderWidths(2))));
-        offerBox.setPadding(new Insets(10)); // Add padding inside the border
-        offerBox.getChildren().addAll(gridPane, registerButton);
-
-        this.getChildren().addAll(topRightContainer, offerBox);
+        return registerButton;
     }
 
     /**
@@ -118,11 +141,18 @@ public class CareOfferView extends VBox {
             } else {
                 showNoChildrenAlert();
             }
+        } else {
+            showNoChildrenAlert();
         }
 
     }
 
-
+    /**
+     * Opens a dialog for a parent with multiple children.
+     *
+     * @param  dialog   The dialog to be displayed
+     * @param  parent   The parent object containing children
+     */
     private void openDialogForMultipleChildren(Dialog<User> dialog, Parent parent) {
         GridPane grid = new GridPane();
         grid.setVgap(10);
@@ -174,7 +204,12 @@ public class CareOfferView extends VBox {
         dialog.showAndWait();
     }
 
-
+    /**
+     * Opens a dialog for a parent with a single child.
+     *
+     * @param  dialog   The dialog to be displayed
+     * @param  parent   The parent object containing the child
+     */
     private void openDialogForSingleChild(Dialog<User> dialog, Parent parent) {
         Student child = parent.getChildren().get(0);
         String registration = LanguageHelper.getString("registration");
