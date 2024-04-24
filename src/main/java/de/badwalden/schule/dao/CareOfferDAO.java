@@ -5,7 +5,8 @@ import java.util.List;
 
 public class CareOfferDAO implements DatabaseInteractions {
 
-    public static List<Object[]> get(int careOfferId) {
+    @Override
+    public List<Object[]> get(int careOfferId) {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery("Select * FROM care_offers WHERE care_offer_id=" + careOfferId);
 
@@ -18,11 +19,12 @@ public class CareOfferDAO implements DatabaseInteractions {
         return results;
     }
 
-    public static boolean write() {
-        return false;
+    @Override
+    public void write(List<Object[]> targets) {
+
     }
 
-    public static List<Object[]> getCareOffersIdsForStudent(int studentId) {
+    public List<Object[]> getCareOffersIdsForStudent(int studentId) {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery(
                 """
@@ -42,7 +44,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         return results;
     }
 
-    public static List<Object[]> getAllCareOffers() {
+    public List<Object[]> getAllCareOffers() {
         // edit SQL query to fit database ERM
         List<Object[]> results = dbConnection.executeQuery("SELECT * from care_offers");
 
@@ -56,7 +58,7 @@ public class CareOfferDAO implements DatabaseInteractions {
     }
 
 
-    public static void removeChildFromCareOffer(int student_ID, int careOffer_ID) {
+    public void removeChildFromCareOffer(int student_ID, int careOffer_ID) {
         try {
             dbConnection.executeUpdate("DELETE FROM child_care_offer_assignment WHERE student_id = " + student_ID + " AND care_offer_id = " + careOffer_ID);
 
@@ -66,7 +68,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         }
     }
 
-    public static void addChildtoCareoffer(int student_ID, int careOffer_ID) {
+    public void addChildtoCareoffer(int student_ID, int careOffer_ID) {
         try {
             dbConnection.executeUpdate("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" + student_ID + "," + careOffer_ID + ")");
 

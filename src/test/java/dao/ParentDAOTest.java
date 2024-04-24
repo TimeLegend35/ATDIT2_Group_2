@@ -12,7 +12,8 @@ public class ParentDAOTest {
     @Test
     public void testGet() {
         // Test the get method with a valid parent ID
-        List<Object[]> results = ParentDAO.get(1);
+        ParentDAO parentDao = new ParentDAO();
+        List<Object[]> results = parentDao.get(1);
         assertNotNull(results);
         assertEquals(1, results.size());
     }
@@ -20,6 +21,7 @@ public class ParentDAOTest {
     @Test
     public void testWrite() {
         // Test the write method
-        assertFalse(ParentDAO.write()); // Assuming write method always returns false
+        ParentDAO parentDao = new ParentDAO();
+        assertFalse(parentDao.write()); // Assuming write method always returns false
     }
 }

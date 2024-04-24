@@ -24,7 +24,8 @@ public class CareOfferDAOTest {
     @Test
     public void testGet() {
         // Test the get method with a valid care offer ID
-        List<Object[]> results = CareOfferDAO.get(1);
+        CareOfferDAO careOfferDao = new CareOfferDAO();
+        List<Object[]> results = careOfferDao.get(1);
         assertNotNull(results);
         assertEquals(1, results.size());
     }
@@ -32,14 +33,16 @@ public class CareOfferDAOTest {
     @Test
     public void testGetCareOffersForStudent() {
         // Test the getCareOffersForStudent method with a valid student ID
-        List<Object[]> results = CareOfferDAO.getCareOffersForStudent(1);
+        CareOfferDAO careOfferDao = new CareOfferDAO();
+        List<Object[]> results = careOfferDao.getCareOffersForStudent(1);
         assertNotNull(results);
     }
 
     @Test
     public void testGetAllCareOffers() {
         // Test the getAllCareOffers method
-        List<Object[]> results = CareOfferDAO.getAllCareOffers();
+        CareOfferDAO careOfferDao = new CareOfferDAO();
+        List<Object[]> results = careOfferDao.getAllCareOffers();
         assertNotNull(results);
         assertTrue(results.size() > 0);
     }
@@ -49,7 +52,8 @@ public class CareOfferDAOTest {
         // Test the removeChildFromCareOffer method
         // You may need to mock the database connection for this test
         // Assert that the method doesn't throw any exceptions
-        CareOfferDAO.removeChildFromCareOffer(1, 1);
+        CareOfferDAO careOfferDao = new CareOfferDAO();
+        List<Object[]> results = careOfferDao.removeChildFromCareOffer(1, 1);
     }
 
     @Test
@@ -57,7 +61,8 @@ public class CareOfferDAOTest {
         // Test the addChildtoCareoffer method
         // You may need to mock the database connection for this test
         // Assert that the method doesn't throw any exceptions
-        CareOfferDAO.addChildtoCareoffer(1, 1);
+        CareOfferDAO careOfferDao = new CareOfferDAO();
+        List<Object[]> results = careOfferDao.addChildtoCareoffer(1, 1);
     }
 }
 

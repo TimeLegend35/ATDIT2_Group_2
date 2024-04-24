@@ -1,6 +1,8 @@
 package dao;
 
+import de.badwalden.schule.dao.ParentDAO;
 import de.badwalden.schule.dao.StudentDAO;
+import de.badwalden.schule.model.Parent;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class StudentDAOTest {
     @Test
     public void testWrite() {
         // Test the write method
-        assertFalse(StudentDAO.write()); // Assuming write method always returns false
+        StudentDAO studentDao = new StudentDAO();
+        assertFalse(studentDao.write()); // Assuming write method always returns false
     }
 }

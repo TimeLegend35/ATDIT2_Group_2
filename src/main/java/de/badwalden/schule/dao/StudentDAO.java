@@ -3,7 +3,7 @@ package de.badwalden.schule.dao;
 import java.util.List;
 
 public class StudentDAO implements DatabaseInteractions{
-    public static List<Object[]> getStudentsIdFromParent(int parentId) {
+    public List<Object[]> getStudentsIdFromParent(int parentId) {
         List<Object[]> results = dbConnection.executeQuery(
                 """
                         SELECT child_id
@@ -15,7 +15,8 @@ public class StudentDAO implements DatabaseInteractions{
         return results;
     }
 
-    public static List<Object[]> get(int id) {
+    @Override
+    public List<Object[]> get(int id) {
         List<Object[]> results = dbConnection.executeQuery("SELECT * FROM children WHERE student_id = " + id);
 
         // only one parent should be returned
@@ -27,7 +28,8 @@ public class StudentDAO implements DatabaseInteractions{
         return results;
     }
 
-    public static boolean write() {
-        return false;
+    @Override
+    public void write(List<Object[]> targets) {
+
     }
 }

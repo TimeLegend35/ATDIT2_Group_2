@@ -12,6 +12,9 @@ import java.util.List;
 public class ModelBuilder {
 
     final private static Session session = Session.getInstance();
+    final private static ParentDAO parentDao = new ParentDAO();
+    final private static StudentDAO studentDao = new StudentDAO();
+    final private static CareOfferDAO careOfferDao = new CareOfferDAO();
 
     /**
      * A function to build the data model starting from a parent.
@@ -21,7 +24,7 @@ public class ModelBuilder {
      */
     public static Parent buildModelFromParent(int id) {
         // pull multiple access object like CareOffers
-        List<Object[]> results = CareOfferDAO.getAllCareOffers();
+        List<Object[]> results = careOfferDao.getAllCareOffers();
 
         // fill care offers into session to keep in runtime
         List<CareOffer> careOfferList = new ArrayList<>();
@@ -36,7 +39,7 @@ public class ModelBuilder {
         Parent parent = buildParent(id);
 
         // build children
-        results = StudentDAO.getStudentsIdFromParent(id);
+        results = studentDao.getStudentsIdFromParent(id);
 
         // Student List
         List<Student> chlidrenList = new ArrayList<>();
@@ -64,7 +67,7 @@ public class ModelBuilder {
 
     private static Parent buildParent(int parentId) {
         // build base parent
-        List<Object[]> results = ParentDAO.get(parentId);
+        List<Object[]> results = parentDao.get(parentId);
         String firstName = (String) results.get(0)[1];
         String lastName = (String) results.get(0)[2];
         String residence = (String) results.get(0)[3];
@@ -74,7 +77,7 @@ public class ModelBuilder {
 
     private static Student buildStudent(int studentId) {
         // build base Student
-        List<Object[]> results = StudentDAO.get(studentId);
+        List<Object[]> results = studentDao.get(studentId);
         Object[] resultStudent = results.get(0);
 
         int class_year = (int) resultStudent[1];
@@ -113,7 +116,7 @@ public class ModelBuilder {
         }
 
         // get care offer ids for student
-        List<Object[]> results = CareOfferDAO.getCareOffersIdsForStudent(studentId);
+        List<Object[]> results = careOfferDao.getCareOffersIdsForStudent(studentId);
 
         // create care offers
         List<Service> careOffers = new ArrayList<>();
