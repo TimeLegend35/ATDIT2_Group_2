@@ -104,7 +104,7 @@ public class CareOfferView extends VBox {
         if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
             Button editButton = new Button(LanguageHelper.getString("edit_button"));
             editButton.setId(String.valueOf(careOffer.getId()));
-            editButton.setOnAction(event -> this.changeEditView(editButton));
+//            editButton.setOnAction(event -> this.changeEditView(editButton));
             container.getChildren().add(editButton);
         }
     }
@@ -346,27 +346,28 @@ public class CareOfferView extends VBox {
      *
      * @param editButton the Button used to toggle edit mode
      */
-    private void changeEditView(Button editButton) {
-        if (!isEditMode) {
-            isEditMode = true;
-
-            for (ObjectPageAttributeElementsContainer container : uiElements) {
-                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
-            }
-
-            editButton.setText("Save");
-        } else {
-            isEditMode = false;
-
-            for (ObjectPageAttributeElementsContainer container : uiElements) {
-                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
-            }
-
-            controller.setValuesOfObject(careOffer);
-            controller.updateValuesFromObject(careOffer);
-            editButton.setText("Edit");
-        }
-    }
+//    private void changeEditView(Button editButton) {
+//        DialogHelper.showAlertDialog(Alert.AlertType.INFORMATION, LanguageHelper.getString("sign_up_child"), LanguageHelper.getString("edit_functionality_not_implemented"));
+//        if (!isEditMode) {
+//            isEditMode = true;
+//
+//            for (ObjectPageAttributeElementsContainer container : uiElements) {
+//                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
+//            }
+//
+//            editButton.setText("Save");
+//        } else {
+//            isEditMode = false;
+//
+//            for (ObjectPageAttributeElementsContainer container : uiElements) {
+//                toggleEditModeOfAttribute(container.initialUiNode, container.editModeUiNode);
+//            }
+//
+//            controller.setValuesOfObject(careOffer);
+//            controller.updateValuesFromObject(careOffer);
+//            editButton.setText("Edit");
+//        }
+//    }
 
     /**
      * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
@@ -374,17 +375,17 @@ public class CareOfferView extends VBox {
      * @param value         the attribute node
      * @param valueEditNode the edit node of the attribute
      */
-    private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
-        toggleVisibilityOfNode(value);
-        toggleVisibilityOfNode(valueEditNode);
-    }
+//    private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
+//        toggleVisibilityOfNode(value);
+//        toggleVisibilityOfNode(valueEditNode);
+//    }
 
     /**
      * Toggles the visibility of a given node.
      *
      * @param node the node to toggle visibility
      */
-    private void toggleVisibilityOfNode(Node node) {
-        node.setVisible(!node.isVisible());
-    }
+//    private void toggleVisibilityOfNode(Node node) {
+//        node.setVisible(!node.isVisible());
+//    }
 }
