@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CareOfferDAOTest {
 
+    // test
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         // Perform setup tasks before running tests, like setting up a test database
