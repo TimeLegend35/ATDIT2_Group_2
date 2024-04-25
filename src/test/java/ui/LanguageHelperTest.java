@@ -32,7 +32,7 @@ public class LanguageHelperTest {
     public void testGetString (){
         // Assemble
         LanguageHelper.setLocale("Deutsch");
-        String key = "username";
+        String key = "login_username";
         // Act
         String result = LanguageHelper.getString(key);
         // Assert

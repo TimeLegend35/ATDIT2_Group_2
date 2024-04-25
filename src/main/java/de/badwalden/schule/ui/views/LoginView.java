@@ -44,19 +44,19 @@ public class LoginView extends BorderPane {
         scenetitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
 //        userNameLabel = new Text("Benutzername:");
-        userNameLabel = new Text(LanguageHelper.getString("username") + ":");
+        userNameLabel = new Text(LanguageHelper.getString("login_username") + ":");
         userNameTextField = new TextField();
-        userNameTextField.setPromptText(LanguageHelper.getString("username"));
+        userNameTextField.setPromptText(LanguageHelper.getString("login_username"));
         userNameTextField.setMaxWidth(200);
 
-        passwordLabel = new Text(LanguageHelper.getString("password") + ":");
+        passwordLabel = new Text(LanguageHelper.getString("login_password") + ":");
         passwordField = new PasswordField();
-        passwordField.setPromptText(LanguageHelper.getString("password"));
+        passwordField.setPromptText(LanguageHelper.getString("login_password"));
         passwordField.setMaxWidth(200);
 
-        stayLoggedInCheckBox = new CheckBox(LanguageHelper.getString("stayLoggedIn"));
+        stayLoggedInCheckBox = new CheckBox(LanguageHelper.getString("login_stayLoggedIn"));
 
-        signInButton = new Button(LanguageHelper.getString("signIn"));
+        signInButton = new Button(LanguageHelper.getString("login_signIn"));
         signInButton.setDefaultButton(true);
         signInButton.setOnAction(event -> loginController.handleLoginButtonPressed());
 
@@ -71,12 +71,12 @@ public class LoginView extends BorderPane {
     }
 
     public void updateTextsFromResourceBundle() {
-        userNameLabel.setText(LanguageHelper.getString("username"));
-        userNameTextField.setPromptText(LanguageHelper.getString("username"));
-        passwordLabel.setText(LanguageHelper.getString("password"));
-        passwordField.setPromptText(LanguageHelper.getString("password"));
-        stayLoggedInCheckBox.setText(LanguageHelper.getString("stayLoggedIn"));
-        signInButton.setText(LanguageHelper.getString("signIn"));
+        userNameLabel.setText(LanguageHelper.getString("login_username"));
+        userNameTextField.setPromptText(LanguageHelper.getString("login_username"));
+        passwordLabel.setText(LanguageHelper.getString("login_password"));
+        passwordField.setPromptText(LanguageHelper.getString("login_password"));
+        stayLoggedInCheckBox.setText(LanguageHelper.getString("login_stayLoggedIn"));
+        signInButton.setText(LanguageHelper.getString("login_signIn"));
     }
 
     public TextField getUserNameTextField() {

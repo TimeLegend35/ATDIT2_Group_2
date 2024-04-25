@@ -83,7 +83,7 @@ public class CareOfferView extends VBox {
      * @return HBox containing navigation buttons.
      */
     private HBox createTopContainer() {
-        Button backButton = new Button(LanguageHelper.getString("return_button"));
+        Button backButton = new Button(LanguageHelper.getString("return"));
         backButton.setId("back");
         backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
 
@@ -102,7 +102,7 @@ public class CareOfferView extends VBox {
      */
     private void addEditButtonIfNeeded(HBox container) {
         if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
-            Button editButton = new Button(LanguageHelper.getString("edit_button"));
+            Button editButton = new Button(LanguageHelper.getString("edit"));
             editButton.setId(String.valueOf(careOffer.getId()));
 //            editButton.setOnAction(event -> this.changeEditView(editButton));
             container.getChildren().add(editButton);

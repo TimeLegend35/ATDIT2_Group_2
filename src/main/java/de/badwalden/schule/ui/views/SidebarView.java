@@ -31,34 +31,34 @@ public class SidebarView extends VBox {
 
         getChildren().add(titleLabel);
 
-        Label schoolLabel = new Label(LanguageHelper.getString("school"));
+        Label schoolLabel = new Label(LanguageHelper.getString("sidebar_school"));
         schoolLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
         // You might want to add a style class to your buttons for CSS styling
-        Button calendarButton = new Button(LanguageHelper.getString("calendar"));
+        Button calendarButton = new Button(LanguageHelper.getString("sidebar_calendar"));
         calendarButton.setId("Kalender");
-        Button gradesButton = new Button(LanguageHelper.getString("grades"));
+        Button gradesButton = new Button(LanguageHelper.getString("sidebar_grades"));
         gradesButton.setId("Noten");
-        Button absencesButton = new Button(LanguageHelper.getString("sick_note"));
+        Button absencesButton = new Button(LanguageHelper.getString("sidebar_sick_note"));
         absencesButton.setId("Krankmeldungen");
-        Button classButton = new Button(LanguageHelper.getString("class"));
+        Button classButton = new Button(LanguageHelper.getString("sidebar_class"));
         classButton.setId("Klasse");
 
-        Label careLabel = new Label(LanguageHelper.getString("care_offer"));
+        Label careLabel = new Label(LanguageHelper.getString("sidebar_care_offer"));
         careLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button betreuungsmarktplatzButton = new Button(LanguageHelper.getString("care_offer_market_place"));
+        Button betreuungsmarktplatzButton = new Button(LanguageHelper.getString("sidebar_care_offer_market_place"));
         betreuungsmarktplatzButton.setId("Betreuungsmarktplatz");
 
-        Label notificationLabel = new Label(LanguageHelper.getString("notifications"));
+        Label notificationLabel = new Label(LanguageHelper.getString("sidebar_notifications"));
         notificationLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button notificationsButton = new Button(LanguageHelper.getString("notifications"));
+        Button notificationsButton = new Button(LanguageHelper.getString("sidebar_notifications"));
         notificationsButton.setId("Benachrichtigungen");
 
-        Label organizationalLabel = new Label(LanguageHelper.getString("organisation"));
+        Label organizationalLabel = new Label(LanguageHelper.getString("sidebar_organisation"));
         organizationalLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Button registrationButton = new Button(LanguageHelper.getString("school_registration"));
+        Button registrationButton = new Button(LanguageHelper.getString("sidebar_school_registration"));
         registrationButton.setId("Schulanmeldung");
-        Button deregistrationButton = new Button(LanguageHelper.getString("school_cancellation"));
+        Button deregistrationButton = new Button(LanguageHelper.getString("sidebar_school_cancellation"));
         deregistrationButton.setId("Schulabmeldung");
 
         getChildren().addAll(
@@ -95,7 +95,7 @@ public class SidebarView extends VBox {
         nameLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
         // Logout button
-        Button logoutButton = new Button(LanguageHelper.getString("logout"));
+        Button logoutButton = new Button(LanguageHelper.getString("sidebar_logout"));
         logoutButton.getStyleClass().add("logout-button");
         logoutButton.setId("logoutButton");
         // Session should be reseted here!!!

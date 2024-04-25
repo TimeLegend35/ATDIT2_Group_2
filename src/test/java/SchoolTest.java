@@ -154,7 +154,7 @@ public class SchoolTest {
     public void testGetString (){
         //assemble
         LanguageHelper.setLocale("Deutsch");
-        String key = "username";
+        String key = "login_username";
         //act
         String result = LanguageHelper.getString(key);
         //assert
