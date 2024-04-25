@@ -1,7 +1,9 @@
 package de.badwalden.schule.dao;
 
 import de.badwalden.schule.model.Student;
+import de.badwalden.schule.ui.helper.DialogHelper;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,9 +12,12 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBConnector {
 
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private Connection connection;
     private static DBConnector instance;
 
@@ -32,18 +37,26 @@ public class DBConnector {
         String large_url = dotenv.get("CONNECTION_URL");
 
         try {
-            return DriverManager.getConnection(large_url);
+            if (large_url != null) {
+                return DriverManager.getConnection(large_url);
+            } else {
+                throw new SQLException("CONNECTION_URL is null");
+            }
         } catch (SQLException e) {
-            System.out.println("Failed to establish connection. 10 sec Timeout");
+            logger.log(Level.SEVERE, "Failed to establish connection. 10 sec Timeout", e);
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Failed to establish a connection. Trying again in 15 seconds. If the Error persists, please contact the Administrator.");
+
             try {
                 // Pause execution for 10 seconds (10,000 milliseconds)
                 Thread.sleep(10000);
             } catch (InterruptedException e2) {
                 // This block is executed if the sleep is interrupted
-                System.err.println("Sleep was interrupted");
+                logger.log(Level.SEVERE, "Sleep was interrupted", e2);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Sleep was interrupted. If the Error persists, please contact the Administrator.");
             }
-            e.printStackTrace();
+
             this.connect();
+
             return null;
         }
     }
@@ -52,18 +65,16 @@ public class DBConnector {
         try {
             this.connection.close();
         } catch (SQLException e) {
-            System.out.println("Failed to close connection");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Failed to close connection", e);
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Failed to close the connection. If the Error persists, please contact the Administrator.");
         }
-
     }
 
     public List<Object[]> executeQuery(String sql) {
         List<Object[]> results = new ArrayList<>();
 
         if (this.connection != null) {
-            try (Statement stmt = this.connection.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
+            try (Statement stmt = this.connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
                 int columnCount = rs.getMetaData().getColumnCount();
 
@@ -76,18 +87,19 @@ public class DBConnector {
                 }
 
             } catch (SQLException e) {
-                System.out.println("Error executing query");
-                e.printStackTrace();
-               }
+                logger.log(Level.SEVERE, "Error executing query", e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing data query. If the Error persists, please contact the Administrator.");
+            }
         }
+
         return results;
     }
 
     /**
      * Executes an update SQL statement.
      *
-     * @param  sql   the SQL statement to be executed
-     * @return      the number of rows affected by the update
+     * @param sql the SQL statement to be executed
+     * @return the number of rows affected by the update
      */
     public int executeUpdate(String sql) {
         if (this.connection != null) {
@@ -95,7 +107,8 @@ public class DBConnector {
                 return stmt.executeUpdate(sql);
             } catch (SQLException e) {
                 System.out.println("Error executing update");
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Error executing update", e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing update. If the Error persists, please contact the Administrator.");
             }
         }
         return 0;

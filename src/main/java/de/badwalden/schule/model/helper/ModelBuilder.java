@@ -23,6 +23,7 @@ public class ModelBuilder {
      * @return     the Parent instance with the data
      */
     public static Parent buildModelFromParent(int id) {
+
         // pull multiple access object like CareOffers
         List<Object[]> results = careOfferDao.getAllCareOffers();
 

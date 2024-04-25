@@ -7,7 +7,7 @@ public class CareOfferDAO implements DatabaseInteractions {
 
     @Override
     public List<Object[]> get(int careOfferId) {
-        // edit SQL query to fit database ERM
+
         List<Object[]> results = dbConnection.executeQuery("Select * FROM care_offers WHERE care_offer_id=" + careOfferId);
 
         // only one care offer should be returned
