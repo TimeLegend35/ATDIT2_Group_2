@@ -9,20 +9,20 @@ Lastly, Azure eliminates the necessity for hardware and related maintenance cost
 Here is the Set up SQL Code to create the tables
 
 `````
--- Create class_levels table
-CREATE TABLE class_levels (
+-- Create class_level table
+CREATE TABLE class_level (
                               class_level INT PRIMARY KEY,
                               class_size INT
 );
 -- Create employees table
-CREATE TABLE employees (
+CREATE TABLE employee (
                            employee_number INT PRIMARY KEY,
                            given_name VARCHAR(255),
                            surname VARCHAR(255)
 );
 
 -- Create children table
-CREATE TABLE children (
+CREATE TABLE child (
                           student_id INT PRIMARY KEY,
                           class_year INT,
                           given_name VARCHAR(255),
@@ -33,14 +33,14 @@ CREATE TABLE children (
                           FOREIGN KEY (class_year) REFERENCES class_levels (class_level)
 );
 
--- Create parents table
+-- Create parent table
 CREATE TABLE parents (
                          parent_id INT PRIMARY KEY,
                          given_name VARCHAR(255),
                          surname VARCHAR(255),
                          city_of_residence VARCHAR(255)
 );
--- Create care_offers table
+-- Create care_offer table
 CREATE TABLE care_offers (
                              care_offer_id INT PRIMARY KEY,
                              supervisor_employee_number INT,
