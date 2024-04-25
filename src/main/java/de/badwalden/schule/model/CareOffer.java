@@ -1,6 +1,13 @@
 package de.badwalden.schule.model;
 
-public class CareOffer extends Service{
+import de.badwalden.schule.dao.CareOfferDAO;
+import kotlin.collections.ArrayDeque;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CareOffer extends Service implements ModelSyncRequirements {
+        final static CareOfferDAO careOfferDao = new CareOfferDAO();
 
         public CareOffer(int id, Supervisor supervisor, int oldestClassLevel, int youngestClassLevel, String careOfferName, String description, int seatsAvailable) {
         super();
@@ -12,7 +19,26 @@ public class CareOffer extends Service{
         this.setName(careOfferName);
         this.setDescription(description);
         this.setSeatsAvailable(seatsAvailable);
-    }
+        }
 
+        @Override
+        public void update() {
+                List<Object[]> list = new ArrayList<>();
+                list.add(toObjectArray());
+                careOfferDao.write(list);
+        }
 
+        // Method to convert CareOffer properties to an Object array
+        @Override
+        public Object[] toObjectArray() {
+                return new Object[]{
+                        this.getMainSupervisor().getId(), // Assuming Supervisor class has this method
+                        this.getOldestGrade(),
+                        this.getYoungestGrade(),
+                        this.getName(),
+                        this.getDescription(),
+                        this.getSeatsAvailable(),
+                        this.getId() // Assuming order is as required by SQL statement
+                };
+        }
 }

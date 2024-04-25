@@ -1,6 +1,7 @@
 package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.dao.CareOfferDAO;
+import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
@@ -18,7 +19,6 @@ import javafx.util.Duration;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
-    private static final CareOfferDAO careOfferDao = new CareOfferDAO();
 
     public CareOfferController(CareOfferView careOfferView) {
         this.careOfferView = careOfferView;
@@ -32,15 +32,11 @@ public class CareOfferController implements DataController {
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
         if (student.isRegisteredForOffer(careOffer)) {
-            student.getServiceList().remove(careOffer);
-            higherSeatsAvailable(careOffer);
-            careOfferDao.removeChildFromCareOffer(student.getId(), careOffer.getId());
+            student.dergisterStudentFromService(careOffer);
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
             pauseButton(dialogRegistrationButton, 2);
         } else {
-            student.getServiceList().add(careOffer);
-            careOfferDao.addChildtoCareoffer(student.getId(), careOffer.getId());
-            lowerSeatsAvailable(careOffer);
+            student.registerStudentFromService(careOffer);
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
             pauseButton(dialogRegistrationButton, 2);
         }
@@ -48,14 +44,9 @@ public class CareOfferController implements DataController {
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
         if (student.isRegisteredForOffer(careOffer)) {
-            student.getServiceList().remove(careOffer);
-            careOfferDao.removeChildFromCareOffer(student.getId(), careOffer.getId());
-            higherSeatsAvailable(careOffer);
+            student.dergisterStudentFromService(careOffer);
         } else {
-            student.getServiceList().add(careOffer);
-            student.getServiceList().add(careOffer);
-            careOfferDao.addChildtoCareoffer(student.getId(), careOffer.getId());
-            lowerSeatsAvailable(careOffer);
+            student.registerStudentFromService(careOffer);
         }
     }
 

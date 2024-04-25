@@ -7,6 +7,7 @@ import de.badwalden.schule.model.outOfScope.Subject;
 import java.util.List;
 
 public class Student extends User {
+    private static final StudentDAO studentDao = new StudentDAO();
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private Sclass sclass;
@@ -35,6 +36,28 @@ public class Student extends User {
     @Override
     public String toString() {
         return getFirstName(); // Assuming getFirstName() returns the first name of the user
+    }
+
+    public void dergisterStudentFromService(CareOffer careOfferToRemove) {
+        if (studentDao.removeChildFromCareOffer(careOfferToRemove.getId(), this.getId())) {
+            this.serviceList.remove(careOfferToRemove);
+            // set new seats available for CareOffer
+            careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
+        }
+        else {
+            System.out.println("Deregistration for Student failed!!!");
+        }
+    }
+
+    public void registerStudentFromService(CareOffer careOfferToAdd) {
+        if (studentDao.addChildtoCareoffer(careOfferToAdd.getId(), this.getId())) {
+            this.serviceList.add(careOfferToAdd);
+            // set new seats available for CareOffer
+            careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
+        }
+        else {
+            System.out.println("Registration for Student failed!!!");
+        }
     }
 
     public boolean isCompulsorySchooling() {

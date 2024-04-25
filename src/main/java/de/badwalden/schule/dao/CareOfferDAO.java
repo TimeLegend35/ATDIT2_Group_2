@@ -21,7 +21,19 @@ public class CareOfferDAO implements DatabaseInteractions {
 
     @Override
     public void write(List<Object[]> targets) {
+        for (Object[] careOffer : targets) {
+            /// SQL statement for updating entries in the care_offers table
+            String sql = "UPDATE care_offers SET " +
+                    "supervisor_employee_number = " + careOffer[0] + ", " +
+                    "oldest_class_level = " + careOffer[1] + ", " +
+                    "youngest_class_level = " + careOffer[2] + ", " +
+                    "care_offer_name = " + careOffer[3] + ", " +
+                    "description = ?, " + careOffer[4] + ", " +
+                    "places_available = ? " + careOffer[5] + ", " +
+                    "WHERE care_offer_id = " + careOffer[6];
 
+            dbConnection.executeUpdate(sql);
+        }
     }
 
     public List<Object[]> getCareOffersIdsForStudent(int studentId) {
@@ -56,27 +68,5 @@ public class CareOfferDAO implements DatabaseInteractions {
 
         return results;
     }
-
-
-    public void removeChildFromCareOffer(int student_ID, int careOffer_ID) {
-        try {
-            dbConnection.executeUpdate("DELETE FROM child_care_offer_assignment WHERE student_id = " + student_ID + " AND care_offer_id = " + careOffer_ID);
-
-        } catch (Exception e) {
-            System.err.println("Remove Child From Care Offer" + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public void addChildtoCareoffer(int student_ID, int careOffer_ID) {
-        try {
-            dbConnection.executeUpdate("Insert Into child_care_offer_assignment (student_id, care_offer_id) Values (" + student_ID + "," + careOffer_ID + ")");
-
-        } catch (Exception e) {
-            System.err.println("add Child From Care Offer" + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
 
 }
