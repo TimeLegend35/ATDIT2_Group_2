@@ -43,6 +43,7 @@ public class Student extends User {
             this.serviceList.remove(careOfferToRemove);
             // set new seats available for CareOffer
             careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
+            careOfferToRemove.update();
         }
         else {
             System.out.println("Deregistration for Student failed!!!");
@@ -54,6 +55,7 @@ public class Student extends User {
             this.serviceList.add(careOfferToAdd);
             // set new seats available for CareOffer
             careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
+            careOfferToAdd.update();
         }
         else {
             System.out.println("Registration for Student failed!!!");

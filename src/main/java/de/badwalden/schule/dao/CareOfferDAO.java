@@ -27,11 +27,12 @@ public class CareOfferDAO implements DatabaseInteractions {
                     "supervisor_employee_number = " + careOffer[0] + ", " +
                     "oldest_class_level = " + careOffer[1] + ", " +
                     "youngest_class_level = " + careOffer[2] + ", " +
-                    "care_offer_name = " + careOffer[3] + ", " +
-                    "description = ?, " + careOffer[4] + ", " +
-                    "places_available = ? " + careOffer[5] + ", " +
-                    "WHERE care_offer_id = " + careOffer[6];
+                    "care_offer_name = '" + careOffer[3] + "', " +
+                    "description = '" + careOffer[4] + "', " +
+                    "places_available = " + careOffer[5] +
+                    " WHERE care_offer_id = " + careOffer[6];
 
+            System.out.println(sql);
             dbConnection.executeUpdate(sql);
         }
     }
