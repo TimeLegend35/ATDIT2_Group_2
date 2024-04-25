@@ -64,7 +64,9 @@ public class NavigationHelper {
         Node contentView = switch (viewId) {
             case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
 
-            // ... more cases for other views
+            // MOCKUPS
+            case "Kalender" -> new ImageViewMockup("src/main/resources/images/Kalender Mockup.png");
+            case "Noten" -> new ImageViewMockup("src/main/resources/images/Noten Mockup.png");
 
             default -> new VBox(new Text("View not implemented."));
         };
