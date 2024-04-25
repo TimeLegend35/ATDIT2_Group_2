@@ -34,8 +34,16 @@ public class DBConnector {
         try {
             return DriverManager.getConnection(large_url);
         } catch (SQLException e) {
-            System.out.println("Failed to establish connection");
+            System.out.println("Failed to establish connection. 10 sec Timeout");
+            try {
+                // Pause execution for 10 seconds (10,000 milliseconds)
+                Thread.sleep(10000);
+            } catch (InterruptedException e2) {
+                // This block is executed if the sleep is interrupted
+                System.err.println("Sleep was interrupted");
+            }
             e.printStackTrace();
+            this.connect();
             return null;
         }
     }
