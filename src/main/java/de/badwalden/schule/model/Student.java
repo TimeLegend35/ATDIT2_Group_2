@@ -51,7 +51,7 @@ public class Student extends User {
     }
 
     public void registerStudentFromService(CareOffer careOfferToAdd) {
-        if (studentDao.addChildtoCareoffer(careOfferToAdd.getId(), this.getId())) {
+        if (studentDao.addChildToCareOffer(careOfferToAdd.getId(), this.getId())) {
             this.serviceList.add(careOfferToAdd);
             // set new seats available for CareOffer
             careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);

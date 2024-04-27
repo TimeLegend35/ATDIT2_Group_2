@@ -95,7 +95,7 @@ public class ModelBuilder {
     }
 
     private static CareOffer buildCareOffer(Object[] row) {
-        System.out.println("ModelBuilder: Created Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
+        System.out.println("ModelBuilder: Loaded Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
 
         int id = (int) row[0];
         int supervisorId = (int) row[1];

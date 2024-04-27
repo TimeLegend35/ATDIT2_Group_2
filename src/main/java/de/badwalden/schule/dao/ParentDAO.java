@@ -4,22 +4,22 @@ import java.util.List;
 
 public class ParentDAO implements DatabaseInteractions{
     @Override
-    public List<Object[]> get(int parentId) {
-        // edit SQL query to fit database ERM
-        List<Object[]> results = dbConnection.executeQuery("Select * FROM parents WHERE parent_id = " + parentId);
+    public List<Object[]> get(int parentId) throws RuntimeException {
+        String sql = "SELECT * FROM parents WHERE parent_id = ?";
+        List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{parentId});
 
-        // only one parent should be returned
+        // Check if exactly one parent is returned
         if (results.size() != 1) {
-            // throw exception
-            System.out.println("Error: More or less than one parent!!! throw exception here");
+            throw new RuntimeException("Error: Expected one parent, found " + results.size());
         }
 
         return results;
     }
 
+
     @Override
     public void write(List<Object[]> targets) {
-
+        // out of scope for use case
     }
 
 }

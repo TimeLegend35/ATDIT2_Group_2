@@ -5,11 +5,7 @@ import de.badwalden.schule.ui.helper.DialogHelper;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.scene.control.Alert;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -55,6 +51,7 @@ public class DBConnector {
                 DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Sleep was interrupted. If the Error persists, please contact the Administrator.");
             }
 
+            this.close();
             this.connect();
 
             return null;
@@ -70,30 +67,32 @@ public class DBConnector {
         }
     }
 
-    public List<Object[]> executeQuery(String sql) {
+    public List<Object[]> executeQuery(String sql, Object[] params) {
         List<Object[]> results = new ArrayList<>();
 
         if (this.connection != null) {
-            try (Statement stmt = this.connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-
-                int columnCount = rs.getMetaData().getColumnCount();
-
-                while (rs.next()) {
-                    Object[] row = new Object[columnCount];
-                    for (int i = 0; i < columnCount; i++) {
-                        row[i] = rs.getObject(i + 1); // ResultSet uses 1-based indexing for columns
-                    }
-                    results.add(row);
+            try (PreparedStatement pstmt = this.connection.prepareStatement(sql)) {
+                for (int i = 0; i < params.length; i++) {
+                    pstmt.setObject(i + 1, params[i]); // Set parameters for the prepared statement
                 }
-
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    int columnCount = rs.getMetaData().getColumnCount();
+                    while (rs.next()) {
+                        Object[] row = new Object[columnCount];
+                        for (int i = 0; i < columnCount; i++) {
+                            row[i] = rs.getObject(i + 1);
+                        }
+                        results.add(row);
+                    }
+                }
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "Error executing query", e);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing data query. If the Error persists, please contact the Administrator.");
+                logger.log(Level.SEVERE, "Error executing query with prepared statement", e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing data query with prepared statement. If the Error persists, please contact the Administrator.");
             }
         }
-
         return results;
     }
+
 
     /**
      * Executes an update SQL statement.
@@ -101,18 +100,22 @@ public class DBConnector {
      * @param sql the SQL statement to be executed
      * @return the number of rows affected by the update
      */
-    public int executeUpdate(String sql) {
+    public int executeUpdate(String sql, Object[] params) {
         if (this.connection != null) {
-            try (Statement stmt = this.connection.createStatement()) {
-                return stmt.executeUpdate(sql);
+            try (PreparedStatement pstmt = this.connection.prepareStatement(sql)) {
+                for (int i = 0; i < params.length; i++) {
+                    pstmt.setObject(i + 1, params[i]);
+                }
+                return pstmt.executeUpdate();
             } catch (SQLException e) {
-                System.out.println("Error executing update");
-                logger.log(Level.SEVERE, "Error executing update", e);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing update. If the Error persists, please contact the Administrator.");
+                System.out.println("Error executing update with prepared statement");
+                logger.log(Level.SEVERE, "Error executing update with prepared statement", e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing update with prepared statement. If the Error persists, please contact the Administrator.");
             }
         }
         return 0;
     }
+
 
 
 }

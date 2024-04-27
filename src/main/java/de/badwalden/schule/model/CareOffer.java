@@ -19,6 +19,7 @@ public class CareOffer extends Service implements ModelSyncRequirements {
         this.setName(careOfferName);
         this.setDescription(description);
         this.setSeatsAvailable(seatsAvailable);
+
         }
 
         @Override
