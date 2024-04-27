@@ -1,5 +1,7 @@
 package de.badwalden.schule.ui.helper;
 
+import java.util.NoSuchElementException;
+
 public enum Language {
     GERMAN("\uD83C\uDDE9\uD83C\uDDEA | Deutsch", "de", "DE"),
     ENGLISH("\uD83C\uDDFA\uD83C\uDDF8 | English", "en", "US"),
@@ -26,12 +28,12 @@ public enum Language {
 
     public String getCountry() { return country; }
 
-    public static Language getLanguage(String id) {
+    public static Language getLanguage(String id) throws NoSuchElementException {
         for(Language language : values()) {
             if(language.getId().equals(id)) {
                 return language;
             }
         };
-        return Language.GERMAN; // Could also throw an exception todo
+        throw new NoSuchElementException("Language with ID '" + id + "' not found");
     }
 }

@@ -1,6 +1,8 @@
 package de.badwalden.schule.ui.views;
 
+import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.Language;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import javafx.collections.FXCollections;
@@ -14,7 +16,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class LoginView extends BorderPane {
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private final LoginController loginController = new LoginController(this);
     private ComboBox<String> languageComboBox;
     public Text userNameLabel;
@@ -107,8 +114,13 @@ public class LoginView extends BorderPane {
         // Add a listener to update the language when the selected language changes
         languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                // Pass the selected language to the helper
-                loginController.handleLanguageChange(Language.getLanguage(newVal));
+                try {
+                    // Pass the selected language to the helper
+                    loginController.handleLanguageChange(Language.getLanguage(newVal));
+                } catch (NoSuchElementException e) {
+                    logger.log(Level.SEVERE, "Error handling the language change", e);
+                    DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Language Change Error", "Error handling the language change. If the Error persists, please contact the Administrator.");
+                }
             }
         });
 
