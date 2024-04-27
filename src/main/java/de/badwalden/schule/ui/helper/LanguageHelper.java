@@ -9,19 +9,7 @@ public class LanguageHelper {
 
     public static void setLocale(Language language) {
         System.out.println("Language: " + language.toString());
-        switch (language) {
-            case GERMAN:
-                locale = new Locale("de", "DE");
-                break;
-            case ENGLISH:
-                locale = new Locale("en", "US");
-                break;
-            case FRENCH:
-                locale = new Locale("fr", "FR");
-                break;
-            default:
-                locale = new Locale("en", "US");
-        }
+        locale = new Locale(language.getId(), language.getCountry());
     }
 
     public static String getString(String key) {
