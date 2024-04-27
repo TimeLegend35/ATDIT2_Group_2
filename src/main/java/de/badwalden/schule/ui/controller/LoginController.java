@@ -2,6 +2,7 @@ package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.Main;
 import de.badwalden.schule.model.User;
+import de.badwalden.schule.ui.helper.Language;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.LoginHelper;
 import de.badwalden.schule.ui.helper.DialogHelper;
@@ -20,9 +21,9 @@ public class LoginController {
         this.loginView = loginView;
     }
 
-    public void handleLoginButtonPressed() {
+    public void handleLoginButtonPressed(String username, String password) {
         // authenticate user
-        boolean login = LoginHelper.authenticate(loginView.getUserNameTextField().getText(), loginView.getPasswordField().getText());
+        boolean login = LoginHelper.authenticate(username, password);
         if(login) {
             showMainView();
         }
@@ -32,15 +33,9 @@ public class LoginController {
         navigationHelper.navigateTo("MainView");
     }
 
-    public void handleLanguageChange(String newLanguage) {
-        // For demonstration, print the selected language
-        System.out.println("Language selected: " + newLanguage);
+    public void handleLanguageChange(Language newLanguage) {
         LanguageHelper.setLocale(newLanguage);
         loginView.updateTextsFromResourceBundle();
-    }
-
-    public LoginView getLoginView() {
-        return loginView;
     }
 }
 

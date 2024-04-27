@@ -7,15 +7,16 @@ public class LanguageHelper {
 
     public static Locale locale;
 
-    public static void setLocale(String language) {
+    public static void setLocale(Language language) {
+        System.out.println("Language: " + language.toString());
         switch (language) {
-            case "English":
-                locale = new Locale("en", "US");
-                break;
-            case "Deutsch":
+            case GERMAN:
                 locale = new Locale("de", "DE");
                 break;
-            case "Français":
+            case ENGLISH:
+                locale = new Locale("en", "US");
+                break;
+            case FRENCH:
                 locale = new Locale("fr", "FR");
                 break;
             default:
