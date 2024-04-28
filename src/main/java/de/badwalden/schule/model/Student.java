@@ -6,7 +6,7 @@ import de.badwalden.schule.model.outOfScope.Subject;
 
 import java.util.List;
 
-public class Student extends User {
+public class Student extends User implements ModelSyncRequirements {
     private static final StudentDAO studentDao = new StudentDAO();
     private boolean compulsorySchooling;
     private boolean rightOfService;
@@ -44,8 +44,7 @@ public class Student extends User {
             // set new seats available for CareOffer
             careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
             careOfferToRemove.update();
-        }
-        else {
+        } else {
             System.out.println("Deregistration for Student failed!!!");
         }
     }
@@ -56,8 +55,7 @@ public class Student extends User {
             // set new seats available for CareOffer
             careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
             careOfferToAdd.update();
-        }
-        else {
+        } else {
             System.out.println("Registration for Student failed!!!");
         }
     }
@@ -69,6 +67,8 @@ public class Student extends User {
     public void setCompulsorySchooling(boolean compulsorySchooling) {
         this.compulsorySchooling = compulsorySchooling;
     }
+
+    public boolean getCompulsorySchooling() {return this.compulsorySchooling; }
 
     public void setClassYear(int class_year) {
         this.classYear = class_year;
@@ -82,8 +82,10 @@ public class Student extends User {
         this.age = age;
     }
 
+    public int getAge() { return this.age; }
+
     public boolean isRightOfService(CareOffer careOffer) {
-        if(this.getClassYear() >= careOffer.getYoungestGrade() && this.getClassYear() <= careOffer.getOldestGrade() && this.rightOfService) {
+        if (this.getClassYear() >= careOffer.getYoungestGrade() && this.getClassYear() <= careOffer.getOldestGrade() && this.rightOfService && careOffer.getSeatsAvailable() > 0) {
             return true;
         } else {
             return false;
@@ -93,6 +95,8 @@ public class Student extends User {
     public void setRightOfService(boolean rightOfService) {
         this.rightOfService = rightOfService;
     }
+
+    public boolean getRightOfService() { return this.rightOfService; }
 
     public List<Service> getServiceList() {
         return serviceList;
@@ -111,4 +115,21 @@ public class Student extends User {
         return false;
     }
 
+    @Override
+    public void update() {
+        // split into 2 parts
+    }
+
+    @Override
+    public Object[] toObjectArray() {
+        return new Object[]{
+                this.getId(),
+                this.getClassYear(),
+                this.getFirstName(),
+                this.getLastName(),
+                this.getAge(),
+                this.getCompulsorySchooling(),
+                this.getRightOfService()
+        };
+    }
 }
