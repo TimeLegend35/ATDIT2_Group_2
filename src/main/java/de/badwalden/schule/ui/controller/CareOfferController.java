@@ -34,12 +34,12 @@ public class CareOfferController implements DataController {
         if (student.isRegisteredForOffer(careOffer)) {
             student.dergisterStudentFromService(careOffer);
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
-            pauseButton(dialogRegistrationButton, 2);
         } else {
             student.registerStudentFromService(careOffer);
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
-            pauseButton(dialogRegistrationButton, 2);
         }
+        pauseButton(dialogRegistrationButton, 2);
+        updateValuesFromObject(careOffer);
     }
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
@@ -54,14 +54,6 @@ public class CareOfferController implements DataController {
         return student.isRightOfService(careOffer);
     }
 
-    private void lowerSeatsAvailable(CareOffer careOffer) {
-        careOffer.setSeatsAvailable(careOffer.getSeatsAvailable() - 1);
-    }
-
-    public void higherSeatsAvailable(CareOffer careOffer) {
-        careOffer.setSeatsAvailable(careOffer.getSeatsAvailable() + 1);
-    }
-
     public void pauseButton(Button button, int seconds) {
         // Disable the button
         button.setDisable(true);
@@ -74,20 +66,6 @@ public class CareOfferController implements DataController {
 
         // Start the pause transition
         pause.play();
-    }
-
-
-    /**
-     * Sets the values of a CareOffer object based on the input from a CareOfferView.
-     *
-     * @param careOffer the CareOffer object to set values for
-     */
-    public void setValuesOfObject(CareOffer careOffer) {
-        careOffer.setName(careOfferView.titleTextField.getText());
-        careOffer.setDescription(careOfferView.descriptionTextField.getText());
-        careOffer.setSeatsAvailable(Integer.parseInt(careOfferView.seatsAvailableTextField.getText()));
-        careOffer.setYoungestGrade(Integer.parseInt(careOfferView.youngestGradeTextField.getText()));
-        careOffer.setOldestGrade(Integer.parseInt(careOfferView.oldestGradeTextField.getText()));
     }
 
     /**
@@ -108,4 +86,16 @@ public class CareOfferController implements DataController {
         careOfferView.oldestGradeTextField.setText(String.valueOf(careOffer.getOldestGrade()));
     }
 
+//    /**
+//     * Sets the values of a CareOffer object based on the input from a CareOfferView.
+//     *
+//     * @param careOffer the CareOffer object to set values for
+//     */
+//    public void setValuesOfObject(CareOffer careOffer) {
+//        careOffer.setName(careOfferView.titleTextField.getText());
+//        careOffer.setDescription(careOfferView.descriptionTextField.getText());
+//        careOffer.setSeatsAvailable(Integer.parseInt(careOfferView.seatsAvailableTextField.getText()));
+//        careOffer.setYoungestGrade(Integer.parseInt(careOfferView.youngestGradeTextField.getText()));
+//        careOffer.setOldestGrade(Integer.parseInt(careOfferView.oldestGradeTextField.getText()));
+//    }
 }
