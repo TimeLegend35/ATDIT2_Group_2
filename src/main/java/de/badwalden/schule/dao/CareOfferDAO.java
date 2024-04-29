@@ -1,5 +1,7 @@
 package de.badwalden.schule.dao;
 
+import de.badwalden.schule.exception.UnexpectedResultsException;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,14 +10,14 @@ public class CareOfferDAO implements DatabaseInteractions {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
 
     @Override
-    public List<Object[]> get(int careOfferId) throws RuntimeException {
+    public List<Object[]> get(int careOfferId) throws UnexpectedResultsException {
         String sql = "SELECT * FROM care_offers WHERE care_offer_id = ?";
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{careOfferId});
 
         // only one care offer should be returned
         if (results.size() != 1) {
             // throw exception
-            throw new RuntimeException("Error: More than one or no care offer found!");
+            throw new UnexpectedResultsException("Error: More than one or no care offer found!", results.size());
         }
 
         return results;

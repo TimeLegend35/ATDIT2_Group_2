@@ -40,7 +40,7 @@ public class CareOfferController implements DataController {
             student.update();
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
         }
-        pauseButton(dialogRegistrationButton, 2);
+        pauseButton(dialogRegistrationButton, 15);
         updateValuesFromObject(careOffer);
     }
 
