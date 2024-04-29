@@ -32,10 +32,12 @@ public class CareOfferController implements DataController {
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
         if (student.isRegisteredForOffer(careOffer)) {
-            student.dergisterStudentFromService(careOffer);
+            student.getServiceList().remove(careOffer);
+            student.update();
             dialogRegistrationButton.setText(LanguageHelper.getString("add_child"));
         } else {
-            student.registerStudentFromService(careOffer);
+            student.getServiceList().add(careOffer);
+            student.update();
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
         }
         pauseButton(dialogRegistrationButton, 2);
@@ -44,9 +46,11 @@ public class CareOfferController implements DataController {
 
     public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
         if (student.isRegisteredForOffer(careOffer)) {
-            student.dergisterStudentFromService(careOffer);
+            student.getServiceList().remove(careOffer);
+            student.update();
         } else {
-            student.registerStudentFromService(careOffer);
+            student.getServiceList().add(careOffer);
+            student.update();
         }
     }
 

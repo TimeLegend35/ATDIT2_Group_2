@@ -1,9 +1,11 @@
 package de.badwalden.schule.dao;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class CareOfferDAO implements DatabaseInteractions {
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
 
     @Override
     public List<Object[]> get(int careOfferId) throws RuntimeException {

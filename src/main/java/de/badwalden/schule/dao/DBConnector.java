@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnector {
-
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private Connection connection;
     private static DBConnector instance;
@@ -43,7 +42,7 @@ public class DBConnector {
             DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Failed to establish a connection. Trying again in 15 seconds. If the Error persists, please contact the Administrator.");
 
             try {
-                // Pause execution for 10 seconds (10,000 milliseconds)
+                // Pause execution for 10 seconds
                 Thread.sleep(10000);
             } catch (InterruptedException e2) {
                 // This block is executed if the sleep is interrupted

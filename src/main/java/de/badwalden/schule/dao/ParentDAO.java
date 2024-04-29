@@ -1,8 +1,11 @@
 package de.badwalden.schule.dao;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ParentDAO implements DatabaseInteractions{
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
+
     @Override
     public List<Object[]> get(int parentId) throws RuntimeException {
         String sql = "SELECT * FROM parents WHERE parent_id = ?";

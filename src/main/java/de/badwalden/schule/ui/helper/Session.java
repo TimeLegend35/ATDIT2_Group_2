@@ -47,4 +47,16 @@ public class Session {
     public List<CareOffer> getCachedCareOfferList() {
         return this.cachedCareOfferList;
     }
+
+    // Method to get a CareOffer by ID from the cached list
+    public CareOffer getCareOfferById(int id) {
+        if (cachedCareOfferList != null) {
+            for (CareOffer careOffer : cachedCareOfferList) {
+                if (careOffer.getId() == id) {
+                    return careOffer;
+                }
+            }
+        }
+        return null; // Return null if no CareOffer with the given ID is found
+    }
 }

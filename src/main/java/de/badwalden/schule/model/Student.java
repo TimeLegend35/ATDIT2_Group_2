@@ -1,13 +1,24 @@
 package de.badwalden.schule.model;
 
+import de.badwalden.schule.dao.CareOfferDAO;
+import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.outOfScope.Sclass;
 import de.badwalden.schule.model.outOfScope.Subject;
+import de.badwalden.schule.ui.helper.Session;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class Student extends User implements ModelSyncRequirements {
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
+    private static final Session session = Session.getInstance();
     private static final StudentDAO studentDao = new StudentDAO();
+    private static final CareOfferDAO careOfferDao = new CareOfferDAO();
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private Sclass sclass;
@@ -38,26 +49,26 @@ public class Student extends User implements ModelSyncRequirements {
         return getFirstName(); // Assuming getFirstName() returns the first name of the user
     }
 
-    public void dergisterStudentFromService(CareOffer careOfferToRemove) {
-        if (studentDao.removeChildFromCareOffer(careOfferToRemove.getId(), this.getId())) {
-            this.serviceList.remove(careOfferToRemove);
-            // set new seats available for CareOffer
-            careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
-            careOfferToRemove.update();
-        } else {
-            System.out.println("Deregistration for Student failed!!!");
-        }
+    private void deregisterStudentFromService(CareOffer careOfferToRemove) {
+        studentDao.removeChildFromCareOffer(careOfferToRemove.getId(), this.getId());
+        this.serviceList.remove(careOfferToRemove);
+
+        // set new seats available for CareOffer
+        careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
+        careOfferToRemove.update();
+
+        logger.log(Level.INFO, "Deregistered Student: " + this.getId() + " from Service: " + careOfferToRemove.getId());
     }
 
-    public void registerStudentFromService(CareOffer careOfferToAdd) {
-        if (studentDao.addChildToCareOffer(careOfferToAdd.getId(), this.getId())) {
-            this.serviceList.add(careOfferToAdd);
-            // set new seats available for CareOffer
-            careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
-            careOfferToAdd.update();
-        } else {
-            System.out.println("Registration for Student failed!!!");
-        }
+    private void registerStudentFromService(CareOffer careOfferToAdd) {
+        studentDao.addChildToCareOffer(careOfferToAdd.getId(), this.getId());
+        this.serviceList.add(careOfferToAdd);
+
+        // set new seats available for CareOffer
+        careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
+        careOfferToAdd.update();
+
+        logger.log(Level.INFO, "Registered Student: " + this.getId() + " from Service: " + careOfferToAdd.getId());
     }
 
     public boolean isCompulsorySchooling() {
@@ -117,7 +128,55 @@ public class Student extends User implements ModelSyncRequirements {
 
     @Override
     public void update() {
-        // split into 2 parts
+        // Update the student's own information
+        logger.log(Level.INFO, "Updating Student in Model");
+        List<Object[]> updateList = new ArrayList<>();
+        Object[] studentData = this.toObjectArray();
+        updateList.add(studentData);
+        studentDao.write(updateList);
+
+        // Update serviceList in the intermediate table
+        logger.log(Level.INFO, "Checking Service List for Updates");
+        updateServiceRegistrations();
+    }
+
+    private void updateServiceRegistrations() {
+        // Retrieve current registered services from the database and transform it into a Set of Integer IDs
+        Set<Integer> currentRegisteredIds = careOfferDao.getCareOffersIdsForStudent(this.getId())
+                .stream()
+                .map(idArray -> (Integer) idArray[0])  // Assuming the ID is the first element in the Object[].
+                .collect(Collectors.toSet());
+
+        // Get IDs from the local serviceList
+        Set<Integer> newServiceIds = this.serviceList.stream()
+                .map(Service::getId)
+                .collect(Collectors.toSet());
+
+        // Determine new services to add to the database
+        for (Integer serviceId : newServiceIds) {
+            if (!currentRegisteredIds.contains(serviceId)) {
+                CareOffer careOfferToAdd = session.getCareOfferById(serviceId);
+                if (careOfferToAdd != null) {
+                    logger.log(Level.INFO, "Found CareOffer to register: " + careOfferToAdd.getName());
+                    registerStudentFromService(careOfferToAdd);
+                } else {
+                    logger.log(Level.WARNING, "Failed to find cached CareOffer with ID: " + serviceId);
+                }
+            }
+        }
+
+        // Determine services to remove from the database
+        for (Integer registeredId : currentRegisteredIds) {
+            if (!newServiceIds.contains(registeredId)) {
+                CareOffer careOfferToRemove = session.getCareOfferById(registeredId);
+                if (careOfferToRemove != null) {
+                    logger.log(Level.INFO, "Found CareOffer to deregister: " + careOfferToRemove.getName());
+                    deregisterStudentFromService(careOfferToRemove);
+                } else {
+                    logger.log(Level.WARNING, "Failed to find cached CareOffer with ID: " + registeredId);
+                }
+            }
+        }
     }
 
     @Override
