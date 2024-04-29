@@ -68,6 +68,7 @@ public class NavigationHelper {
             case "Kalender" -> new ImageViewMockup("src/main/resources/images/Kalender Mockup.png");
             case "Noten" -> new ImageViewMockup("src/main/resources/images/Noten Mockup.png");
             case "Krankmeldungen" -> new ImageViewMockup("src/main/resources/images/Krankmeldungen Mockup.png");
+            case "Klasse" -> new ImageViewMockup("src/main/resources/images/Klasse Mockup.png");
 
             default -> new VBox(new Text("View not implemented."));
         };
