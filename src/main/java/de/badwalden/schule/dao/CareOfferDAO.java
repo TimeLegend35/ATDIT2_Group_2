@@ -67,7 +67,7 @@ public class CareOfferDAO implements DatabaseInteractions {
 
         // Check if no care offers are present
         if (results.isEmpty()) {
-            throw new UnexpectedResultsException("Error: No care offers in database!", null, 0);
+            throw new UnexpectedResultsException("Error: No care offers in database!", 10, 0);
         }
 
         return results;

@@ -3,7 +3,10 @@ package de.badwalden.schule.dao;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.DialogHelper;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
+import javafx.util.Duration;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,27 +35,32 @@ public class DBConnector {
         String large_url = dotenv.get("CONNECTION_URL");
 
         try {
-            if (large_url != null) {
-                return DriverManager.getConnection(large_url);
-            } else {
-                throw new SQLException("CONNECTION_URL is null");
+            if (large_url == null || large_url.isEmpty()) {
+                throw new IllegalArgumentException("CONNECTION_URL is missing or empty in .env configuration");
             }
+
+            return DriverManager.getConnection(large_url);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.SEVERE, "Configuration error: " + e.getMessage(), e);
+            // Additional handling or user notification can be done here
+            throw e;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Failed to establish connection. 10 sec Timeout", e);
-            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Failed to establish a connection. Trying again in 15 seconds. If the Error persists, please contact the Administrator.");
+            logger.log(Level.SEVERE, "Failed to establish connection due to SQL issue. Trying again in 10 seconds.", e);
+            return scheduleReconnection();
+        }
+    }
 
-            try {
-                // Pause execution for 10 seconds
-                Thread.sleep(10000);
-            } catch (InterruptedException e2) {
-                // This block is executed if the sleep is interrupted
-                logger.log(Level.SEVERE, "Sleep was interrupted", e2);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Sleep was interrupted. If the Error persists, please contact the Administrator.");
-            }
+    private Connection scheduleReconnection() {
+        Dotenv dotenv = Dotenv.configure().load();
+        String large_url = dotenv.get("CONNECTION_URL");
 
-            this.close();
-            this.connect();
+        DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, "Database Connection Error",
+                "Failed to establish a connection. Trying again in 10 seconds. If the error persists, please contact the Administrator.", 9);
 
+        try {
+            return DriverManager.getConnection(large_url);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Reconnection failed", e);
             return null;
         }
     }
