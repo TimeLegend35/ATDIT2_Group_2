@@ -18,6 +18,7 @@ public class DBConnector {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private Connection connection;
     private static DBConnector instance;
+    private static final Dotenv env = Dotenv.configure().load();
 
     private DBConnector() {
         this.connection = connect();
@@ -31,8 +32,7 @@ public class DBConnector {
     }
 
     public Connection connect() {
-        Dotenv dotenv = Dotenv.configure().load();
-        String large_url = dotenv.get("CONNECTION_URL");
+        String large_url = env.get("CONNECTION_URL");
 
         try {
             if (large_url == null || large_url.isEmpty()) {
@@ -51,11 +51,10 @@ public class DBConnector {
     }
 
     private Connection scheduleReconnection() {
-        Dotenv dotenv = Dotenv.configure().load();
-        String large_url = dotenv.get("CONNECTION_URL");
+        String large_url = env.get("CONNECTION_URL");
 
         DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, "Database Connection Error",
-                "Failed to establish a connection. Trying again in 10 seconds. If the error persists, please contact the Administrator.", 9);
+                "Failed to establish a connection. Trying again in 10 seconds. If the error persists, please contact the Administrator.", 31);
 
         try {
             return DriverManager.getConnection(large_url);
