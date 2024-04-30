@@ -15,11 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ModelBuilder {
-    final static private Logger logger = Logger.getLogger(DBConnector.class.getName());
-    final static private Session session = Session.getInstance();
-    final static private ParentDAO parentDao = new ParentDAO();
-    final static private StudentDAO studentDao = new StudentDAO();
-    final static private CareOfferDAO careOfferDao = new CareOfferDAO();
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
+    private static final Session session = Session.getInstance();
+    private static final ParentDAO parentDao = new ParentDAO();
+    private static final StudentDAO studentDao = new StudentDAO();
+    private static final CareOfferDAO careOfferDao = new CareOfferDAO();
 
     private static void buildSessionData() {
         // fill careOffers for Session
