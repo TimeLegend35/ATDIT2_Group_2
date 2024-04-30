@@ -54,7 +54,7 @@ public class DBConnector {
         String large_url = env.get("CONNECTION_URL");
 
         DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, "Database Connection Error",
-                "Failed to establish a connection. Trying again in 10 seconds. If the error persists, please contact the Administrator.", 31);
+                "Failed to establish a connection. Trying again in 30 seconds. If the error persists, please contact the Administrator.", 31);
 
         try {
             return DriverManager.getConnection(large_url);

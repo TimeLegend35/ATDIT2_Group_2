@@ -22,7 +22,9 @@ public class StudentDAO implements DatabaseInteractions{
     }
 
     @Override
-    public void write(List<Object[]> targets) {
+    public int write(List<Object[]> targets) {
+        int executionCounter = 0;
+
         for (Object[] student : targets) {
             String sql = "UPDATE children SET " +
                     "class_year = ?, " +
@@ -42,9 +44,11 @@ public class StudentDAO implements DatabaseInteractions{
                     student[0]   // student_id (Primary Key)
             };
 
-            dbConnection.executeUpdate(sql, params);
+            executionCounter += dbConnection.executeUpdate(sql, params);
             logger.log(Level.INFO, "Student Update wrote to Database");
         }
+
+        return executionCounter;
     }
 
     public List<Object[]> getStudentsIdFromParent(int parentId) {

@@ -23,8 +23,10 @@ public class ParentDAO implements DatabaseInteractions{
 
 
     @Override
-    public void write(List<Object[]> targets) {
+    public int write(List<Object[]> targets) {
         // out of scope for use case
+
+        return 0;
     }
 
 }

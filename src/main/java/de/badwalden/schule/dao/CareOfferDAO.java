@@ -3,6 +3,7 @@ package de.badwalden.schule.dao;
 import de.badwalden.schule.exception.UnexpectedResultsException;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -24,7 +25,9 @@ public class CareOfferDAO implements DatabaseInteractions {
     }
 
     @Override
-    public void write(List<Object[]> targets) {
+    public int write(List<Object[]> targets) {
+        int executionCounter = 0;
+
         for (Object[] careOffer : targets) {
             String sql = "UPDATE care_offers SET " +
                     "supervisor_employee_number = ?, " +
@@ -44,8 +47,11 @@ public class CareOfferDAO implements DatabaseInteractions {
                     careOffer[6]   // care_offer_id
             };
 
-            dbConnection.executeUpdate(sql, params);
+            executionCounter += dbConnection.executeUpdate(sql, params);
+            logger.log(Level.INFO, "Care Offer Update wrote to Database");
         }
+
+        return executionCounter;
     }
 
     public List<Object[]> getCareOffersIdsForStudent(int studentId) {

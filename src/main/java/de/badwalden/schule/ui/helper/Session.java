@@ -28,6 +28,10 @@ public class Session {
         return instance;
     }
 
+    public synchronized void resetInstance() {
+        instance = null;
+    }
+
     // Method to set the current user
     public void setCurrentUser(User user) {
         this.currentUser = user;

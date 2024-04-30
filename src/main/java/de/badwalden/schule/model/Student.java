@@ -51,7 +51,6 @@ public class Student extends User implements ModelSyncRequirements {
 
     private void deregisterStudentFromService(CareOffer careOfferToRemove) {
         studentDao.removeChildFromCareOffer(careOfferToRemove.getId(), this.getId());
-        this.serviceList.remove(careOfferToRemove);
 
         // set new seats available for CareOffer
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
@@ -62,7 +61,6 @@ public class Student extends User implements ModelSyncRequirements {
 
     private void registerStudentFromService(CareOffer careOfferToAdd) {
         studentDao.addChildToCareOffer(careOfferToAdd.getId(), this.getId());
-        this.serviceList.add(careOfferToAdd);
 
         // set new seats available for CareOffer
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
@@ -133,7 +131,9 @@ public class Student extends User implements ModelSyncRequirements {
         List<Object[]> updateList = new ArrayList<>();
         Object[] studentData = this.toObjectArray();
         updateList.add(studentData);
-        studentDao.write(updateList);
+        if (studentDao.write(updateList) == 1) {
+            logger.log(Level.INFO, "Successful updated Student");
+        }
 
         // Update serviceList in the intermediate table
         logger.log(Level.INFO, "Checking Service List for Updates");
@@ -141,16 +141,18 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void updateServiceRegistrations() {
-        // Retrieve current registered services from the database and transform it into a Set of Integer IDs
-        Set<Integer> currentRegisteredIds = careOfferDao.getCareOffersIdsForStudent(this.getId())
-                .stream()
-                .map(idArray -> (Integer) idArray[0])  // Assuming the ID is the first element in the Object[].
-                .collect(Collectors.toSet());
+        // Retrieve current registered services from the database and transform it into a List of Integer IDs
+        List<Integer> currentRegisteredIds = new ArrayList<>();
+        List<Object[]> idArrays = careOfferDao.getCareOffersIdsForStudent(this.getId());
+        for (Object[] idArray : idArrays) {
+            currentRegisteredIds.add((Integer) idArray[0]);
+        }
 
         // Get IDs from the local serviceList
-        Set<Integer> newServiceIds = this.serviceList.stream()
-                .map(Service::getId)
-                .collect(Collectors.toSet());
+        List<Integer> newServiceIds = new ArrayList<>();
+        for (Service service : this.serviceList) {
+            newServiceIds.add(service.getId());
+        }
 
         // Determine new services to add to the database
         for (Integer serviceId : newServiceIds) {

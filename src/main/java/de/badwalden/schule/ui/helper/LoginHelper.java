@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class LoginHelper {
 //    private final int salt = 5;
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
+    private static Session session = Session.getInstance();
 
     public LoginHelper() {
 
@@ -29,7 +30,6 @@ public class LoginHelper {
 //        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
 //
 //        auth = BCrypt.checkpw(db_password, hashed_password);
-
 
         switch (password) {
             case "admin" -> {

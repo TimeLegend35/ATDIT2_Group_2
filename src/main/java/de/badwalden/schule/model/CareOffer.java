@@ -6,6 +6,7 @@ import kotlin.collections.ArrayDeque;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CareOffer extends Service implements ModelSyncRequirements {
@@ -27,9 +28,12 @@ public class CareOffer extends Service implements ModelSyncRequirements {
 
         @Override
         public void update() {
+                logger.log(Level.INFO, "Updating CareOffer in Model");
                 List<Object[]> list = new ArrayList<>();
                 list.add(toObjectArray());
-                careOfferDao.write(list);
+                if (careOfferDao.write(list) == 1) {
+                        logger.log(Level.INFO, "Successful updated Care Offer");
+                }
         }
 
         // Method to convert CareOffer properties to an Object array

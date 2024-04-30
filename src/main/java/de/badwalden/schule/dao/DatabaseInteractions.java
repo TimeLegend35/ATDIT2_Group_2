@@ -9,5 +9,5 @@ public interface DatabaseInteractions {
 
     public List<Object[]> get(int id) throws UnexpectedResultsException;
 
-    public void write(List<Object[]> targets);
+    public int write(List<Object[]> targets);
 }
