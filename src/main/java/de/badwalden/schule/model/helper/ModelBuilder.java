@@ -21,13 +21,8 @@ public class ModelBuilder {
     final static private StudentDAO studentDao = new StudentDAO();
     final static private CareOfferDAO careOfferDao = new CareOfferDAO();
 
-    /**
-     * A function to build the data model starting from a parent.
-     *
-     * @param  id  the ID of the parent to build the model from
-     * @return     the Parent instance with the data
-     */
-    public static Parent buildModelFromParent(int id) {
+    private static void buildSessionData() {
+        // fill careOffers for Session
         try {
             // pull multiple access object like CareOffers
             List<Object[]> results = careOfferDao.getAllCareOffers();
@@ -44,7 +39,19 @@ public class ModelBuilder {
         } catch (UnexpectedResultsException e) {
             logger.log(Level.SEVERE, "Error fetching all care offers! expected: " + e.getWantedCount() + " got: " + e.getRealCount(), e);
         }
+    }
 
+    /**
+     * A function to build the data model starting from a parent.
+     *
+     * @param  id  the ID of the parent to build the model from
+     * @return     the Parent instance with the data
+     */
+    public static Parent buildModelFromParent(int id) {
+        // initialize needed data for Session
+        buildSessionData();
+
+        // base parent
         Parent parent = buildParent(id);
 
         // build children
@@ -71,6 +78,9 @@ public class ModelBuilder {
      * @return     the Student instance with the data
      */
     public static Student buildModelFromStudent(int id) {
+        // initialize needed data for Session
+        buildSessionData();
+
         return buildStudent(id);
     }
 

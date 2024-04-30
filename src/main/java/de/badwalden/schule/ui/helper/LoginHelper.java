@@ -11,9 +11,12 @@ import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginHelper {
 //    private final int salt = 5;
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
 
     public LoginHelper() {
 
@@ -30,11 +33,13 @@ public class LoginHelper {
 
         switch (password) {
             case "admin" -> {
+                // todo update or delete
+                // this makes no sense :)))
+
                 Admin user = new Admin();
                 // save user in Session
                 Session.getInstance().setCurrentUser(user);
-                System.out.println("Admin logged in");
-
+                logger.log(Level.INFO, "Admin logged in");
                 return true;
             }
             case "parent" -> {
@@ -46,10 +51,25 @@ public class LoginHelper {
 
                 // save user in Session
                 Session.getInstance().setCurrentUser(parent);
-                System.out.println("Parent logged in");
+                logger.log(Level.INFO, "Parent logged in");
+                return true;
+            }
+            case "student" -> {
+                // mocked student id
+                int studentId = 1;
+
+                // build model
+                Student student = ModelBuilder.buildModelFromStudent(studentId);
+
+                // save user in Session
+                Session.getInstance().setCurrentUser(student);
+                logger.log(Level.INFO, "Student logged in");
                 return true;
             }
             case "parentOneChild" -> {
+                // todo need to work out this usecase or delete it!!!
+                // this wont work :)))
+
                 Parent parent = new Parent();
                 parent.setId(1);
 
@@ -62,7 +82,7 @@ public class LoginHelper {
 
                 // save user in Session
                 Session.getInstance().setCurrentUser(parent);
-                System.out.println("Parent logged in");
+                logger.log(Level.INFO, "Parent logged in");
                 return true;
             }
             default -> {

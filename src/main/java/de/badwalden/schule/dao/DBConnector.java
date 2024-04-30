@@ -107,7 +107,6 @@ public class DBConnector {
                 }
                 return pstmt.executeUpdate();
             } catch (SQLException e) {
-                System.out.println("Error executing update with prepared statement");
                 logger.log(Level.SEVERE, "Error executing update with prepared statement", e);
                 DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing update with prepared statement. If the Error persists, please contact the Administrator.");
             }
