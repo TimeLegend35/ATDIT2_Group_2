@@ -1,6 +1,7 @@
 package de.badwalden.schule.dao;
 
 import de.badwalden.schule.exception.UnexpectedResultsException;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         // only one care offer should be returned
         if (results.size() != 1) {
             // throw exception
-            throw new UnexpectedResultsException("Error: More than one or no care offer found!", 1, results.size());
+            throw new UnexpectedResultsException(LanguageHelper.getString("unexpected_size"), 1, results.size());
         }
 
         return results;
@@ -48,7 +49,7 @@ public class CareOfferDAO implements DatabaseInteractions {
             };
 
             executionCounter += dbConnection.executeUpdate(sql, params);
-            logger.log(Level.INFO, "Care Offer Update wrote to Database");
+            logger.log(Level.INFO, LanguageHelper.getString("excecute_update"));
         }
 
         return executionCounter;
@@ -73,7 +74,7 @@ public class CareOfferDAO implements DatabaseInteractions {
 
         // Check if no care offers are present
         if (results.isEmpty()) {
-            throw new UnexpectedResultsException("Error: No care offers in database!", 10, 0);
+            throw new UnexpectedResultsException(LanguageHelper.getString("empty_result"), 10, 0);
         }
 
         return results;

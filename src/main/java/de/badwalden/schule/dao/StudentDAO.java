@@ -1,6 +1,7 @@
 package de.badwalden.schule.dao;
 
 import de.badwalden.schule.exception.UnexpectedResultsException;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -15,7 +16,7 @@ public class StudentDAO implements DatabaseInteractions{
 
         // Check if exactly one student is returned
         if (results.size() != 1) {
-            throw new UnexpectedResultsException("Error: Expected one student, found " + results.size(), 1, results.size());
+            throw new UnexpectedResultsException(LanguageHelper.getString("return_one_student") + results.size(), 1, results.size());
         }
 
         return results;
@@ -45,7 +46,7 @@ public class StudentDAO implements DatabaseInteractions{
             };
 
             executionCounter += dbConnection.executeUpdate(sql, params);
-            logger.log(Level.INFO, "Student Update wrote to Database");
+            logger.log(Level.INFO, LanguageHelper.getString("student_update_db"));
         }
 
         return executionCounter;

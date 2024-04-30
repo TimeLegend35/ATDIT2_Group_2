@@ -7,6 +7,7 @@ import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.exception.SessionDataNotLoaded;
 import de.badwalden.schule.exception.UnexpectedResultsException;
 import de.badwalden.schule.model.*;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ModelBuilder {
             session.setCachedCareOfferList(careOfferList);
 
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, "Error fetching all care offers! expected: " + e.getWantedCount() + " got: " + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_co") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
         }
     }
 
@@ -94,7 +95,7 @@ public class ModelBuilder {
 
             return new Parent(parentId, firstName, lastName, residence);
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, "Error fetching parent! expected: " + e.getWantedCount() + " got: " + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_parent") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
             return null;
         }
     }
@@ -117,16 +118,16 @@ public class ModelBuilder {
             return student;
 
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, "Error fetching student! expected: " + e.getWantedCount() + " got: " + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_student") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
             return null;
         } catch (SessionDataNotLoaded e2) {
-            logger.log(Level.SEVERE, "Error creating Service List. Missing Data in Session: " + e2.getDataPart() , e2);
+            logger.log(Level.SEVERE, LanguageHelper.getString("Missing_session_data") + e2.getDataPart() , e2);
             return null;
         }
     }
 
     private static CareOffer buildCareOffer(Object[] row) {
-        logger.log(Level.INFO, "ModelBuilder: Loaded Service: " + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
+        logger.log(Level.INFO, LanguageHelper.getString("build_co") + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
 
         int id = (int) row[0];
         int supervisorId = (int) row[1];
@@ -143,7 +144,7 @@ public class ModelBuilder {
     private static List<Service> buildServiceListForStudent(int studentId) throws SessionDataNotLoaded {
         // check if careOffers are loaded
         if (session.getCachedCareOfferList() == null) {
-            throw new SessionDataNotLoaded("Session Data not completely loaded! Cannot link Student to services", "CareOfferList");
+            throw new SessionDataNotLoaded(LanguageHelper.getString("build_service_list_student"), "CareOfferList");
         }
 
         // get care offer ids for student

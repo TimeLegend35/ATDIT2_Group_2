@@ -39,7 +39,7 @@ public class LoginHelper {
                 Admin user = new Admin();
                 // save user in Session
                 Session.getInstance().setCurrentUser(user);
-                logger.log(Level.INFO, "Admin logged in");
+                logger.log(Level.INFO, LanguageHelper.getString("admin_logged_in"));
                 return true;
             }
             case "parent" -> {
@@ -51,7 +51,7 @@ public class LoginHelper {
 
                 // save user in Session
                 Session.getInstance().setCurrentUser(parent);
-                logger.log(Level.INFO, "Parent logged in");
+                logger.log(Level.INFO, LanguageHelper.getString("parent_logged_in"));
                 return true;
             }
             case "student" -> {
@@ -63,7 +63,7 @@ public class LoginHelper {
 
                 // save user in Session
                 Session.getInstance().setCurrentUser(student);
-                logger.log(Level.INFO, "Student logged in");
+                logger.log(Level.INFO, LanguageHelper.getString("student_logged_in"));
                 return true;
             }
             case "parentOneChild" -> {
@@ -86,7 +86,7 @@ public class LoginHelper {
                 return true;
             }
             default -> {
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("login_failed"), LanguageHelper.getString("invalid_credentials"));
                 return false;
             }
         }

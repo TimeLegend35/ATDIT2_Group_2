@@ -21,10 +21,10 @@ public class LanguageHelper {
      */
     public static void setLocale(Language language) {
         try {
-            logger.log(Level.INFO, "Locale will be set to Language: " + language);
+            logger.log(Level.INFO, LanguageHelper.getString("set_locale") + language);
             locale = new Locale(language.getId(), language.getCountry());
         } catch (NullPointerException e) {
-            logger.log(Level.SEVERE, "Error setting locale: language is null", e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("set_locale_error"), e);
             // Fallback to default locale
             locale = Locale.getDefault();
         }

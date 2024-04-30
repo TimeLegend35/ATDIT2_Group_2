@@ -5,6 +5,7 @@ import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.outOfScope.Sclass;
 import de.badwalden.schule.model.outOfScope.Subject;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class Student extends User implements ModelSyncRequirements {
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
         careOfferToRemove.update();
 
-        logger.log(Level.INFO, "Deregistered Student: " + this.getId() + " from Service: " + careOfferToRemove.getId());
+        logger.log(Level.INFO, LanguageHelper.getString("deregistered_student") + this.getId() + LanguageHelper.getString("from_service") + careOfferToRemove.getId());
     }
 
     private void registerStudentFromService(CareOffer careOfferToAdd) {
@@ -66,7 +67,7 @@ public class Student extends User implements ModelSyncRequirements {
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
         careOfferToAdd.update();
 
-        logger.log(Level.INFO, "Registered Student: " + this.getId() + " from Service: " + careOfferToAdd.getId());
+        logger.log(Level.INFO, LanguageHelper.getString("registered_student") + this.getId() + LanguageHelper.getString("from_service") + careOfferToAdd.getId());
     }
 
     public boolean isCompulsorySchooling() {
@@ -127,16 +128,16 @@ public class Student extends User implements ModelSyncRequirements {
     @Override
     public void update() {
         // Update the student's own information
-        logger.log(Level.INFO, "Updating Student in Model");
+        logger.log(Level.INFO, LanguageHelper.getString("update_student"));
         List<Object[]> updateList = new ArrayList<>();
         Object[] studentData = this.toObjectArray();
         updateList.add(studentData);
         if (studentDao.write(updateList) == 1) {
-            logger.log(Level.INFO, "Successful updated Student");
+            logger.log(Level.INFO, LanguageHelper.getString("success_update_student"));
         }
 
         // Update serviceList in the intermediate table
-        logger.log(Level.INFO, "Checking Service List for Updates");
+        logger.log(Level.INFO, LanguageHelper.getString("chk_serive_list"));
         updateServiceRegistrations();
     }
 
@@ -159,10 +160,10 @@ public class Student extends User implements ModelSyncRequirements {
             if (!currentRegisteredIds.contains(serviceId)) {
                 CareOffer careOfferToAdd = session.getCareOfferById(serviceId);
                 if (careOfferToAdd != null) {
-                    logger.log(Level.INFO, "Found CareOffer to register: " + careOfferToAdd.getName());
+                    logger.log(Level.INFO, LanguageHelper.getString("register_care_offer") + careOfferToAdd.getName());
                     registerStudentFromService(careOfferToAdd);
                 } else {
-                    logger.log(Level.WARNING, "Failed to find cached CareOffer with ID: " + serviceId);
+                    logger.log(Level.WARNING, LanguageHelper.getString("fail_co_id") + serviceId);
                 }
             }
         }
@@ -172,10 +173,10 @@ public class Student extends User implements ModelSyncRequirements {
             if (!newServiceIds.contains(registeredId)) {
                 CareOffer careOfferToRemove = session.getCareOfferById(registeredId);
                 if (careOfferToRemove != null) {
-                    logger.log(Level.INFO, "Found CareOffer to deregister: " + careOfferToRemove.getName());
+                    logger.log(Level.INFO, LanguageHelper.getString("deregister_care_offer") + careOfferToRemove.getName());
                     deregisterStudentFromService(careOfferToRemove);
                 } else {
-                    logger.log(Level.WARNING, "Failed to find cached CareOffer with ID: " + registeredId);
+                    logger.log(Level.WARNING, LanguageHelper.getString("fail_co_id") + registeredId);
                 }
             }
         }

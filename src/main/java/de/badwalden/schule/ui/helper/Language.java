@@ -54,6 +54,6 @@ public enum Language {
             }
         }
         ;
-        throw new NoSuchElementException("Language with ID '" + id + "' not found");
+        throw new NoSuchElementException(LanguageHelper.getString("language_with_id") + id + LanguageHelper.getString("not_found"));
     }
 }

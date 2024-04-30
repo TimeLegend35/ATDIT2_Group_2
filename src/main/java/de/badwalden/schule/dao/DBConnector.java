@@ -2,6 +2,7 @@ package de.badwalden.schule.dao;
 
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.DialogHelper;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,16 +37,16 @@ public class DBConnector {
 
         try {
             if (large_url == null || large_url.isEmpty()) {
-                throw new IllegalArgumentException("CONNECTION_URL is missing or empty in .env configuration");
+                throw new IllegalArgumentException(LanguageHelper.getString("url_empty"));
             }
 
             return DriverManager.getConnection(large_url);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.SEVERE, "Configuration error: " + e.getMessage(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("url_empty_log") + e.getMessage(), e);
             // Additional handling or user notification can be done here
             throw e;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Failed to establish connection due to SQL issue. Trying again in 10 seconds.", e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("sql_exception"), e);
             return scheduleReconnection();
         }
     }
@@ -53,8 +54,8 @@ public class DBConnector {
     private Connection scheduleReconnection() {
         String large_url = env.get("CONNECTION_URL");
 
-        DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, "Database Connection Error",
-                "Failed to establish a connection. Trying again in 30 seconds. If the error persists, please contact the Administrator.", 31);
+        DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"),
+                LanguageHelper.getString("reconnection_error"), 31);
 
         try {
             return DriverManager.getConnection(large_url);
@@ -68,8 +69,8 @@ public class DBConnector {
         try {
             this.connection.close();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Failed to close connection", e);
-            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Failed to close the connection. If the Error persists, please contact the Administrator.");
+            logger.log(Level.SEVERE, LanguageHelper.getString("db_close_log"), e);
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("db_close_error"));
         }
     }
 
@@ -92,8 +93,8 @@ public class DBConnector {
                     }
                 }
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "Error executing query with prepared statement", e);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing data query with prepared statement. If the Error persists, please contact the Administrator.");
+                logger.log(Level.SEVERE, LanguageHelper.getString("excecute_sql_log"), e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("excecute_sql_error"));
             }
         }
         return results;
@@ -114,8 +115,8 @@ public class DBConnector {
                 }
                 return pstmt.executeUpdate();
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "Error executing update with prepared statement", e);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Database Connection Error", "Error executing update with prepared statement. If the Error persists, please contact the Administrator.");
+                logger.log(Level.SEVERE, LanguageHelper.getString("excecute_update_log"), e);
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("excecute_update_error"));
             }
         }
         return 0;

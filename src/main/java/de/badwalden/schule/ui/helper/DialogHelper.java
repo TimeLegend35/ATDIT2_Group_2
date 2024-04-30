@@ -53,7 +53,7 @@ public class DialogHelper {
         AtomicInteger timeLeft = new AtomicInteger(displayTimeInSeconds);
 
         // Set content with a countdown label
-        Label contentLabel = new Label(content + "\nClosing in " + timeLeft.get() + " seconds.");
+        Label contentLabel = new Label(content + LanguageHelper.getString("closing_in") + timeLeft.get() + LanguageHelper.getString("seconds"));
         alert.getDialogPane().setContent(contentLabel);
 
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
@@ -67,7 +67,7 @@ public class DialogHelper {
                 alert.close();
                 timeline.stop();
             } else {
-                contentLabel.setText(content + "\nClosing in " + timeLeft.get() + " seconds.");
+                contentLabel.setText(content + LanguageHelper.getString("closing_in") + timeLeft.get() + LanguageHelper.getString("seconds"));
             }
         }));
         timeline.play();

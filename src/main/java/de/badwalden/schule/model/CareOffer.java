@@ -2,6 +2,7 @@ package de.badwalden.schule.model;
 
 import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.dao.DBConnector;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import kotlin.collections.ArrayDeque;
 
 import java.util.ArrayList;
@@ -28,11 +29,11 @@ public class CareOffer extends Service implements ModelSyncRequirements {
 
         @Override
         public void update() {
-                logger.log(Level.INFO, "Updating CareOffer in Model");
+                logger.log(Level.INFO, LanguageHelper.getString("update_careoffer"));
                 List<Object[]> list = new ArrayList<>();
                 list.add(toObjectArray());
                 if (careOfferDao.write(list) == 1) {
-                        logger.log(Level.INFO, "Successful updated Care Offer");
+                        logger.log(Level.INFO, LanguageHelper.getString("success_update_co"));
                 }
         }
 
