@@ -2,7 +2,6 @@ package de.badwalden.schule.ui.helper;
 
 import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.model.CareOffer;
-import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,8 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +25,12 @@ public class NavigationHelper {
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Navigates to the specified view.
+     * Only to be used when changing the whole window content, otherwise use setContentView()
+     *
+     * @param  viewName  the name of the view to navigate to
+     */
     public void navigateTo(String viewName) {
 
         // Load the appropriate view based on viewName and parameters
@@ -51,7 +54,11 @@ public class NavigationHelper {
         }
     }
 
-    // Handle navigation to sidebar main Views
+    /**
+     * Sets the content view of the main stage based on the given view ID.
+     *
+     * @param  viewId  the ID of the view to navigate to
+     */
     public void setContentView(String viewId) {
         logger.log(Level.INFO, "Navigating to content view with viewId: " + viewId);
         Node contentView = switch (viewId) {
@@ -74,7 +81,11 @@ public class NavigationHelper {
         mainView.setContentView(contentView);
     }
 
-    // Handle navigation if no String but an object is given to setContentView();
+    /**
+     * Sets the content view of the main stage based on the given object page.
+     *
+     * @param  object  the ID of the view to navigate to
+     */
     public void setContentView(Object object) {
         logger.log(Level.INFO, "Navigating to Object Page of obj: " + object.toString());
         VBox contentView;
