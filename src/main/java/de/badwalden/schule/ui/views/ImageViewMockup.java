@@ -1,14 +1,18 @@
 package de.badwalden.schule.ui.views;
 
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class ImageViewMockup extends VBox {
 
+    /**
+     * Constructs an ImageViewMockup object with the specified image file.
+     * Used for mocking out of scope use cases only.
+     *
+     * @param imageFilePath the path to the image file to be displayed
+     */
     public ImageViewMockup(String imageFilePath) {
         Image image = new Image("file:" + imageFilePath);
 
