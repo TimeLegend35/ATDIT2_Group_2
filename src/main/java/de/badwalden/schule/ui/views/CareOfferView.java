@@ -344,11 +344,11 @@ public class CareOfferView extends VBox {
         gridPane.add(editModeUiNode, 1, rowCount);
     }
 
-    /**
-     * Changes the edit view based on the current mode.
-     *
-     * @param editButton the Button used to toggle edit mode
-     */
+//    /**
+//     * Changes the edit view based on the current mode.
+//     *
+//     * @param editButton the Button used to toggle edit mode
+//     */
 //    private void changeEditView(Button editButton) {
 //        DialogHelper.showAlertDialog(Alert.AlertType.INFORMATION, LanguageHelper.getString("sign_up_child"), LanguageHelper.getString("edit_functionality_not_implemented"));
 //        if (!isEditMode) {
@@ -372,22 +372,22 @@ public class CareOfferView extends VBox {
 //        }
 //    }
 
-    /**
-     * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
-     *
-     * @param value         the attribute node
-     * @param valueEditNode the edit node of the attribute
-     */
+//    /**
+//     * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
+//     *
+//     * @param value         the attribute node
+//     * @param valueEditNode the edit node of the attribute
+//     */
 //    private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
 //        toggleVisibilityOfNode(value);
 //        toggleVisibilityOfNode(valueEditNode);
 //    }
 
-    /**
-     * Toggles the visibility of a given node.
-     *
-     * @param node the node to toggle visibility
-     */
+//    /**
+//     * Toggles the visibility of a given node.
+//     *
+//     * @param node the node to toggle visibility
+//     */
 //    private void toggleVisibilityOfNode(Node node) {
 //        node.setVisible(!node.isVisible());
 //    }

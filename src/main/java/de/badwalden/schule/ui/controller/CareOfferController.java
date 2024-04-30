@@ -1,19 +1,12 @@
 package de.badwalden.schule.ui.controller;
 
-import de.badwalden.schule.dao.CareOfferDAO;
-import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.CareOffer;
-import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
-import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.helper.Session;
-import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
-import de.badwalden.schule.ui.views.MainView;
 import javafx.animation.PauseTransition;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
@@ -30,6 +23,13 @@ public class CareOfferController implements DataController {
         return new Object[]{careOffer};
     }
 
+    /**
+     * Updates the registration status of a care offer for a student and updates the UI accordingly.
+     *
+     * @param  careOffer                  the care offer to update the registration status for
+     * @param  student                    the student whose registration status is being updated
+     * @param  dialogRegistrationButton   the button that triggered the registration update
+     */
     public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
         if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
@@ -44,6 +44,12 @@ public class CareOfferController implements DataController {
         updateValuesFromObject(careOffer);
     }
 
+    /**
+     * Updates the registration status of a care offer for a student and updates the UI accordingly.
+     *
+     * @param  careOffer  the care offer to update the registration status for
+     * @param  student    the student whose registration status is being updated
+     */
     public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
         if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
@@ -54,10 +60,23 @@ public class CareOfferController implements DataController {
         }
     }
 
+    /**
+     * Determines if the student is right of service for the given care offer.
+     *
+     * @param  careOffer  the care offer to check
+     * @param  student    the student to check
+     * @return            true if the student is right of service for the care offer, false otherwise
+     */
     public boolean isRightOfSerice(CareOffer careOffer, Student student) {
         return student.isRightOfService(careOffer);
     }
 
+    /**
+     * Disables the given button for the specified number of seconds, then re-enables it.
+     *
+     * @param  button   the button to pause
+     * @param  seconds  the number of seconds to pause the button for
+     */
     public void pauseButton(Button button, int seconds) {
         // Disable the button
         button.setDisable(true);

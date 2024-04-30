@@ -1,6 +1,5 @@
 package de.badwalden.schule.ui.views;
 
-import de.badwalden.schule.Main;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.LanguageHelper;
@@ -18,9 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CareOfferMarketplaceView extends ScrollPane {
     private CareOfferMarketplaceController controller;
     private VBox contentBox;
@@ -32,17 +28,15 @@ public class CareOfferMarketplaceView extends ScrollPane {
         // check what user type is logged in and plot according
         User user = Session.getInstance().getCurrentUser();
 
-
         contentBox = new VBox(15); // Adds spacing between child elements of the VBox
         contentBox.setPadding(new Insets(15)); // Set padding around the VBox container
-
 
         VBox registeredOffersBox = new VBox(15);
         VBox unregisteredOffersBox = new VBox(15);
 
-
         for (Object careOfferObject : controller.getData()) {
             CareOffer offer = (CareOffer) careOfferObject;
+
             // Create labels for the offer's title and description
             Label titleLabel = new Label(offer.getName());
             titleLabel.setFont(new Font(18)); // Set font size for title
@@ -63,6 +57,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
             offerBox.setPadding(new Insets(10)); // Add padding inside the border
             offerBox.getChildren().addAll(titleLabel, descriptionLabel, detailsButton);
 
+            // The user should have two grouped lists: Registered and unregistered offers
             if (user instanceof Student) {
                 if (((Student) user).isRegisteredForOffer(offer)) {
                     registeredOffersBox.getChildren().add(offerBox);
@@ -74,6 +69,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
             }
         }
 
+        // The user should have two grouped lists: Registered and unregistered offers
         if(user instanceof Student) {
             Label registeredLabel = new Label("Registered offers");
             registeredLabel.setFont(new Font(16));
@@ -88,7 +84,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
 
         // Set the VBox as the content of the ScrollPane
         this.setContent(contentBox);
-        this.setFitToWidth(true); // Optional: Makes the ScrollPane fit the width of the contentBox, removing horizontal scroll bars if possible
+        this.setFitToWidth(true); // Makes the ScrollPane fit the width of the contentBox, removing horizontal scroll bars if possible
     }
 
 }
