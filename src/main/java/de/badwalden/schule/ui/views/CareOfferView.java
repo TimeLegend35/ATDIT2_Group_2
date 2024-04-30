@@ -22,7 +22,6 @@ public class CareOfferView extends VBox {
     private CareOfferController controller;
 
     private static final int FONT_SIZE = 14;
-    private boolean isEditMode;
     public ObservableList<ObjectPageAttributeElementsContainer> uiElements = FXCollections.observableArrayList();
 
     public Label titleLabelValue;
@@ -63,9 +62,6 @@ public class CareOfferView extends VBox {
         // Add all instantiated attributes to the grid pane
         addAllAttributesToGridPane(gridPane);
 
-        // Create a button to register for this care offer
-        Button registerButton = createRegisterButton();
-
         // Create the container for the offer's details and add them to the VBox with spacing and padding
         VBox offerBox = new VBox(10);
         offerBox.setPadding(new Insets(10));
@@ -73,7 +69,14 @@ public class CareOfferView extends VBox {
                 CornerRadii.EMPTY, new BorderWidths(2))));
 
         // Add everything to the container of the offer's details
-        offerBox.getChildren().addAll(gridPane, registerButton);
+        offerBox.getChildren().add(gridPane);
+
+        if (user instanceof Parent) {
+            // Create a button to register for this care offer
+            Button registerButton = createRegisterButton();
+            offerBox.getChildren().add(registerButton);
+        }
+
         this.getChildren().addAll(topRightContainer, offerBox);
     }
 
