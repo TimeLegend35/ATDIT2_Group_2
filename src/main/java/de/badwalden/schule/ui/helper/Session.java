@@ -12,9 +12,15 @@ public class Session {
     private List<CareOffer> cachedCareOfferList;
 
     // Private constructor to prevent instantiation from other classes
-    public Session() {}
+    public Session() {
 
-    // Method to get the instance of the class
+    }
+
+    /**
+     * Returns the singleton instance of the Session class.
+     *
+     * @return the singleton instance of the Session class
+     */
     public static synchronized Session getInstance() {
         if (instance == null) {
             instance = new Session();
@@ -27,28 +33,57 @@ public class Session {
         this.currentUser = user;
     }
 
-    // Method to get the current user
+    /**
+     * Retrieves the current user.
+     *
+     * @return the current user
+     */
     public User getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Sets the cached CareOffer object.
+     *
+     * @param careOffer the CareOffer object to set as cached
+     */
     public void setCachedCareOffer(CareOffer careOffer) {
         this.cachedCareOffer = careOffer;
     }
 
+    /**
+     * Retrieves the cached CareOffer object.
+     *
+     * @return the cached CareOffer object
+     */
     public CareOffer getCachedCareOffer() {
         return this.cachedCareOffer;
     }
 
+    /**
+     * Sets the cached list of CareOffer objects.
+     *
+     * @param careOfferList the list of CareOffer objects to set as cached
+     */
     public void setCachedCareOfferList(List<CareOffer> careOfferList) {
         this.cachedCareOfferList = careOfferList;
     }
 
+    /**
+     * Retrieves the cached list of CareOffer objects.
+     *
+     * @return the cached list of CareOffer objects
+     */
     public List<CareOffer> getCachedCareOfferList() {
         return this.cachedCareOfferList;
     }
 
-    // Method to get a CareOffer by ID from the cached list
+    /**
+     * Retrieves a CareOffer object from the cachedCareOfferList based on the given ID.
+     *
+     * @param id the ID of the CareOffer to retrieve
+     * @return the CareOffer object with the given ID, or null if no CareOffer with the given ID is found
+     */
     public CareOffer getCareOfferById(int id) {
         if (cachedCareOfferList != null) {
             for (CareOffer careOffer : cachedCareOfferList) {
