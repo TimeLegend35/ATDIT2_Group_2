@@ -4,8 +4,6 @@ import de.badwalden.schule.Main;
 import de.badwalden.schule.ui.views.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class MainController {
 
@@ -16,6 +14,9 @@ public class MainController {
         attachSidebarEvents();
     }
 
+    /**
+     * Attaches events to the sidebar buttons.
+     */
     private void attachSidebarEvents() {
         for (Node node : mainView.getSidebarView().getChildren()) {
             if (node instanceof Button) {
@@ -24,17 +25,4 @@ public class MainController {
             }
         }
     }
-
-    /**
-    private void handleSidebarNavigation(String viewId) {
-        VBox contentView = switch (viewId) {
-            case "Kalender" -> new CalenderView();
-            case "Noten" -> new CalenderView();
-            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView(mainView);
-            // ... more cases for other views
-            default -> new VBox(new Text("View not implemented."));
-        };
-        mainView.setContentView(contentView);
-    }
-     **/
 }
