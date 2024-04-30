@@ -1,5 +1,7 @@
 package de.badwalden.schule.dao;
 
+import de.badwalden.schule.exception.UnexpectedResultsException;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,13 +9,13 @@ import java.util.logging.Logger;
 public class StudentDAO implements DatabaseInteractions{
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     @Override
-    public List<Object[]> get(int id) throws RuntimeException {
+    public List<Object[]> get(int id) throws UnexpectedResultsException {
         String sql = "SELECT * FROM children WHERE student_id = ?";
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{id});
 
         // Check if exactly one student is returned
         if (results.size() != 1) {
-            throw new RuntimeException("Error: Expected one student, found " + results.size());
+            throw new UnexpectedResultsException("Error: Expected one student, found " + results.size(), 1, results.size());
         }
 
         return results;
@@ -45,37 +47,27 @@ public class StudentDAO implements DatabaseInteractions{
         }
     }
 
-    public List<Object[]> getStudentsIdFromParent(int parentId) throws RuntimeException {
+    public List<Object[]> getStudentsIdFromParent(int parentId) {
         String sql = """
                  SELECT child_id
                  FROM parent_child_assignment pca
                  WHERE pca.parent_id = ?
                  """;
+
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{parentId});
+
         return results;
     }
 
-    public void removeChildFromCareOffer(int student_ID, int careOffer_ID) throws RuntimeException {
+    public void removeChildFromCareOffer(int student_ID, int careOffer_ID) {
         String sql = "DELETE FROM child_care_offer_assignment WHERE student_id = ? AND care_offer_id = ?";
-        try {
-            dbConnection.executeUpdate(sql, new Object[]{student_ID, careOffer_ID});
 
-        } catch (Exception e) {
-            System.err.println("Remove Child From Care Offer: " + e.getMessage());
-            e.printStackTrace();
-
-        }
+        dbConnection.executeUpdate(sql, new Object[]{student_ID, careOffer_ID});
     }
 
-    public void addChildToCareOffer(int student_ID, int careOffer_ID) throws RuntimeException {
+    public void addChildToCareOffer(int student_ID, int careOffer_ID) {
         String sql = "INSERT INTO child_care_offer_assignment (student_id, care_offer_id) VALUES (?, ?)";
-        try {
-            dbConnection.executeUpdate(sql, new Object[]{student_ID, careOffer_ID});
 
-        } catch (Exception e) {
-            System.err.println("Add Child to Care Offer: " + e.getMessage());
-            e.printStackTrace();
-
-        }
+        dbConnection.executeUpdate(sql, new Object[]{student_ID, careOffer_ID});
     }
 }

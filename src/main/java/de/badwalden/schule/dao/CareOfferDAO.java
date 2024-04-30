@@ -17,7 +17,7 @@ public class CareOfferDAO implements DatabaseInteractions {
         // only one care offer should be returned
         if (results.size() != 1) {
             // throw exception
-            throw new UnexpectedResultsException("Error: More than one or no care offer found!", results.size());
+            throw new UnexpectedResultsException("Error: More than one or no care offer found!", 1, results.size());
         }
 
         return results;
@@ -48,34 +48,29 @@ public class CareOfferDAO implements DatabaseInteractions {
         }
     }
 
-    public List<Object[]> getCareOffersIdsForStudent(int studentId) throws RuntimeException {
+    public List<Object[]> getCareOffersIdsForStudent(int studentId) {
         String sql = """
                  SELECT co.care_offer_id
                  FROM care_offers co
                  JOIN child_care_offer_assignment cca ON co.care_offer_id = cca.care_offer_id
                  WHERE cca.student_id = ?
                  """;
-        List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{studentId});
 
-        // Check if no care offer was returned
-        if (results.isEmpty()) {
-            throw new RuntimeException("No care offer found for this student!");
-        }
+        List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{studentId});
 
         return results;
     }
 
-    public List<Object[]> getAllCareOffers() throws RuntimeException {
+    public List<Object[]> getAllCareOffers() throws UnexpectedResultsException {
         String sql = "SELECT * FROM care_offers";
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{});
 
         // Check if no care offers are present
         if (results.isEmpty()) {
-            throw new RuntimeException("Error: No care offers in database!");
+            throw new UnexpectedResultsException("Error: No care offers in database!", null, 0);
         }
 
         return results;
     }
-
 
 }
