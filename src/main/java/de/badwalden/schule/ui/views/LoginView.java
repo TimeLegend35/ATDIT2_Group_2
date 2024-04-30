@@ -60,6 +60,9 @@ public class LoginView extends BorderPane {
         setCenter(centerContainer);
     }
 
+    /**
+     * Initializes and configures the attributes for the user interface.
+     */
     public void instantiateAttributes() {
         userNameLabel = new Text(LanguageHelper.getString("login_username") + ":");
         userNameTextField = new TextField();
@@ -78,6 +81,11 @@ public class LoginView extends BorderPane {
         signInButton.setOnAction(event -> loginController.handleLoginButtonPressed(userNameTextField.getText(), passwordTextField.getText()));
     }
 
+    /**
+     * Creates and configures a ComboBox for selecting a language.
+     *
+     * @return  the ComboBox for selecting a language
+     */
     public ComboBox addLanguageBox() {
         languageComboBox = new ComboBox<>();
         languageComboBox.setItems(FXCollections.observableArrayList(
@@ -88,6 +96,13 @@ public class LoginView extends BorderPane {
 
         // Set a StringConverter to handle conversion between ID and display name
         languageComboBox.setConverter(new StringConverter<String>() {
+
+            /**
+             * Converts the given ID to its corresponding language name.
+             *
+             * @param  id  the ID of the language
+             * @return     the language name corresponding to the ID, or null if no match found
+             */
             @Override
             public String toString(String id) {
                 // Display the language name corresponding to the ID
@@ -100,6 +115,12 @@ public class LoginView extends BorderPane {
                 return null;
             }
 
+            /**
+             * Return the ID directly when converting from display name to ID
+             *
+             * @param  string   the display name to convert
+             * @return          the corresponding ID
+             */
             @Override
             public String fromString(String string) {
                 // Return the ID directly when converting from display name to ID
@@ -127,6 +148,10 @@ public class LoginView extends BorderPane {
         return languageComboBox;
     }
 
+    /**
+     * Updates the texts of various UI elements in the LoginView using the values from the resource bundle.
+     * Used for language changes.
+     */
     public void updateTextsFromResourceBundle() {
         userNameLabel.setText(LanguageHelper.getString("login_username"));
         userNameTextField.setPromptText(LanguageHelper.getString("login_username"));
