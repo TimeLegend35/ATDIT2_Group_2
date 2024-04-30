@@ -16,6 +16,13 @@ public class DialogHelper {
 
     }
 
+    /**
+     * Shows an alert dialog with the specified type, title, and content.
+     *
+     * @param  type    the type of the alert
+     * @param  title   the title of the alert
+     * @param  content the content of the alert
+     */
     public static void showAlertDialog(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -29,6 +36,14 @@ public class DialogHelper {
         alert.showAndWait();
     }
 
+    /**
+     * Shows a timed alert dialog with the specified type, title, and content. The dialog automatically closes after the specified time.
+     *
+     * @param  type                 the type of the alert
+     * @param  title                the title of the alert
+     * @param  content              the content of the alert
+     * @param  displayTimeInSeconds the time in seconds before the dialog automatically closes
+     */
     public static void showTimedAlertDialog(Alert.AlertType type, String title, String content, int displayTimeInSeconds) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
