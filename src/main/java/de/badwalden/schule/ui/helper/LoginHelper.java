@@ -54,6 +54,30 @@ public class LoginHelper {
                 logger.log(Level.INFO, LanguageHelper.getString("parent_logged_in"));
                 return true;
             }
+            case "parentOneChild" -> {
+                // mocked parent id to use for parent example
+                int parentId = 3;
+
+                // build model
+                Parent parent = ModelBuilder.buildModelFromParent(parentId);
+
+                // save user in Session
+                Session.getInstance().setCurrentUser(parent);
+                logger.log(Level.INFO, "Parent with one child logged in");
+                return true;
+            }
+            case "parentYoungChild" -> {
+                // mocked parent id to use for parent example
+                int parentId = 12;
+
+                // build model
+                Parent parent = ModelBuilder.buildModelFromParent(parentId);
+
+                // save user in Session
+                Session.getInstance().setCurrentUser(parent);
+                logger.log(Level.INFO, "Parent with one child logged in");
+                return true;
+            }
             case "student" -> {
                 // mocked student id
                 int studentId = 1;
@@ -64,25 +88,6 @@ public class LoginHelper {
                 // save user in Session
                 Session.getInstance().setCurrentUser(student);
                 logger.log(Level.INFO, LanguageHelper.getString("student_logged_in"));
-                return true;
-            }
-            case "parentOneChild" -> {
-                // todo need to work out this usecase or delete it!!!
-                // this wont work :)))
-
-                Parent parent = new Parent();
-                parent.setId(1);
-
-                Student child1 = new Student();
-                child1.setFirstName("Friedrich");
-
-                ArrayList<Student> children = new ArrayList<>();
-                children.add(child1);
-                parent.setChildren(children);
-
-                // save user in Session
-                Session.getInstance().setCurrentUser(parent);
-                logger.log(Level.INFO, "Parent logged in");
                 return true;
             }
             default -> {

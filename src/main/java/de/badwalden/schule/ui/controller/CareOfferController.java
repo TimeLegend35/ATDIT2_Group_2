@@ -45,22 +45,6 @@ public class CareOfferController implements DataController {
     }
 
     /**
-     * Updates the registration status of a care offer for a student and updates the UI accordingly.
-     *
-     * @param  careOffer  the care offer to update the registration status for
-     * @param  student    the student whose registration status is being updated
-     */
-    public void changeCareOfferRegistration(CareOffer careOffer, Student student) {
-        if (student.isRegisteredForOffer(careOffer)) {
-            student.getServiceList().remove(careOffer);
-            student.update();
-        } else {
-            student.getServiceList().add(careOffer);
-            student.update();
-        }
-    }
-
-    /**
      * Determines if the student is right of service for the given care offer.
      *
      * @param  careOffer  the care offer to check

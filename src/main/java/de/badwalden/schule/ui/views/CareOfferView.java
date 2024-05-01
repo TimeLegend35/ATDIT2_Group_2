@@ -137,12 +137,8 @@ public class CareOfferView extends VBox {
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         if (user instanceof Parent parent) {
-            if (parent.getChildren().size() > 1) {
-                openDialogForMultipleChildren(dialog, parent);
-            } else if (parent.getChildren().size() == 1) {
-                openDialogForSingleChild(dialog, parent);
-            } else {
-                showNoChildrenAlert();
+            if (parent.getChildren().size() >= 1) {
+                addContentForDialog(dialog, parent);
             }
         } else {
             showNoChildrenAlert();
@@ -156,7 +152,7 @@ public class CareOfferView extends VBox {
      * @param  dialog   The dialog to be displayed
      * @param  parent   The parent object containing children
      */
-    private void openDialogForMultipleChildren(Dialog<User> dialog, Parent parent) {
+    private void addContentForDialog(Dialog<User> dialog, Parent parent) {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
@@ -165,7 +161,7 @@ public class CareOfferView extends VBox {
         int row = 0;
         for (Student child : parent.getChildren()) {
             if (controller.isRightOfSerice(careOffer, child)) {
-                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + child.getClassYear() + ")");
+                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
                 Button dialogRegistrationButton = new Button();
 
                 if (child.isRegisteredForOffer(careOffer)) {
@@ -204,33 +200,6 @@ public class CareOfferView extends VBox {
         }
 
         dialog.getDialogPane().setContent(grid);
-        dialog.showAndWait();
-    }
-
-    /**
-     * Opens a dialog for a parent with a single child.
-     *
-     * @param  dialog   The dialog to be displayed
-     * @param  parent   The parent object containing the child
-     */
-    private void openDialogForSingleChild(Dialog<User> dialog, Parent parent) {
-        Student child = parent.getChildren().get(0);
-        String registration = LanguageHelper.getString("registration");
-        registration = registration.replace("{child_name}", child.getFirstName());
-        Label registrationPrompt = new Label(registration);
-
-        GridPane grid = new GridPane();
-        grid.add(registrationPrompt, 0, 0);
-        dialog.getDialogPane().setContent(grid);
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == ButtonType.OK) {
-                // Call the method to change the attendance when OK is pressed.
-                controller.changeCareOfferRegistration(careOffer, child);
-                return child; // Return the child as the result if OK is pressed.
-            }
-            return null; // Return null if the dialog is canceled or closed without confirmation.
-        });
         dialog.showAndWait();
     }
 
