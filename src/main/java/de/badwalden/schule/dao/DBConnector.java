@@ -60,7 +60,7 @@ public class DBConnector {
         try {
             return DriverManager.getConnection(large_url);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Reconnection failed", e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("reconnection_failed"), e);
             return null;
         }
     }

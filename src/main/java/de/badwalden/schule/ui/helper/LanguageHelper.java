@@ -42,7 +42,7 @@ public class LanguageHelper {
             bundle = ResourceBundle.getBundle("Messagebundle", locale);
             return bundle.getString(key);
         } catch (NullPointerException | MissingResourceException e) {
-            logger.log(Level.SEVERE, "Error loading resource bundle or key not found", e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("load_resource_error"), e);
             // Placeholder
             return "##" + key + "##";
         }
