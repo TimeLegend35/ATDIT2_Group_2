@@ -4,9 +4,16 @@ import de.badwalden.schule.dao.ParentDAO;
 
 import java.util.List;
 
+
+/**
+ * Represents a parent, extending the User class with a list of children.
+ */
 public class Parent extends User {
     private List<Student> children;
 
+    /**
+     * Constructs a new Parent with the specified personal details.
+     */
     public Parent(int id, String firstName, String lastName, String cityOfResidence) {
         super();
 
@@ -14,11 +21,6 @@ public class Parent extends User {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setResidence(cityOfResidence);
-    }
-
-    // leave a empty parent constructor for mocking / REMOVE LATER!
-    public Parent() {
-        super();
     }
 
     public List<Student> getChildren() {

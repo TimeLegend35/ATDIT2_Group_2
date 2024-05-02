@@ -1,8 +1,8 @@
 package ui;
 
-import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.outOfScope.Admin;
 import de.badwalden.schule.ui.helper.LoginHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.application.Platform;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

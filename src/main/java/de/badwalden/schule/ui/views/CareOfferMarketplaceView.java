@@ -3,7 +3,7 @@ package de.badwalden.schule.ui.views;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

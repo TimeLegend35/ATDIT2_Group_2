@@ -1,8 +1,7 @@
 package de.badwalden.schule.ui.views;
 
-import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

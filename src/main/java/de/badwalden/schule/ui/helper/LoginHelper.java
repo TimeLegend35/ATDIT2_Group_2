@@ -4,6 +4,7 @@ import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.helper.ModelBuilder;
+import de.badwalden.schule.model.helper.Session;
 import javafx.scene.control.Alert;
 import java.util.logging.Level;
 import java.util.logging.Logger;

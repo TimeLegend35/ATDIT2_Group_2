@@ -3,7 +3,7 @@ package ui;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Supervisor;
 import de.badwalden.schule.ui.controller.CareOfferController;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
