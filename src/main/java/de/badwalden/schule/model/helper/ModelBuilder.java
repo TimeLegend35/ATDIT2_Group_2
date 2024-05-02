@@ -8,21 +8,29 @@ import de.badwalden.schule.exception.SessionDataNotLoaded;
 import de.badwalden.schule.exception.UnexpectedResultsException;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Utility class for building complex models involving multiple entities such as parents, students, and care offers.
+ * This class retrieves and processes data using DAOs and caches it for session-long use.
+ */
 public class ModelBuilder {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
-    private static final Session session = Session.getInstance();
+    private static Session session = Session.getInstance();
     private static final ParentDAO parentDao = new ParentDAO();
     private static final StudentDAO studentDao = new StudentDAO();
     private static final CareOfferDAO careOfferDao = new CareOfferDAO();
 
+
+    /**
+     * Initializes and caches necessary data for the session, particularly care offers.
+     */
     private static void buildSessionData() {
+
         // fill careOffers for Session
         try {
             // pull multiple access object like CareOffers
@@ -43,12 +51,15 @@ public class ModelBuilder {
     }
 
     /**
-     * A function to build the data model starting from a parent.
+     * Constructs a complete parent model with all related children and their associated data.
      *
-     * @param  id  the ID of the parent to build the model from
-     * @return     the Parent instance with the data
+     * @param id the parent's unique identifier
+     * @return a fully constructed Parent object
      */
     public static Parent buildModelFromParent(int id) {
+        // incase logout happened
+        session = Session.getInstance();
+
         // initialize needed data for Session
         buildSessionData();
 
@@ -73,18 +84,27 @@ public class ModelBuilder {
     }
 
     /**
-     * A function to build the data model starting from a student.
+     * Constructs a complete student model including associated services and details.
      *
-     * @param  id  the ID of the student to build the model from
-     * @return     the Student instance with the data
+     * @param id the student's unique identifier
+     * @return a fully constructed Student object
      */
     public static Student buildModelFromStudent(int id) {
+        // incase logout happened
+        session = Session.getInstance();
+
         // initialize needed data for Session
         buildSessionData();
 
         return buildStudent(id);
     }
 
+    /**
+     * Retrieves and builds a parent object from the database.
+     *
+     * @param parentId the unique identifier of the parent
+     * @return a Parent object or null if an error occurs
+     */
     private static Parent buildParent(int parentId) {
         try {
             // build base parent
@@ -100,6 +120,12 @@ public class ModelBuilder {
         }
     }
 
+    /**
+     * Retrieves and builds a student object from the database.
+     *
+     * @param studentId the unique identifier of the student
+     * @return a Student object or null if an error occurs
+     */
     private static Student buildStudent(int studentId) {
         try {
             // build base Student
@@ -126,6 +152,12 @@ public class ModelBuilder {
         }
     }
 
+    /**
+     * Constructs a CareOffer object from an array of objects representing database row data.
+     *
+     * @param row an array of objects representing a row of care offer data
+     * @return a fully constructed CareOffer object
+     */
     private static CareOffer buildCareOffer(Object[] row) {
         logger.log(Level.INFO, LanguageHelper.getString("build_co") + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
 
@@ -141,6 +173,14 @@ public class ModelBuilder {
        return new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
     }
 
+    /**
+     * Constructs a list of services (care offers) available to a specific student.
+     * Throws SessionDataNotLoaded if care offers have not been cached.
+     *
+     * @param studentId the unique identifier of the student
+     * @return a list of Service objects
+     * @throws SessionDataNotLoaded if the required session data has not been loaded
+     */
     private static List<Service> buildServiceListForStudent(int studentId) throws SessionDataNotLoaded {
         // check if careOffers are loaded
         if (session.getCachedCareOfferList() == null) {
@@ -164,4 +204,5 @@ public class ModelBuilder {
 
         return careOffers;
     }
+
 }

@@ -3,12 +3,13 @@ package de.badwalden.schule.ui.controller;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferView;
-import de.badwalden.schule.ui.views.DataController;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
+
+import java.util.List;
 
 public class CareOfferController implements DataController {
     CareOfferView careOfferView;
@@ -30,7 +31,7 @@ public class CareOfferController implements DataController {
      * @param  student                    the student whose registration status is being updated
      * @param  dialogRegistrationButton   the button that triggered the registration update
      */
-    public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton) {
+    public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton, List<Button> dialogButtons) {
         if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
             student.update();
@@ -40,7 +41,7 @@ public class CareOfferController implements DataController {
             student.update();
             dialogRegistrationButton.setText(LanguageHelper.getString("remove_child"));
         }
-        pauseButton(dialogRegistrationButton, 3);
+        pauseButtons(dialogButtons, 3);
         updateValuesFromObject(careOffer);
     }
 
@@ -61,18 +62,20 @@ public class CareOfferController implements DataController {
      * @param  button   the button to pause
      * @param  seconds  the number of seconds to pause the button for
      */
-    public void pauseButton(Button button, int seconds) {
-        // Disable the button
-        button.setDisable(true);
+    public void pauseButtons(List<Button> button, int seconds) {
+        for(Button b : button) {
+            // Disable the button
+            b.setDisable(true);
 
-        // Create a PauseTransition that lasts for 2 seconds
-        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+            // Create a PauseTransition that lasts for 2 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
 
-        // Re-enable the button after the pause
-        pause.setOnFinished(e -> button.setDisable(false));
+            // Re-enable the button after the pause
+            pause.setOnFinished(e -> b.setDisable(false));
 
-        // Start the pause transition
-        pause.play();
+            // Start the pause transition
+            pause.play();
+        }
     }
 
     /**

@@ -3,7 +3,7 @@ package de.badwalden.schule.ui.views;
 import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,13 +20,14 @@ import javafx.scene.text.Font;
 public class CareOfferMarketplaceView extends ScrollPane {
     private CareOfferMarketplaceController controller;
     private VBox contentBox;
+    private User user;
 
     public CareOfferMarketplaceView() {
         super(); // Adds spacing between child elements of the VBox
         controller = new CareOfferMarketplaceController();
 
         // check what user type is logged in and plot according
-        User user = Session.getInstance().getCurrentUser();
+        user = Session.getInstance().getCurrentUser();
 
         contentBox = new VBox(15); // Adds spacing between child elements of the VBox
         contentBox.setPadding(new Insets(15)); // Set padding around the VBox container

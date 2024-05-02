@@ -62,15 +62,15 @@ public class NavigationHelper {
     public void setContentView(String viewId) {
         logger.log(Level.INFO, "Navigating to content view with viewId: " + viewId);
         Node contentView = switch (viewId) {
-            case "Betreuungsmarktplatz" -> new CareOfferMarketplaceView();
+            case "CareOfferMarketplace" -> new CareOfferMarketplaceView();
 
             // MOCKUPS
-            case "Kalender" -> new ImageViewMockup("src/main/resources/images/Kalender Mockup.png");
-            case "Noten" -> new ImageViewMockup("src/main/resources/images/Noten Mockup.png");
-            case "Krankmeldungen" -> new ImageViewMockup("src/main/resources/images/Krankmeldungen Mockup.png");
-            case "Klasse" -> new ImageViewMockup("src/main/resources/images/Klasse Mockup.png");
-            case "Schulanmeldung" -> new ImageViewMockup("src/main/resources/images/Schulanmeldung Mockup.png");
-            case "Schulabmeldung" -> new ImageViewMockup("src/main/resources/images/Schulabmeldung Mockup.png");
+            case "Calandar" -> new ImageViewMockup("src/main/resources/images/Kalender Mockup.png");
+            case "Grades" -> new ImageViewMockup("src/main/resources/images/Noten Mockup.png");
+            case "SickNotes" -> new ImageViewMockup("src/main/resources/images/Krankmeldungen Mockup.png");
+            case "Class" -> new ImageViewMockup("src/main/resources/images/Klasse Mockup.png");
+            case "SchoolRegistration" -> new ImageViewMockup("src/main/resources/images/Schulanmeldung Mockup.png");
+            case "SchoolCancellation" -> new ImageViewMockup("src/main/resources/images/Schulabmeldung Mockup.png");
 
             default -> {
                 DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "View not found", "View not found. If the Error persists, please contact the Administrator.");

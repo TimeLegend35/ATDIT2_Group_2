@@ -4,7 +4,7 @@ import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -14,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.badwalden.schule.Main.navigationHelper;
 
@@ -34,7 +37,7 @@ public class CareOfferView extends VBox {
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
-    private User user;
+    private User user ;
 
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
@@ -88,7 +91,7 @@ public class CareOfferView extends VBox {
     private HBox createTopContainer() {
         Button backButton = new Button(LanguageHelper.getString("return"));
         backButton.setId("back");
-        backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
+        backButton.setOnAction(event -> navigationHelper.setContentView("CareOfferMarketplace"));
 
         HBox topRightContainer = new HBox(backButton);
         topRightContainer.setAlignment(Pos.TOP_LEFT);
@@ -104,7 +107,7 @@ public class CareOfferView extends VBox {
      * @param container The container to which the edit button is added.
      */
     private void addEditButtonIfNeeded(HBox container) {
-        if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
+        if (user.getId() == careOffer.getMainSupervisor().getId()) {
             Button editButton = new Button(LanguageHelper.getString("edit"));
             editButton.setId(String.valueOf(careOffer.getId()));
 //            editButton.setOnAction(event -> this.changeEditView(editButton));
@@ -159,6 +162,7 @@ public class CareOfferView extends VBox {
         grid.setPadding(new Insets(20));
 
         int row = 0;
+        List<Button> dialogButtons = new ArrayList<>();
         for (Student child : parent.getChildren()) {
             if (controller.isRightOfSerice(careOffer, child)) {
                 Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
@@ -171,8 +175,10 @@ public class CareOfferView extends VBox {
                 }
 
                 dialogRegistrationButton.setOnAction(event -> {
-                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
+                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton, dialogButtons);
                 });
+
+                dialogButtons.add(dialogRegistrationButton);
 
                 grid.add(childNameLabel, 0, row);
                 grid.add(dialogRegistrationButton, 1, row);
@@ -188,7 +194,7 @@ public class CareOfferView extends VBox {
                 if (child.isRegisteredForOffer(careOffer)) {
                     Button unregisterChildNoRightOfService = new Button(LanguageHelper.getString("remove_child"));
                     unregisterChildNoRightOfService.setOnAction(event -> {
-                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService);
+                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService, dialogButtons);
                         unregisterChildNoRightOfService.setVisible(false);
                     });
                     grid.add(unregisterChildNoRightOfService, 1, row);

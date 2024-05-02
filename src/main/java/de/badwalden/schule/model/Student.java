@@ -6,14 +6,12 @@ import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.outOfScope.Sclass;
 import de.badwalden.schule.model.outOfScope.Subject;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class Student extends User implements ModelSyncRequirements {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
@@ -51,7 +49,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void deregisterStudentFromService(CareOffer careOfferToRemove) {
-        studentDao.removeChildFromCareOffer(this.getId(),careOfferToRemove.getId());
+        studentDao.removeStudentFromCareOffer(careOfferToRemove.getId(), this.getId());
 
         // set new seats available for CareOffer
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
@@ -61,7 +59,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void registerStudentFromService(CareOffer careOfferToAdd) {
-        studentDao.addChildToCareOffer( this.getId(),careOfferToAdd.getId());
+        studentDao.addStudentToCareOffer(careOfferToAdd.getId(), this.getId());
 
         // set new seats available for CareOffer
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);

@@ -1,8 +1,7 @@
 package de.badwalden.schule.ui.views;
 
-import de.badwalden.schule.model.Admin;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -36,30 +35,30 @@ public class SidebarView extends VBox {
 
         // You might want to add a style class to your buttons for CSS styling
         Button calendarButton = new Button(LanguageHelper.getString("sidebar_calendar"));
-        calendarButton.setId("Kalender");
+        calendarButton.setId("Calandar");
         Button gradesButton = new Button(LanguageHelper.getString("sidebar_grades"));
-        gradesButton.setId("Noten");
+        gradesButton.setId("Grades");
         Button absencesButton = new Button(LanguageHelper.getString("sidebar_sick_note"));
-        absencesButton.setId("Krankmeldungen");
+        absencesButton.setId("SickNotes");
         Button classButton = new Button(LanguageHelper.getString("sidebar_class"));
-        classButton.setId("Klasse");
+        classButton.setId("Class");
 
         Label careLabel = new Label(LanguageHelper.getString("sidebar_care_offer"));
         careLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         Button betreuungsmarktplatzButton = new Button(LanguageHelper.getString("sidebar_care_offer_market_place"));
-        betreuungsmarktplatzButton.setId("Betreuungsmarktplatz");
+        betreuungsmarktplatzButton.setId("CareOfferMarketplace");
 
         Label notificationLabel = new Label(LanguageHelper.getString("sidebar_notifications"));
         notificationLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         Button notificationsButton = new Button(LanguageHelper.getString("sidebar_notifications"));
-        notificationsButton.setId("Benachrichtigungen");
+        notificationsButton.setId("Notifications");
 
         Label organizationalLabel = new Label(LanguageHelper.getString("sidebar_organisation"));
         organizationalLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         Button registrationButton = new Button(LanguageHelper.getString("sidebar_school_registration"));
-        registrationButton.setId("Schulanmeldung");
+        registrationButton.setId("SchoolRegistration");
         Button deregistrationButton = new Button(LanguageHelper.getString("sidebar_school_cancellation"));
-        deregistrationButton.setId("Schulabmeldung");
+        deregistrationButton.setId("SchoolCancellation");
 
         getChildren().addAll(
                 schoolLabel, calendarButton, gradesButton, absencesButton, classButton,
@@ -80,11 +79,6 @@ public class SidebarView extends VBox {
         String initials = Arrays.stream(fullName.split(" "))
                 .map(name -> name.substring(0, 1))
                 .collect(Collectors.joining());
-
-        if(Session.getInstance().getCurrentUser() instanceof Admin) {
-            fullName = "Administrator";
-            initials = "ADMIN";
-        }
 
         // Placeholder for logo (replace with your logo)
         Label logoLabel = new Label(initials);
