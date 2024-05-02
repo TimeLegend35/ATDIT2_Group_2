@@ -92,7 +92,7 @@ public class Student extends User implements ModelSyncRequirements {
         return this.age;
     }
 
-    public void setAge(int Age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

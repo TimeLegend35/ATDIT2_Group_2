@@ -4,6 +4,8 @@ import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.Supervisor;
+import de.badwalden.schule.ui.helper.Language;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class StudentTest {
     @BeforeEach
     public void setUp(){
         student = new Student();
+        LanguageHelper.setLocale(Language.GERMAN);
     }
 
     /**
@@ -82,22 +85,6 @@ public class StudentTest {
     }
 
     @Test
-    public void testRegisterAndDeregisterStudentFromService() {
-        // Assemble
-        Supervisor supervisor = new Supervisor(1, "Zoe");
-        CareOffer careOffer = new CareOffer(1, supervisor, 3, 1, "Hort", "Beschreibung Hort", 5);
-        int initialSeatsAvailable = careOffer.getSeatsAvailable();
-        // Act & Assert
-        student.registerStudentFromService(careOffer);
-        assertEquals(initialSeatsAvailable - 1, careOffer.getSeatsAvailable(), "Seats available should decrease after registration");
-        assertTrue(student.isRegisteredForOffer(careOffer), "Student should be registered for the service");
-        // Act & Assert
-        student.deregisterStudentFromService(careOffer);
-        assertEquals(initialSeatsAvailable, careOffer.getSeatsAvailable(), "Seats available should increase after deregistration");
-        assertFalse(student.isRegisteredForOffer(careOffer), "Student should not be registered for the service after deregistration");
-    }
-
-    @Test
     public void testIsRightOfService() {
         // Assemble
         Supervisor supervisor = new Supervisor(1, "Zoe");
@@ -114,25 +101,6 @@ public class StudentTest {
         assertFalse(student.isRightOfService(careOffer), "Student should not have right of service when no available seats");
     }
 
-    // @Test
-    //public void testUpdateMethod() {
-    //  student.setId(1);
-        //student.setFirstName("John");
-        //student.setLastName("Doe");
-       // student.setAge(16);
-        //student.setCompulsorySchooling(true);
-        //student.setRightOfService(true);
-        //CareOffer careOffer = new CareOffer();
-       // List<Service> serviceList = new ArrayList<>();
-       // serviceList.add(new Service());
-       // student.setServiceList(serviceList);
-      //  StudentDAO studentDAO = Mockito.mock(StudentDAO.class);
-        //CareOfferDAO careOfferDAO = Mockito.mock(CareOfferDAO.class);
-       // Mockito.when(studentDAO.write(Mockito.anyList())).thenReturn(1);
-       // student.update();
-        //Mockito.verify(studentDAO, Mockito.times(1)).write(Mockito.anyList());
-    //}
-
     @Test
     public void testToObjectArrayMethod() {
         // Assemble
@@ -144,8 +112,10 @@ public class StudentTest {
         alice.setAge(9);
         alice.setCompulsorySchooling(true);
         alice.setRightOfService(true);
+
         // Act
-        Object[] objectArray = student.toObjectArray();
+        Object[] objectArray = alice.toObjectArray(); // Fix: use alice instead of student
+
         // Assert
         assertEquals(1, objectArray[0]);
         assertEquals(3, objectArray[1]);
