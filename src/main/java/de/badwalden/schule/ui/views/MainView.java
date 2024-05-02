@@ -40,7 +40,7 @@ public class MainView extends BorderPane {
     /**
      * Sets the content view in the mainSplitPane based on the number of existing items.
      *
-     * @param  contentView   the Node to set as the content view
+     * @param contentView the Node to set as the content view
      */
     public void setContentView(Node contentView) {
         if (mainSplitPane.getItems().size() > 1) {

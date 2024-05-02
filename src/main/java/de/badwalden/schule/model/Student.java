@@ -26,7 +26,8 @@ public class Student extends User implements ModelSyncRequirements {
     private List<Service> serviceList;
     private List<Subject> grades;
 
-    public Student(int id, int class_year, String firstName, String lastName, int age, boolean compulsorySchooling, boolean rightOfService, List<Service> serviceList) {
+    public Student(int id, int class_year, String firstName, String lastName, int age,
+                   boolean compulsorySchooling, boolean rightOfService, List<Service> serviceList) {
         super();
 
         this.setId(id);
@@ -55,7 +56,8 @@ public class Student extends User implements ModelSyncRequirements {
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
         careOfferToRemove.update();
 
-        logger.log(Level.INFO, LanguageHelper.getString("deregistered_student") + this.getId() + LanguageHelper.getString("from_service") + careOfferToRemove.getId());
+        logger.log(Level.INFO, LanguageHelper.getString("deregistered_student") +
+                this.getId() + LanguageHelper.getString("from_service") + careOfferToRemove.getId());
     }
 
     public void registerStudentFromService(CareOffer careOfferToAdd) {
@@ -65,7 +67,8 @@ public class Student extends User implements ModelSyncRequirements {
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
         careOfferToAdd.update();
 
-        logger.log(Level.INFO, LanguageHelper.getString("registered_student") + this.getId() + LanguageHelper.getString("from_service") + careOfferToAdd.getId());
+        logger.log(Level.INFO, LanguageHelper.getString("registered_student") +
+                this.getId() + LanguageHelper.getString("from_service") + careOfferToAdd.getId());
     }
 
     public boolean isCompulsorySchooling() {
@@ -97,7 +100,9 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     public boolean isRightOfService(CareOffer careOffer) {
-        if (this.getClassYear() >= careOffer.getYoungestGrade() && this.getClassYear() <= careOffer.getOldestGrade() && this.rightOfService && careOffer.getSeatsAvailable() > 0) {
+        if (this.getClassYear() >= careOffer.getYoungestGrade() &&
+                this.getClassYear() <= careOffer.getOldestGrade() &&
+                this.rightOfService && careOffer.getSeatsAvailable() > 0) {
             return true;
         } else {
             return false;
@@ -164,7 +169,9 @@ public class Student extends User implements ModelSyncRequirements {
             if (!currentRegisteredIds.contains(serviceId)) {
                 CareOffer careOfferToAdd = session.getCareOfferById(serviceId);
                 if (careOfferToAdd != null) {
-                    logger.log(Level.INFO, LanguageHelper.getString("register_care_offer") + careOfferToAdd.getName());
+                    logger.log(Level.INFO, LanguageHelper.getString("register_care_offer") +
+                            careOfferToAdd.getName()
+                    );
                     registerStudentFromService(careOfferToAdd);
                 } else {
                     logger.log(Level.WARNING, LanguageHelper.getString("fail_co_id") + serviceId);
@@ -177,7 +184,9 @@ public class Student extends User implements ModelSyncRequirements {
             if (!newServiceIds.contains(registeredId)) {
                 CareOffer careOfferToRemove = session.getCareOfferById(registeredId);
                 if (careOfferToRemove != null) {
-                    logger.log(Level.INFO, LanguageHelper.getString("deregister_care_offer") + careOfferToRemove.getName());
+                    logger.log(Level.INFO, LanguageHelper.getString("deregister_care_offer") +
+                            careOfferToRemove.getName()
+                    );
                     deregisterStudentFromService(careOfferToRemove);
                 } else {
                     logger.log(Level.WARNING, LanguageHelper.getString("fail_co_id") + registeredId);

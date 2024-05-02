@@ -2,6 +2,7 @@ package de.badwalden.schule.dao;
 
 import de.badwalden.schule.exception.UnexpectedResultsException;
 import de.badwalden.schule.ui.helper.LanguageHelper;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,11 +83,11 @@ public class CareOfferDAO implements DatabaseInteractions {
      */
     public List<Object[]> getCareOffersIdsForStudent(int studentId) {
         String sql = """
-                 SELECT co.care_offer_id
-                 FROM care_offers co
-                 JOIN child_care_offer_assignment cca ON co.care_offer_id = cca.care_offer_id
-                 WHERE cca.student_id = ?
-                 """;
+                SELECT co.care_offer_id
+                FROM care_offers co
+                JOIN child_care_offer_assignment cca ON co.care_offer_id = cca.care_offer_id
+                WHERE cca.student_id = ?
+                """;
 
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{studentId});
 

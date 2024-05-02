@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class NavigationHelper {
      * Navigates to the specified view.
      * Only to be used when changing the whole window content, otherwise use setContentView()
      *
-     * @param  viewName  the name of the view to navigate to
+     * @param viewName the name of the view to navigate to
      */
     public void navigateTo(String viewName) {
 
@@ -57,7 +58,7 @@ public class NavigationHelper {
     /**
      * Sets the content view of the main stage based on the given view ID.
      *
-     * @param  viewId  the ID of the view to navigate to
+     * @param viewId the ID of the view to navigate to
      */
     public void setContentView(String viewId) {
         logger.log(Level.INFO, "Navigating to content view with viewId: " + viewId);
@@ -67,13 +68,18 @@ public class NavigationHelper {
             // MOCKUPS
             case "Calandar" -> new ImageViewMockup("src/main/resources/images/Kalender Mockup.png");
             case "Grades" -> new ImageViewMockup("src/main/resources/images/Noten Mockup.png");
-            case "SickNotes" -> new ImageViewMockup("src/main/resources/images/Krankmeldungen Mockup.png");
+            case "SickNotes" ->
+                    new ImageViewMockup("src/main/resources/images/Krankmeldungen Mockup.png");
             case "Class" -> new ImageViewMockup("src/main/resources/images/Klasse Mockup.png");
-            case "SchoolRegistration" -> new ImageViewMockup("src/main/resources/images/Schulanmeldung Mockup.png");
-            case "SchoolCancellation" -> new ImageViewMockup("src/main/resources/images/Schulabmeldung Mockup.png");
+            case "SchoolRegistration" ->
+                    new ImageViewMockup("src/main/resources/images/Schulanmeldung Mockup.png");
+            case "SchoolCancellation" ->
+                    new ImageViewMockup("src/main/resources/images/Schulabmeldung Mockup.png");
 
             default -> {
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "View not found", "View not found. If the Error persists, please contact the Administrator.");
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "View not found",
+                        "View not found. If the Error persists, please contact the Administrator."
+                );
                 logger.log(Level.SEVERE, "View not found: " + viewId);
                 yield new VBox(new Text("View not implemented."));
             }
@@ -84,7 +90,7 @@ public class NavigationHelper {
     /**
      * Sets the content view of the main stage based on the given object page.
      *
-     * @param  object  the ID of the view to navigate to
+     * @param object the ID of the view to navigate to
      */
     public void setContentView(Object object) {
         logger.log(Level.INFO, "Navigating to Object Page of obj: " + object.toString());
@@ -97,7 +103,9 @@ public class NavigationHelper {
         // ... add else if blocks for other object types
 
         else {
-            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "View not found", "View not found. If the Error persists, please contact the Administrator.");
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "View not found",
+                    "View not found. If the Error persists, please contact the Administrator."
+            );
             logger.log(Level.SEVERE, "Object page not found: " + object);
             contentView = new VBox(new Text("View not implemented."));
         }

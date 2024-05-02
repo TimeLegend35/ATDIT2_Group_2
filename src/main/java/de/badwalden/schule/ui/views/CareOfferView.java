@@ -37,7 +37,7 @@ public class CareOfferView extends VBox {
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
-    private User user ;
+    private User user;
 
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
@@ -152,8 +152,8 @@ public class CareOfferView extends VBox {
     /**
      * Opens a dialog for a parent with multiple children.
      *
-     * @param  dialog   The dialog to be displayed
-     * @param  parent   The parent object containing children
+     * @param dialog The dialog to be displayed
+     * @param parent The parent object containing children
      */
     private void addContentForDialog(Dialog<User> dialog, Parent parent) {
         GridPane grid = new GridPane();
@@ -165,7 +165,10 @@ public class CareOfferView extends VBox {
         List<Button> dialogButtons = new ArrayList<>();
         for (Student child : parent.getChildren()) {
             if (controller.isRightOfSerice(careOffer, child)) {
-                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
+                Label childNameLabel = new Label(child.getFirstName() +
+                        " (" + LanguageHelper.getString("current_class") +
+                        " " + child.getClassYear() + ")"
+                );
                 Button dialogRegistrationButton = new Button();
 
                 if (child.isRegisteredForOffer(careOffer)) {
@@ -187,7 +190,10 @@ public class CareOfferView extends VBox {
             } else {
 
                 // If the child has no right of service, just show the label and the class year
-                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
+                Label childNameLabel = new Label(child.getFirstName() + " (" +
+                        LanguageHelper.getString("current_class") + " " +
+                        child.getClassYear() + ")"
+                );
                 grid.add(childNameLabel, 0, row);
 
                 // Add a button if the child is registered but has no right of service
@@ -213,7 +219,9 @@ public class CareOfferView extends VBox {
      * Displays an alert dialog indicating that there are no children connected to the current user.
      */
     private void showNoChildrenAlert() {
-        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("sign_up_child"), LanguageHelper.getString("no_child_alert"));
+        DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("sign_up_child"),
+                LanguageHelper.getString("no_child_alert")
+        );
     }
 
 
@@ -238,7 +246,11 @@ public class CareOfferView extends VBox {
         descriptionLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         descriptionTextField = new TextField();
         descriptionTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(descriptionLabel, descriptionLabelValue, descriptionTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(
+                descriptionLabel,
+                descriptionLabelValue,
+                descriptionTextField)
+        );
 
         Label numberOfSeatsLabel = new Label(LanguageHelper.getString("open_seats"));
         numberOfSeatsLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -247,7 +259,11 @@ public class CareOfferView extends VBox {
         seatsAvailableLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         seatsAvailableTextField = new TextField();
         seatsAvailableTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(numberOfSeatsLabel, seatsAvailableLabelValue, seatsAvailableTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(
+                numberOfSeatsLabel,
+                seatsAvailableLabelValue,
+                seatsAvailableTextField)
+        );
 
         Label youngestGradeLabel = new Label(LanguageHelper.getString("youngest_class"));
         youngestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -256,7 +272,11 @@ public class CareOfferView extends VBox {
         youngestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         youngestGradeTextField = new TextField();
         youngestGradeTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(youngestGradeLabel, youngestGradeLabelValue, youngestGradeTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(
+                youngestGradeLabel,
+                youngestGradeLabelValue,
+                youngestGradeTextField)
+        );
 
         Label oldestGradeLabel = new Label(LanguageHelper.getString("oldest_class"));
         oldestGradeLabel.setFont(new Font(FONT_SIZE)); // Set font size for title
@@ -265,7 +285,11 @@ public class CareOfferView extends VBox {
         oldestGradeLabelValue.setWrapText(true); // Allows the description to wrap within the label width
         oldestGradeTextField = new TextField();
         oldestGradeTextField.setVisible(false);
-        uiElements.add(new ObjectPageAttributeElementsContainer(oldestGradeLabel, oldestGradeLabelValue, oldestGradeTextField));
+        uiElements.add(new ObjectPageAttributeElementsContainer(
+                oldestGradeLabel,
+                oldestGradeLabelValue,
+                oldestGradeTextField)
+        );
     }
 
 
@@ -319,6 +343,7 @@ public class CareOfferView extends VBox {
         gridPane.add(editModeUiNode, 1, rowCount);
     }
 
+    // out of scope logic to edit care offer
 //    /**
 //     * Changes the edit view based on the current mode.
 //     *

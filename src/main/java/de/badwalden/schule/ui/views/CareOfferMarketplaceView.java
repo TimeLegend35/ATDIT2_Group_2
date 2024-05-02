@@ -71,7 +71,7 @@ public class CareOfferMarketplaceView extends ScrollPane {
         }
 
         // The user should have two grouped lists: Registered and unregistered offers
-        if(user instanceof Student) {
+        if (user instanceof Student) {
             Label registeredLabel = new Label(LanguageHelper.getString("registered_offers"));
             registeredLabel.setFont(new Font(16));
             registeredLabel.setPadding(new Insets(10, 0, 0, 0));

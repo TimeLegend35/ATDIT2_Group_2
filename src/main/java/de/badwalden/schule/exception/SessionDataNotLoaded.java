@@ -9,7 +9,7 @@ public class SessionDataNotLoaded extends Exception {
     /**
      * Constructs a new exception with the specified detail message and the part of data missing.
      *
-     * @param message the detail message
+     * @param message  the detail message
      * @param dataPart the part of the session data that failed to load
      */
     public SessionDataNotLoaded(String message, String dataPart) {
@@ -18,5 +18,7 @@ public class SessionDataNotLoaded extends Exception {
         this.dataPart = dataPart;
     }
 
-    public String getDataPart() { return this.dataPart; }
+    public String getDataPart() {
+        return this.dataPart;
+    }
 }

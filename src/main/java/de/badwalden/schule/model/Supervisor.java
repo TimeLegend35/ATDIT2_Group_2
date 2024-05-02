@@ -11,7 +11,8 @@ public class Supervisor extends User {
 
     /**
      * Constructs a Supervisor with the specified ID and name.
-     * @param id the unique identifier of the supervisor
+     *
+     * @param id   the unique identifier of the supervisor
      * @param name the name of the supervisor
      */
     public Supervisor(int id, String name) {

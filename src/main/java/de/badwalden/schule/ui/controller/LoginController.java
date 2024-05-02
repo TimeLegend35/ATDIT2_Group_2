@@ -18,13 +18,13 @@ public class LoginController {
     /**
      * Handles the login button press event.
      *
-     * @param  username  the username entered by the user
-     * @param  password  the password entered by the user
+     * @param username the username entered by the user
+     * @param password the password entered by the user
      */
     public void handleLoginButtonPressed(String username, String password) {
         // authenticate user
         boolean login = LoginHelper.authenticate(username, password);
-        if(login) {
+        if (login) {
             showMainView();
         }
     }
@@ -39,14 +39,15 @@ public class LoginController {
     /**
      * Handles the language change event.
      *
-     * @param  newLanguage  the new language selected by the user
+     * @param newLanguage the new language selected by the user
      */
     public void handleLanguageChange(Language newLanguage) {
         LanguageHelper.setLocale(newLanguage);
         loginView.updateTextsFromResourceBundle();
     }
-    public LoginView getLoginView (){
-        return  loginView;
+
+    public LoginView getLoginView() {
+        return loginView;
     }
 }
 

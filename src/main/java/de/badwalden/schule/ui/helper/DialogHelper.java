@@ -19,9 +19,9 @@ public class DialogHelper {
     /**
      * Shows an alert dialog with the specified type, title, and content.
      *
-     * @param  type    the type of the alert
-     * @param  title   the title of the alert
-     * @param  content the content of the alert
+     * @param type    the type of the alert
+     * @param title   the title of the alert
+     * @param content the content of the alert
      */
     public static void showAlertDialog(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
@@ -39,12 +39,13 @@ public class DialogHelper {
     /**
      * Shows a timed alert dialog with the specified type, title, and content. The dialog automatically closes after the specified time.
      *
-     * @param  type                 the type of the alert
-     * @param  title                the title of the alert
-     * @param  content              the content of the alert
-     * @param  displayTimeInSeconds the time in seconds before the dialog automatically closes
+     * @param type                 the type of the alert
+     * @param title                the title of the alert
+     * @param content              the content of the alert
+     * @param displayTimeInSeconds the time in seconds before the dialog automatically closes
      */
-    public static void showTimedAlertDialog(Alert.AlertType type, String title, String content, int displayTimeInSeconds) {
+    public static void showTimedAlertDialog(Alert.AlertType type, String title, String content,
+                                            int displayTimeInSeconds) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -53,7 +54,9 @@ public class DialogHelper {
         AtomicInteger timeLeft = new AtomicInteger(displayTimeInSeconds);
 
         // Set content with a countdown label
-        Label contentLabel = new Label(content + LanguageHelper.getString("closing_in") + timeLeft.get() + LanguageHelper.getString("seconds"));
+        Label contentLabel = new Label(content + LanguageHelper.getString("closing_in") +
+                timeLeft.get() + LanguageHelper.getString("seconds")
+        );
         alert.getDialogPane().setContent(contentLabel);
 
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
@@ -67,7 +70,9 @@ public class DialogHelper {
                 alert.close();
                 timeline.stop();
             } else {
-                contentLabel.setText(content + LanguageHelper.getString("closing_in") + timeLeft.get() + LanguageHelper.getString("seconds"));
+                contentLabel.setText(content + LanguageHelper.getString("closing_in") +
+                        timeLeft.get() + LanguageHelper.getString("seconds")
+                );
             }
         }));
         timeline.play();
@@ -75,5 +80,5 @@ public class DialogHelper {
         alert.showAndWait();
     }
 
-    
+
 }

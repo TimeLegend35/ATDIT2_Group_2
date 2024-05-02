@@ -39,14 +39,15 @@ public class ModelBuilder {
             // fill care offers into session to keep in runtime
             List<CareOffer> careOfferList = new ArrayList<>();
 
-            for (Object[] row: results) {
+            for (Object[] row : results) {
                 careOfferList.add(buildCareOffer(row));
             }
 
             session.setCachedCareOfferList(careOfferList);
 
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_co") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_co") +
+                    e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
         }
     }
 
@@ -115,7 +116,8 @@ public class ModelBuilder {
 
             return new Parent(parentId, firstName, lastName, residence);
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_parent") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_parent") +
+                    e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
             return null;
         }
     }
@@ -140,14 +142,17 @@ public class ModelBuilder {
             boolean rightOfService = (boolean) resultStudent[6];
             List<Service> serviceList = buildServiceListForStudent(studentId);
 
-            Student student = new Student(studentId, class_year, firstName, lastName, age, compulsorySchooling, rightOfService, serviceList);
+            Student student = new Student(studentId, class_year, firstName, lastName, age,
+                    compulsorySchooling, rightOfService, serviceList);
             return student;
 
         } catch (UnexpectedResultsException e) {
-            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_student") + e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
+            logger.log(Level.SEVERE, LanguageHelper.getString("error_fetch_student") +
+                    e.getWantedCount() + LanguageHelper.getString("got") + e.getRealCount(), e);
             return null;
         } catch (SessionDataNotLoaded e2) {
-            logger.log(Level.SEVERE, LanguageHelper.getString("Missing_session_data") + e2.getDataPart() , e2);
+            logger.log(Level.SEVERE, LanguageHelper.getString("Missing_session_data") +
+                    e2.getDataPart(), e2);
             return null;
         }
     }
@@ -159,18 +164,22 @@ public class ModelBuilder {
      * @return a fully constructed CareOffer object
      */
     private static CareOffer buildCareOffer(Object[] row) {
-        logger.log(Level.INFO, LanguageHelper.getString("build_co") + " " + row[0].toString() + " " +row[1].toString() + " " + row[2].toString() + " " + row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " + row[6].toString());
+        logger.log(Level.INFO, LanguageHelper.getString("build_co") + " " +
+                row[0].toString() + " " + row[1].toString() + " " + row[2].toString() + " " +
+                row[3].toString() + " " + row[4].toString() + " " + row[5].toString() + " " +
+                row[6].toString());
 
         int id = (int) row[0];
         int supervisorId = (int) row[1];
-        Supervisor supervisor = new Supervisor(supervisorId, "MasterSupervisor") ;
+        Supervisor supervisor = new Supervisor(supervisorId, "MasterSupervisor");
         int oldestClassLevel = (int) row[2];
         int youngestClassLevel = (int) row[3];
         String careOfferName = (String) row[4];
         String description = (String) row[5];
         int seatsAvailable = (int) row[6];
 
-       return new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName, description, seatsAvailable);
+        return new CareOffer(id, supervisor, oldestClassLevel, youngestClassLevel, careOfferName,
+                description, seatsAvailable);
     }
 
     /**

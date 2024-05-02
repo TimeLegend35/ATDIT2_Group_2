@@ -1,6 +1,7 @@
 package de.badwalden.schule.model;
 
 import de.badwalden.schule.model.outOfScope.Notification;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public abstract class User {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -31,16 +33,23 @@ public abstract class User {
     public String getFirstName() {
         return first_name;
     }
-    public void setFirstName(String firstName){
+
+    public void setFirstName(String firstName) {
         this.first_name = firstName;
     }
 
-    public void setLastName(String last_name) { this.last_name = last_name; }
-    public String getLastName() { return last_name; }
+    public void setLastName(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getLastName() {
+        return last_name;
+    }
 
     public void setResidence(String residence) {
         this.residence = residence;
     }
+
     public String getResidence() {
         return residence;
     }

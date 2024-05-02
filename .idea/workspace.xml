@@ -4,13 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d67caaab-69bf-4f0e-9c42-e48eb3d35a89" name="Changes" comment="View &amp; controller logic change">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="d67caaab-69bf-4f0e-9c42-e48eb3d35a89" name="Changes" comment="build">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/CareOfferDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/CareOfferDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/DBConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/ParentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/ParentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/StudentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/dao/StudentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/exception/SessionDataNotLoaded.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/exception/SessionDataNotLoaded.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/exception/UnexpectedResultsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/exception/UnexpectedResultsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/CareOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/CareOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/ModelSyncRequirements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/ModelSyncRequirements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Supervisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/Supervisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/helper/ModelBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/model/helper/ModelBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/CareOfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/CareOfferController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/CareOfferMarketplaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/CareOfferMarketplaceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/DialogHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/DialogHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LanguageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LanguageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/LoginHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/SidebarView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/SidebarView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -27,12 +56,19 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "paulKlarer"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;paulKlarer&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="master" />
+      </list>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -55,29 +91,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ATDIT2_Group_2 [compile].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;app-design&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/leanf/IdeaProjects/ATDIT2_Group_2/src/main/java/de/badwalden/schule/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DBConnector.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "JAR Application.ATDIT2_Group_2-1.0-SNAPSHOT-shaded.jar.executor": "Run",
+    "JUnit.CareOfferDAOTest.executor": "Run",
+    "JUnit.CareOfferTest.executor": "Run",
+    "JUnit.DBConnectorTest.executor": "Run",
+    "JUnit.DBConnectorTest.testExecuteQuery.executor": "Run",
+    "JUnit.DBInteractionsTest.executor": "Run",
+    "JUnit.ParentDAOTest.executor": "Run",
+    "JUnit.StudentDAOTest.executor": "Run",
+    "JUnit.StudentDAOTest.testGetSingleStudent.executor": "Run",
+    "JUnit.StudentDAOTest.testUpdateStudents.executor": "Run",
+    "JUnit.dao in ATDIT2_Group_2.executor": "Coverage",
+    "JUnit.java in ATDIT2_Group_2.executor": "Run",
+    "Maven.ATDIT2_Group_2 [compile].executor": "Run",
+    "Maven.ATDIT2_Group_2 [install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "app-design",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/leanf/IdeaProjects/ATDIT2_Group_2/src/test/java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/leanf/IdeaProjects/ATDIT2_Group_2/src/main/java/de/badwalden/schule/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "azure"
+    ]
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\leanf\IdeaProjects\ATDIT2_Group_2\src\test\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.badwalden.schule.Launcher" />
       <module name="ATDIT2_Group_2" />
@@ -91,9 +153,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StudentDAOTest.testGetSingleStudent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ATDIT2_Group_2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dao" />
+      <option name="MAIN_CLASS_NAME" value="dao.StudentDAOTest" />
+      <option name="METHOD_NAME" value="testGetSingleStudent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StudentDAOTest.testUpdateStudents" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ATDIT2_Group_2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dao" />
+      <option name="MAIN_CLASS_NAME" value="dao.StudentDAOTest" />
+      <option name="METHOD_NAME" value="testUpdateStudents" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in ATDIT2_Group_2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ATDIT2_Group_2" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ATDIT2_Group_2-1.0-SNAPSHOT-shaded.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/ATDIT2_Group_2-1.0-SNAPSHOT-shaded.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="JUnit.java in ATDIT2_Group_2" />
+        <item itemvalue="JAR Application.ATDIT2_Group_2-1.0-SNAPSHOT-shaded.jar" />
+        <item itemvalue="JUnit.StudentDAOTest.testGetSingleStudent" />
+        <item itemvalue="JUnit.StudentDAOTest.testUpdateStudents" />
       </list>
     </recent_temporary>
   </component>
@@ -116,6 +226,20 @@
       <workItem from="1712592433683" duration="6124000" />
       <workItem from="1712919260262" duration="1384000" />
       <workItem from="1713123769957" duration="2942000" />
+      <workItem from="1713347156979" duration="7029000" />
+      <workItem from="1713430864950" duration="8461000" />
+      <workItem from="1713471083652" duration="1052000" />
+      <workItem from="1713600526934" duration="930000" />
+      <workItem from="1713784601440" duration="590000" />
+      <workItem from="1713811842163" duration="2501000" />
+      <workItem from="1713878514724" duration="4063000" />
+      <workItem from="1713889552090" duration="3715000" />
+      <workItem from="1714228784773" duration="3734000" />
+      <workItem from="1714331534766" duration="2189000" />
+      <workItem from="1714465935228" duration="14676000" />
+      <workItem from="1714589029001" duration="186000" />
+      <workItem from="1714676464664" duration="7565000" />
+      <workItem from="1714685107981" duration="992000" />
     </task>
     <task id="LOCAL-00001" summary="View &amp; controller logic change">
       <option name="closed" value="true" />
@@ -125,7 +249,183 @@
       <option name="project" value="LOCAL" />
       <updated>1712659765931</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=".env absolut path fix in DBConnector">
+      <option name="closed" value="true" />
+      <created>1713297501169</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713297501169</updated>
+    </task>
+    <task id="LOCAL-00003" summary="java test folder">
+      <option name="closed" value="true" />
+      <created>1713347296419</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713347296419</updated>
+    </task>
+    <task id="LOCAL-00004" summary="ModelBuilder V1 and some refactoring in model">
+      <option name="closed" value="true" />
+      <created>1713350161894</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713350161894</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ModelBuilder added fromParent and fromStudent. Updated LoginHelper to changes. With that updated StudentDAO and ParentDAO.">
+      <option name="closed" value="true" />
+      <created>1713353876302</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713353876302</updated>
+    </task>
+    <task id="LOCAL-00006" summary="cache logic in Session class for objects generated and temp saved in runtime for user">
+      <option name="closed" value="true" />
+      <created>1713432735281</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713432735281</updated>
+    </task>
+    <task id="LOCAL-00007" summary="updated DAO classes and DatabaseInteractions interface according to DBConnector changes">
+      <option name="closed" value="true" />
+      <created>1713436142444</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713436142444</updated>
+    </task>
+    <task id="LOCAL-00008" summary="created unified get methods in dao and added new write methods. Still need to be fully implemented">
+      <option name="closed" value="true" />
+      <created>1713813722307</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713813722307</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fast bug fix in ModelBuilder and Care offer logic.">
+      <option name="closed" value="true" />
+      <created>1713881543578</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1713881543578</updated>
+    </task>
+    <task id="LOCAL-00010" summary="ModelBuilder big logic fix: All careOFfers need are now loaded into Session first, then linked to Students">
+      <option name="closed" value="true" />
+      <created>1713891347416</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1713891347416</updated>
+    </task>
+    <task id="LOCAL-00011" summary="sql statement fixed in CareOfferDAO">
+      <option name="closed" value="true" />
+      <created>1713891870240</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1713891870240</updated>
+    </task>
+    <task id="LOCAL-00012" summary="removal of StudenList in Service">
+      <option name="closed" value="true" />
+      <created>1713892080524</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1713892080524</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated DAO &amp; model classes to use prepare statement, also added exception throws in DAO classes. Handling OTW in Model classes">
+      <option name="closed" value="true" />
+      <created>1714231617408</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1714231617408</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Student Update">
+      <option name="closed" value="true" />
+      <created>1714336397727</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1714336397727</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added Exception handling for DAO calls. New Exception Class for missing data in Session: SessionDataNotLoaded.">
+      <option name="closed" value="true" />
+      <created>1714468376716</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1714468376716</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Model builder tweaks. Now build model for Student. LoginHelper for new login option &quot;student&quot;.">
+      <option name="closed" value="true" />
+      <created>1714469848105</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1714469848105</updated>
+    </task>
+    <task id="LOCAL-00017" summary="New reconnection logic for DBConnector reconnection handling">
+      <option name="closed" value="true" />
+      <created>1714473619696</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1714473619696</updated>
+    </task>
+    <task id="LOCAL-00018" summary="new timout duration: 30sek">
+      <option name="closed" value="true" />
+      <created>1714473869195</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714473869195</updated>
+    </task>
+    <task id="LOCAL-00019" summary="consistency fix, session reset add, careOffer button new timeout, DAO classes new return for write method to check success in writing.">
+      <option name="closed" value="true" />
+      <created>1714483304712</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1714483304712</updated>
+    </task>
+    <task id="LOCAL-00020" summary="new dependency for testing. Added tests for DAO classes">
+      <option name="closed" value="true" />
+      <created>1714680169513</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1714680169513</updated>
+    </task>
+    <task id="LOCAL-00021" summary="namespace adjust and CareOffer Test">
+      <option name="closed" value="true" />
+      <created>1714680570304</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1714680570304</updated>
+    </task>
+    <task id="LOCAL-00022" summary="edited tests so that they dont mess with database data">
+      <option name="closed" value="true" />
+      <created>1714682168880</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1714682168880</updated>
+    </task>
+    <task id="LOCAL-00023" summary="no more writing to db in tests">
+      <option name="closed" value="true" />
+      <created>1714682990108</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1714682990108</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,27 +461,35 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="View &amp; controller logic change" />
-    <option name="LAST_COMMIT_MESSAGE" value="View &amp; controller logic change" />
+    <MESSAGE value=".env absolut path fix in DBConnector" />
+    <MESSAGE value="java test folder" />
+    <MESSAGE value="ModelBuilder V1 and some refactoring in model" />
+    <MESSAGE value="ModelBuilder added fromParent and fromStudent. Updated LoginHelper to changes. With that updated StudentDAO and ParentDAO." />
+    <MESSAGE value="cache logic in Session class for objects generated and temp saved in runtime for user" />
+    <MESSAGE value="updated DAO classes and DatabaseInteractions interface according to DBConnector changes" />
+    <MESSAGE value="created unified get methods in dao and added new write methods. Still need to be fully implemented" />
+    <MESSAGE value="fast bug fix in ModelBuilder and Care offer logic." />
+    <MESSAGE value="ModelBuilder big logic fix: All careOFfers need are now loaded into Session first, then linked to Students" />
+    <MESSAGE value="sql statement fixed in CareOfferDAO" />
+    <MESSAGE value="removal of StudenList in Service" />
+    <MESSAGE value="Updated DAO &amp; model classes to use prepare statement, also added exception throws in DAO classes. Handling OTW in Model classes" />
+    <MESSAGE value="Student Update" />
+    <MESSAGE value="Added Exception handling for DAO calls. New Exception Class for missing data in Session: SessionDataNotLoaded." />
+    <MESSAGE value="Model builder tweaks. Now build model for Student. LoginHelper for new login option &quot;student&quot;." />
+    <MESSAGE value="New reconnection logic for DBConnector reconnection handling" />
+    <MESSAGE value="new timout duration: 30sek" />
+    <MESSAGE value="consistency fix, session reset add, careOffer button new timeout, DAO classes new return for write method to check success in writing." />
+    <MESSAGE value="new dependency for testing. Added tests for DAO classes" />
+    <MESSAGE value="namespace adjust and CareOffer Test" />
+    <MESSAGE value="edited tests so that they dont mess with database data" />
+    <MESSAGE value="no more writing to db in tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="no more writing to db in tests" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferMarketplaceView.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/views/CareOfferView.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/badwalden/schule/ui/helper/NavigationHelper.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ATDIT2_Group_2$DBConnectorTest.ic" NAME="DBConnectorTest Coverage Results" MODIFIED="1714677734487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>dao.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ATDIT2_Group_2$dao_in_ATDIT2_Group_2.ic" NAME="dao in ATDIT2_Group_2 Coverage Results" MODIFIED="1714680192779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/ATDIT2_Group_2$java_in_ATDIT2_Group_2.ic" NAME="java in ATDIT2_Group_2 Coverage Results" MODIFIED="1714683019089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

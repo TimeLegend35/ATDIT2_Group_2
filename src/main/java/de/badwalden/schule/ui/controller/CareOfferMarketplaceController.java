@@ -6,12 +6,13 @@ import de.badwalden.schule.model.helper.Session;
 
 public class CareOfferMarketplaceController implements DataController {
 
-    public CareOfferMarketplaceController() {}
+    public CareOfferMarketplaceController() {
+    }
 
     /**
      * Saves the given CareOffer in the session and navigates into the careOffer Object Page.
      *
-     * @param  offer  the CareOffer to be saved and displayed
+     * @param offer the CareOffer to be saved and displayed
      */
     public void showObjectPage(CareOffer offer) {
         // Save the offer in the session
