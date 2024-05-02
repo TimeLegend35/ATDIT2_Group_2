@@ -1,13 +1,8 @@
 package dao;
 
-import de.badwalden.schule.dao.DBConnector;
-import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+/**
+ * Deprecated Test Class - No longer in use.
+ */
 public class DBConnectorTest {
 
 //    @Test

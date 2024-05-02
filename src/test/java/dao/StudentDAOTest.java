@@ -1,12 +1,8 @@
 package dao;
 
-import de.badwalden.schule.dao.ParentDAO;
-import de.badwalden.schule.dao.StudentDAO;
-import de.badwalden.schule.model.Parent;
-import org.junit.Test;
-import java.util.List;
-import static org.junit.Assert.*;
-
+/**
+ * Deprecated Test Class - No longer in use.
+ */
 public class StudentDAOTest {
 
 //    @Test
