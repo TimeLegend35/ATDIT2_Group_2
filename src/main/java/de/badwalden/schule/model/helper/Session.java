@@ -1,4 +1,4 @@
-package de.badwalden.schule.ui.helper;
+package de.badwalden.schule.model.helper;
 
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.User;

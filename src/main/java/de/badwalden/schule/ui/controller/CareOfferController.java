@@ -3,7 +3,7 @@ package de.badwalden.schule.ui.controller;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferView;
 import de.badwalden.schule.ui.views.DataController;
 import javafx.animation.PauseTransition;

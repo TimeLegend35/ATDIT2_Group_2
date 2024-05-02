@@ -2,17 +2,29 @@ package de.badwalden.schule.dao;
 
 import de.badwalden.schule.exception.UnexpectedResultsException;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/**
+ * Data Access Object (DAO) for managing care offer data in the database.
+ * Implements DatabaseInteractions to provide specific operations for care offers.
+ */
 public class CareOfferDAO implements DatabaseInteractions {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
 
+    /**
+     * Retrieves a care offer from the database using its unique identifier.
+     * Throws UnexpectedResultsException if the query does not return exactly one care offer.
+     *
+     * @param careOfferId the unique identifier of the care offer to retrieve
+     * @return a list containing a single Object array representing the care offer data
+     * @throws UnexpectedResultsException if the number of care offers retrieved is not one
+     */
     @Override
     public List<Object[]> get(int careOfferId) throws UnexpectedResultsException {
+
         String sql = "SELECT * FROM care_offers WHERE care_offer_id = ?";
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{careOfferId});
 
@@ -25,6 +37,13 @@ public class CareOfferDAO implements DatabaseInteractions {
         return results;
     }
 
+    /**
+     * Updates information for multiple care offers in the database.
+     * Tracks and returns the number of database rows affected by the update operations.
+     *
+     * @param targets list of care offer data entries to update
+     * @return the number of rows affected by the update operations
+     */
     @Override
     public int write(List<Object[]> targets) {
         int executionCounter = 0;
@@ -55,6 +74,12 @@ public class CareOfferDAO implements DatabaseInteractions {
         return executionCounter;
     }
 
+    /**
+     * Retrieves all care offer IDs associated with a given student.
+     *
+     * @param studentId the unique identifier of the student
+     * @return a list of Object arrays, each containing a care offer ID associated with the student
+     */
     public List<Object[]> getCareOffersIdsForStudent(int studentId) {
         String sql = """
                  SELECT co.care_offer_id
@@ -68,6 +93,13 @@ public class CareOfferDAO implements DatabaseInteractions {
         return results;
     }
 
+    /**
+     * Retrieves all care offers from the database.
+     * Throws UnexpectedResultsException if no care offers are found.
+     *
+     * @return a list of Object arrays, each representing a row of care offer data
+     * @throws UnexpectedResultsException if no care offers are present
+     */
     public List<Object[]> getAllCareOffers() throws UnexpectedResultsException {
         String sql = "SELECT * FROM care_offers";
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{});

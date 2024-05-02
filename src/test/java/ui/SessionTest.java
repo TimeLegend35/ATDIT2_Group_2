@@ -2,7 +2,7 @@ package ui;
 
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.User;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

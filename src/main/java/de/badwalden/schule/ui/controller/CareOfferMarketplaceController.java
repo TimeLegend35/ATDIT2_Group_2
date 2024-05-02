@@ -2,7 +2,7 @@ package de.badwalden.schule.ui.controller;
 
 import de.badwalden.schule.Main;
 import de.badwalden.schule.model.CareOffer;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.DataController;
 
 public class CareOfferMarketplaceController implements DataController {

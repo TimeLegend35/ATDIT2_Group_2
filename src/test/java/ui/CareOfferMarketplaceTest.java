@@ -1,10 +1,10 @@
 package ui;
 
-import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.outOfScope.Admin;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Supervisor;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.BeforeEach;
