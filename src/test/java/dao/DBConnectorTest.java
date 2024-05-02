@@ -1,39 +1,50 @@
 package dao;
 
-import de.badwalden.schule.dao.DBConnector;
-import org.testng.annotations.Test;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
+import de.badwalden.schule.dao.DBConnector;
+import de.badwalden.schule.ui.helper.Language;
+import de.badwalden.schule.ui.helper.LanguageHelper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import java.sql.*;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertTrue;
 
 public class DBConnectorTest {
+    @Mock
+    private Connection mockConnection;
 
-    @Test
-    public void testGetInstance() {
-        // Test that getInstance method returns a non-null instance
-        assertNotNull(DBConnector.getInstance());
+    @Mock
+    private PreparedStatement mockStatement;
+
+    @Mock
+    private ResultSet mockResultSet;
+
+    @BeforeEach
+    public void setUp() {
+        LanguageHelper.setLocale(Language.ENGLISH);
+
+        mockConnection = mock(Connection.class);
+        mockStatement = mock(PreparedStatement.class);
+        mockResultSet = mock(ResultSet.class);
     }
 
     @Test
-    public void testConnect() {
-        // Test that connect method establishes connection successfully
-        assertNotNull(DBConnector.getInstance().connect());
+    public void testSingletonInstance() {
+        DBConnector firstInstance = DBConnector.getInstance();
+        DBConnector secondInstance = DBConnector.getInstance();
+        assertSame(firstInstance, secondInstance, "Both instances should be the same.");
     }
 
     @Test
-    public void testExecuteQuery() {
-        // Test the executeQuery method with a valid SQL query
-        List<Object[]> results = DBConnector.getInstance().executeQuery("SELECT * FROM students");
-        assertNotNull(results);
-        assertTrue(results.size() > 0);
+    public void testConnectionEstablishment() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+        assertDoesNotThrow(() -> DBConnector.getInstance().connect(), "Connection should be established without throwing exceptions.");
     }
 
-    @Test
-    public void testExecuteUpdate() {
-        // Test the executeUpdate method with a valid SQL update statement
-        int rowsAffected = DBConnector.getInstance().executeUpdate("INSERT INTO students (name, age) VALUES ('Test Student', 20)");
-        assertTrue(rowsAffected > 0);
-    }
 }
+

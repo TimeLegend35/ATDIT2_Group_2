@@ -1,6 +1,7 @@
 package ui;
 
 import de.badwalden.schule.ui.controller.LoginController;
+import de.badwalden.schule.ui.helper.Language;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.views.LoginView;
 import javafx.application.Platform;
@@ -22,9 +23,9 @@ public class LoginViewTest {
      * Initializes JavaFX platform before running any test method.
      */
     @BeforeAll
-    public static void setUp(){
-        Platform.startup(() -> {
-        });
+    public static void setUp() {
+        Setup.start_up_javaFX_plattform();
+
     }
 
     /**
@@ -32,24 +33,46 @@ public class LoginViewTest {
      * Checks if UI elements' texts are updated correctly based on the resource bundle for French language.
      */
     @Test
-    public void testUpdateTextsFromResourceBundle() {
+    public void testUpdateFrenchTextsFromResourceBundle() {
         Platform.runLater(() -> {
             // Assemble
             LoginView loginView = new LoginView();
             Text userNameLabel = loginView.userNameLabel;
             TextField userNameTextField = loginView.getUserNameTextField();
             Text passwordLabel = loginView.passwordLabel;
-            PasswordField passwordField = loginView.getPasswordField();
+            PasswordField passwordField = loginView.getPasswordTextField();
             CheckBox stayLoggedInCheckBox = loginView.getStayLoggedInCheckBox();
             Button signInButton = loginView.getSignInButton();
             // Act
-            LanguageHelper.setLocale("Français");
+            LanguageHelper.setLocale(Language.FRENCH);
             loginView.updateTextsFromResourceBundle();
             // Assert
-            assertEquals("Nom d'utilisateur:", userNameLabel.getText(), "Username label should be updated");
-            assertEquals("Mot de passe:", passwordLabel.getText(), "Password label should be updated");
+            assertEquals("Nom d'utilisateur", userNameLabel.getText(), "Username label should be updated");
+            assertEquals("Mot de passe", passwordLabel.getText(), "Password label should be updated");
             assertEquals("Rester connecté", stayLoggedInCheckBox.getText(), "Stay logged in checkbox label should be updated");
             assertEquals("Se connecter", signInButton.getText(), "Sign in button text should be updated");
+        });
+    }
+
+    @Test
+    public void testUpdateEnglishTextsFromResourceBundle() {
+        Platform.runLater(() -> {
+            // Assemble
+            LoginView loginView = new LoginView();
+            Text userNameLabel = loginView.userNameLabel;
+            TextField userNameTextField = loginView.getUserNameTextField();
+            Text passwordLabel = loginView.passwordLabel;
+            PasswordField passwordField = loginView.getPasswordTextField();
+            CheckBox stayLoggedInCheckBox = loginView.getStayLoggedInCheckBox();
+            Button signInButton = loginView.getSignInButton();
+            // Act
+            LanguageHelper.setLocale(Language.ENGLISH);
+            loginView.updateTextsFromResourceBundle();
+            // Assert
+            assertEquals("Username", userNameLabel.getText(), "Username label should be updated");
+            assertEquals("Password", passwordLabel.getText(), "Password label should be updated");
+            assertEquals("Stay Logged In", stayLoggedInCheckBox.getText(), "Stay logged in checkbox label should be updated");
+            assertEquals("Sign In", signInButton.getText(), "Sign in button text should be updated");
         });
     }
 
@@ -64,7 +87,7 @@ public class LoginViewTest {
             LoginView loginView = new LoginView();
             LoginController loginController = new LoginController(loginView);
             // Act
-            loginController.handleLanguageChange("Français");
+            loginController.handleLanguageChange(Language.FRENCH);
             // Assert
             assertEquals("Nom d'utilisateur:", loginController.getLoginView().userNameLabel.getText(), "Username label should be updated");
             assertEquals("Mot de passe:", loginController.getLoginView().passwordLabel.getText(), "Password label should be updated");

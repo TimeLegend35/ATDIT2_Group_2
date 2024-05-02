@@ -4,7 +4,7 @@ import de.badwalden.schule.model.*;
 import de.badwalden.schule.ui.controller.CareOfferController;
 import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,6 +15,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static de.badwalden.schule.Main.navigationHelper;
 
 public class CareOfferView extends VBox {
@@ -22,7 +25,6 @@ public class CareOfferView extends VBox {
     private CareOfferController controller;
 
     private static final int FONT_SIZE = 14;
-    private boolean isEditMode;
     public ObservableList<ObjectPageAttributeElementsContainer> uiElements = FXCollections.observableArrayList();
 
     public Label titleLabelValue;
@@ -35,7 +37,7 @@ public class CareOfferView extends VBox {
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
-    private User user;
+    private User user ;
 
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox
@@ -63,9 +65,6 @@ public class CareOfferView extends VBox {
         // Add all instantiated attributes to the grid pane
         addAllAttributesToGridPane(gridPane);
 
-        // Create a button to register for this care offer
-        Button registerButton = createRegisterButton();
-
         // Create the container for the offer's details and add them to the VBox with spacing and padding
         VBox offerBox = new VBox(10);
         offerBox.setPadding(new Insets(10));
@@ -73,7 +72,14 @@ public class CareOfferView extends VBox {
                 CornerRadii.EMPTY, new BorderWidths(2))));
 
         // Add everything to the container of the offer's details
-        offerBox.getChildren().addAll(gridPane, registerButton);
+        offerBox.getChildren().add(gridPane);
+
+        if (user instanceof Parent) {
+            // Create a button to register for this care offer
+            Button registerButton = createRegisterButton();
+            offerBox.getChildren().add(registerButton);
+        }
+
         this.getChildren().addAll(topRightContainer, offerBox);
     }
 
@@ -83,9 +89,9 @@ public class CareOfferView extends VBox {
      * @return HBox containing navigation buttons.
      */
     private HBox createTopContainer() {
-        Button backButton = new Button(LanguageHelper.getString("return_button"));
+        Button backButton = new Button(LanguageHelper.getString("return"));
         backButton.setId("back");
-        backButton.setOnAction(event -> navigationHelper.setContentView("Betreuungsmarktplatz"));
+        backButton.setOnAction(event -> navigationHelper.setContentView("CareOfferMarketplace"));
 
         HBox topRightContainer = new HBox(backButton);
         topRightContainer.setAlignment(Pos.TOP_LEFT);
@@ -101,8 +107,8 @@ public class CareOfferView extends VBox {
      * @param container The container to which the edit button is added.
      */
     private void addEditButtonIfNeeded(HBox container) {
-        if (user.getId() == careOffer.getMainSupervisor().getId() || user instanceof Admin) {
-            Button editButton = new Button(LanguageHelper.getString("edit_button"));
+        if (user.getId() == careOffer.getMainSupervisor().getId()) {
+            Button editButton = new Button(LanguageHelper.getString("edit"));
             editButton.setId(String.valueOf(careOffer.getId()));
 //            editButton.setOnAction(event -> this.changeEditView(editButton));
             container.getChildren().add(editButton);
@@ -134,12 +140,8 @@ public class CareOfferView extends VBox {
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         if (user instanceof Parent parent) {
-            if (parent.getChildren().size() > 1) {
-                openDialogForMultipleChildren(dialog, parent);
-            } else if (parent.getChildren().size() == 1) {
-                openDialogForSingleChild(dialog, parent);
-            } else {
-                showNoChildrenAlert();
+            if (parent.getChildren().size() >= 1) {
+                addContentForDialog(dialog, parent);
             }
         } else {
             showNoChildrenAlert();
@@ -153,16 +155,17 @@ public class CareOfferView extends VBox {
      * @param  dialog   The dialog to be displayed
      * @param  parent   The parent object containing children
      */
-    private void openDialogForMultipleChildren(Dialog<User> dialog, Parent parent) {
+    private void addContentForDialog(Dialog<User> dialog, Parent parent) {
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         grid.setPadding(new Insets(20));
 
         int row = 0;
+        List<Button> dialogButtons = new ArrayList<>();
         for (Student child : parent.getChildren()) {
             if (controller.isRightOfSerice(careOffer, child)) {
-                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + child.getClassYear() + ")");
+                Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
                 Button dialogRegistrationButton = new Button();
 
                 if (child.isRegisteredForOffer(careOffer)) {
@@ -172,8 +175,10 @@ public class CareOfferView extends VBox {
                 }
 
                 dialogRegistrationButton.setOnAction(event -> {
-                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
+                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton, dialogButtons);
                 });
+
+                dialogButtons.add(dialogRegistrationButton);
 
                 grid.add(childNameLabel, 0, row);
                 grid.add(dialogRegistrationButton, 1, row);
@@ -189,7 +194,7 @@ public class CareOfferView extends VBox {
                 if (child.isRegisteredForOffer(careOffer)) {
                     Button unregisterChildNoRightOfService = new Button(LanguageHelper.getString("remove_child"));
                     unregisterChildNoRightOfService.setOnAction(event -> {
-                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService);
+                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService, dialogButtons);
                         unregisterChildNoRightOfService.setVisible(false);
                     });
                     grid.add(unregisterChildNoRightOfService, 1, row);
@@ -201,33 +206,6 @@ public class CareOfferView extends VBox {
         }
 
         dialog.getDialogPane().setContent(grid);
-        dialog.showAndWait();
-    }
-
-    /**
-     * Opens a dialog for a parent with a single child.
-     *
-     * @param  dialog   The dialog to be displayed
-     * @param  parent   The parent object containing the child
-     */
-    private void openDialogForSingleChild(Dialog<User> dialog, Parent parent) {
-        Student child = parent.getChildren().get(0);
-        String registration = LanguageHelper.getString("registration");
-        registration = registration.replace("{child_name}", child.getFirstName());
-        Label registrationPrompt = new Label(registration);
-
-        GridPane grid = new GridPane();
-        grid.add(registrationPrompt, 0, 0);
-        dialog.getDialogPane().setContent(grid);
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == ButtonType.OK) {
-                // Call the method to change the attendance when OK is pressed.
-                controller.changeCareOfferRegistration(careOffer, child);
-                return child; // Return the child as the result if OK is pressed.
-            }
-            return null; // Return null if the dialog is canceled or closed without confirmation.
-        });
         dialog.showAndWait();
     }
 
@@ -341,11 +319,11 @@ public class CareOfferView extends VBox {
         gridPane.add(editModeUiNode, 1, rowCount);
     }
 
-    /**
-     * Changes the edit view based on the current mode.
-     *
-     * @param editButton the Button used to toggle edit mode
-     */
+//    /**
+//     * Changes the edit view based on the current mode.
+//     *
+//     * @param editButton the Button used to toggle edit mode
+//     */
 //    private void changeEditView(Button editButton) {
 //        DialogHelper.showAlertDialog(Alert.AlertType.INFORMATION, LanguageHelper.getString("sign_up_child"), LanguageHelper.getString("edit_functionality_not_implemented"));
 //        if (!isEditMode) {
@@ -369,22 +347,22 @@ public class CareOfferView extends VBox {
 //        }
 //    }
 
-    /**
-     * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
-     *
-     * @param value         the attribute node
-     * @param valueEditNode the edit node of the attribute
-     */
+//    /**
+//     * Toggles the edit mode of an attribute by toggling the visibility of the attribute node and its edit node.
+//     *
+//     * @param value         the attribute node
+//     * @param valueEditNode the edit node of the attribute
+//     */
 //    private void toggleEditModeOfAttribute(Node value, Node valueEditNode) {
 //        toggleVisibilityOfNode(value);
 //        toggleVisibilityOfNode(valueEditNode);
 //    }
 
-    /**
-     * Toggles the visibility of a given node.
-     *
-     * @param node the node to toggle visibility
-     */
+//    /**
+//     * Toggles the visibility of a given node.
+//     *
+//     * @param node the node to toggle visibility
+//     */
 //    private void toggleVisibilityOfNode(Node node) {
 //        node.setVisible(!node.isVisible());
 //    }

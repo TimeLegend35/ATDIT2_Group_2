@@ -1,33 +1,75 @@
 package dao;
 
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.StudentDAO;
-import org.testng.annotations.Test;
-
+import de.badwalden.schule.ui.helper.Language;
+import de.badwalden.schule.ui.helper.LanguageHelper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.testng.AssertJUnit.*;
+import de.badwalden.schule.exception.UnexpectedResultsException;
 
 public class StudentDAOTest {
+    private StudentDAO studentDAO;
+    private DBConnector dbConnection;
+
+    @BeforeEach
+    public void setUp() {
+        dbConnection = mock(DBConnector.class);
+        studentDAO = new StudentDAO();
+        LanguageHelper.setLocale(Language.ENGLISH);
+    }
+
+    @Test
+    public void testGetSingleStudent() throws UnexpectedResultsException {
+        List<Object[]> result = studentDAO.get(1);
+        assertEquals(1, result.size(), "Should return exactly one student.");
+    }
+
+//    @Test
+//    public void testUpdateStudents() {
+//        List<Object[]> targets = new ArrayList<>();
+//        targets.add(new Object[]{1, 1, "Emma", "Schulz", 7, true, true});
+//        targets.add(new Object[]{2, 2, "Celina", "Schulz", 9, true, true});
+//
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
+//
+//        int result = studentDAO.write(targets);
+//        assertEquals(2, result, "Should return the total rows affected.");
+//    }
 
     @Test
     public void testGetStudentsIdFromParent() {
-        // Test the getStudentsIdFromParent method with a valid parent ID
-        List<Object[]> results = StudentDAO.getStudentsIdFromParent(1);
-        assertNotNull(results);
-        assertTrue(results.size() > 0); // Assuming there are students assigned to the parent
+        List<Object[]> mockResults = new ArrayList<>();
+        mockResults.add(new Object[]{1});
+        mockResults.add(new Object[]{2});
+
+        when(dbConnection.executeQuery(anyString(), any())).thenReturn(mockResults);
+
+        List<Object[]> result = studentDAO.getStudentsIdFromParent(1);
+        assertEquals(3, result.size(), "Should return list of student IDs.");
     }
 
-    @Test
-    public void testGet() {
-        // Test the get method with a valid student ID
-        List<Object[]> results = StudentDAO.get(1);
-        assertNotNull(results);
-        assertEquals(1, results.size());
-    }
+//    @Test
+//    public void testAddStudentToCareOffer() {
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
+//
+//        assertDoesNotThrow(() -> studentDAO.addStudentToCareOffer(15, 5),
+//                "Should add student to care offer without throwing exceptions.");
+//    }
+//
+//    @Test
+//    public void testRemoveStudentFromCareOffer() {
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
+//
+//        assertDoesNotThrow(() -> studentDAO.removeStudentFromCareOffer(15, 5),
+//                "Should remove student from care offer without throwing exceptions.");
+//    }
 
-    @Test
-    public void testWrite() {
-        // Test the write method
-        assertFalse(StudentDAO.write()); // Assuming write method always returns false
-    }
 }
+

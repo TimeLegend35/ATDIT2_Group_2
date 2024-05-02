@@ -6,8 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Unit tests for the Parent class.
@@ -23,7 +24,7 @@ public class ParentTest {
      */
     @BeforeEach
     public void setUp(){
-        parent = new Parent();
+        parent = new Parent(500, "String firstName", "String lastName", "String cityOfResidence");
         alice = new Student();
         bob = new Student();
     }
@@ -91,4 +92,34 @@ public class ParentTest {
         assertEquals(lastName, parent.getLastName(), "LastNames should match");
     }
 
+    @Test
+    public void testSetChildrenListEmpty() {
+        // Assemble
+        Parent parent = new Parent(500, "FirstName", "LastName", "String cityOfResidence");
+        List<Student> emptyChildren = new ArrayList<>();
+        // Act
+        parent.setChildren(emptyChildren);
+        // Assert
+        assertTrue(parent.getChildren().isEmpty(), "Setting an empty list should result in an empty children list");
+    }
+
+    @Test
+    public void testMinValueForID() {
+        // Assemble
+        int minValue = Integer.MIN_VALUE;
+        Parent parent = new Parent(minValue, "FirstName", "LastName", "City");
+        // Act
+        // Assert
+        assertEquals(minValue, parent.getId(), "Setting the minimum possible ID value should work");
+    }
+
+    @Test
+    public void testMaxValueForID() {
+        // Assemble
+        int maxValue = Integer.MAX_VALUE;
+        // Act
+        parent.setId(maxValue);
+        // Assert
+        assertEquals(maxValue, parent.getId(), "Setting the maximum possible ID value should work");
+    }
 }

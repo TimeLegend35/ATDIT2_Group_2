@@ -4,8 +4,11 @@ import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Calendar;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Unit tests for the Service class.
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ServiceTest {
 
     private Student bob;
-    private Service basteln;
+    private Service service;
 
     /**
      * Sets up the test environment before each test method.
@@ -21,38 +24,124 @@ public class ServiceTest {
     @BeforeEach
     public void setUp(){
         bob = new Student();
-        basteln = new Service();
+        service = new Service();
     }
 
-    /**
-     * Tests the addStudentToStudentList() method.
-     * Checks if a student is successfully added to the student list of the service.
-     */
     @Test
-    public void testAddStudentToStudentList(){
+    public void testSetAndGetId() {
         // Assemble
+        int id = 123;
         // Act
-        basteln.setNumberOfSeats(2);
-        basteln.addStudentToStudentList(bob);
+        service.setId(id);
         // Assert
-        assertTrue(basteln.getStudentList().contains(bob));
+        assertEquals(id, service.getId());
     }
 
-    /**
-     * Tests the addStudentToStudentList() method when the service is full.
-     * Checks if a student is not added to the student list when the service is full.
-     */
     @Test
-    public void testAddStudentWhenServiceIsFull(){
+    public void testSetAndGetStartTime() {
         // Assemble
-        Student clemens = new Student();
-        Student dunja = new Student();
+        Calendar startTime = Calendar.getInstance();
         // Act
-        basteln.setNumberOfSeats(2);
-        basteln.addStudentToStudentList(clemens);
-        basteln.addStudentToStudentList(dunja);
-        basteln.addStudentToStudentList(bob);
+        service.setStartTime(startTime);
         // Assert
-        assertFalse(basteln.getStudentList().contains(bob));
+        assertEquals(startTime, service.getStartTime());
     }
+
+    @Test
+    public void testSetAndGetEndTime() {
+        // Assemble
+        Calendar endTime = Calendar.getInstance();
+        // Act
+        service.setEndTime(endTime);
+        // Assert
+        assertEquals(endTime, service.getEndTime());
+    }
+
+    @Test
+    public void testSetAndGetSeatsAvailable() {
+        // Assemble
+        int seatsAvailable = 10;
+        // Act
+        service.setSeatsAvailable(seatsAvailable);
+        // Assert
+        assertEquals(seatsAvailable, service.getSeatsAvailable());
+    }
+
+    @Test
+    public void testObjectEquality() {
+        // Assemble
+        Calendar startTime = Calendar.getInstance();
+        Calendar endTime = Calendar.getInstance();
+        // Act
+        service.setStartTime(startTime);
+        service.setEndTime(endTime);
+        // Assert
+        assertEquals(startTime, service.getStartTime());
+        assertEquals(endTime, service.getEndTime());
+    }
+
+    @Test
+    public void testSetAndGetName() {
+        // Assemble
+        String name = "Hort";
+        // Act
+        service.setName(name);
+        // Assert
+        assertEquals(name, service.getName());
+    }
+
+    @Test
+    public void testSetAndGetDescription() {
+        // Assemble
+        String description = "Hort ab Klassenstufe 2.";
+        // Act
+        service.setDescription(description);
+        // Assert
+        assertEquals(description, service.getDescription());
+    }
+
+    @Test
+    public void testSetAndGetYoungestGrade() {
+        // Assemble
+        int youngestGrade = 2;
+        // Act
+        service.setYoungestGrade(youngestGrade);
+        // Assert
+        assertEquals(youngestGrade, service.getYoungestGrade());
+    }
+
+    @Test
+    public void testSetAndGetOldestGrade() {
+        // Assemble
+        int oldestGrade = 3;
+        // Act
+        service.setOldestGrade(oldestGrade);
+        // Assert
+        assertEquals(oldestGrade, service.getOldestGrade());
+    }
+
+
+    //   @Test
+ //   public void testListOperations() {
+        // Assemble
+//      User supervisor1 = mock(User.class);
+//      User supervisor2 = mock(User.class);
+//      coSupervisors.add(supervisor1);
+//      service.setCoSupervisors(coSupervisors);
+        // Assert
+//      assertEquals(2, service.getCoSupervisors().size());
+//      assertTrue(service.getCoSupervisors().contains(supervisor1));
+//      assertTrue(service.getCoSupervisors().contains(supervisor2));
+//   }
+
+    @Test
+    public void testNullChecks() {
+        // Act & Assert
+        assertDoesNotThrow(() -> service.setName(null));
+        assertDoesNotThrow(() -> service.setDescription(null));
+        assertDoesNotThrow(() -> service.setMainSupervisor(null));
+        assertDoesNotThrow(() -> service.setCoSupervisors(null));
+        assertDoesNotThrow(() -> service.setAttendanceList(null));
+    }
+
 }

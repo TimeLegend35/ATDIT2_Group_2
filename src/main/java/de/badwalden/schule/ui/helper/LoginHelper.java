@@ -4,39 +4,22 @@ import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.helper.ModelBuilder;
-import de.badwalden.schule.ui.controller.LoginController;
-import de.badwalden.schule.model.User;
-import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.helper.Session;
 import javafx.scene.control.Alert;
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginHelper {
-//    private final int salt = 5;
+    private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
+    private static Session session = Session.getInstance();
 
     public LoginHelper() {
 
     }
 
     public static boolean authenticate(String username, String password) {
-//        LoginHelperDAO dbconn = new LoginHelperDAO();
-//        String db_password = "";
-//
-//        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
-//
-//        auth = BCrypt.checkpw(db_password, hashed_password);
-
 
         switch (password) {
-            case "admin" -> {
-                Admin user = new Admin();
-                // save user in Session
-                Session.getInstance().setCurrentUser(user);
-                System.out.println("Admin logged in");
-
-                return true;
-            }
             case "parent" -> {
                 // mocked parent id to use for parent example
                 int parentId = 1;
@@ -44,29 +27,57 @@ public class LoginHelper {
                 // build model
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
-                Session.getInstance().setCurrentUser(parent);
-                System.out.println("Parent logged in");
+                session.setCurrentUser(parent);
+                logger.log(Level.INFO, LanguageHelper.getString("parent_logged_in"));
                 return true;
             }
             case "parentOneChild" -> {
-                Parent parent = new Parent();
-                parent.setId(1);
+                // mocked parent id to use for parent example
+                int parentId = 3;
 
-                Student child1 = new Student();
-                child1.setFirstName("Friedrich");
+                // build model
+                Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
-                ArrayList<Student> children = new ArrayList<>();
-                children.add(child1);
-                parent.setChildren(children);
-
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
-                Session.getInstance().setCurrentUser(parent);
-                System.out.println("Parent logged in");
+                session.setCurrentUser(parent);
+                logger.log(Level.INFO, "Parent with one child logged in");
+                return true;
+            }
+            case "parentYoungChild" -> {
+                // mocked parent id to use for parent example
+                int parentId = 12;
+
+                // build model
+                Parent parent = ModelBuilder.buildModelFromParent(parentId);
+
+                // call session again incase session got reset
+                session = Session.getInstance();
+                // save user in Session
+                session.setCurrentUser(parent);
+                logger.log(Level.INFO, "Parent with young child logged in");
+                return true;
+            }
+            case "student" -> {
+                // mocked student id
+                int studentId = 1;
+
+                // build model
+                Student student = ModelBuilder.buildModelFromStudent(studentId);
+
+                // call session again incase session got reset
+                session = Session.getInstance();
+                // save user in Session
+                session.setCurrentUser(student);
+                logger.log(Level.INFO, LanguageHelper.getString("student_logged_in"));
                 return true;
             }
             default -> {
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("login_failed"), LanguageHelper.getString("invalid_credentials"));
                 return false;
             }
         }

@@ -1,8 +1,9 @@
 package ui;
 
-import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.model.helper.ModelBuilder;
+import de.badwalden.schule.model.outOfScope.Admin;
 import de.badwalden.schule.ui.helper.LoginHelper;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
 import javafx.application.Platform;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,27 +18,9 @@ public class LoginHelperTest {
      * Initializes JavaFX platform before running any test method.
      */
     @BeforeAll
-    public static void setUp(){
-        Platform.startup(() -> {
-        });
-    }
+    public static void setUp() {
+        Setup.start_up_javaFX_plattform();
 
-    /**
-     * Tests the authenticate method of the LoginHelper class for admin credentials.
-     * Checks if admin authentication succeeds and sets the current user as an instance of Admin.
-     */
-    @Test
-    public void testAuthenticateAdmin (){
-        Platform.runLater(() -> {
-            // Assemble
-            String username = "admin";
-            String password = "admin";
-            // Act
-            boolean result = LoginHelper.authenticate(username, password);
-            // Assert
-            assertTrue(result, "Admin authentication should succeed");
-            assertTrue(Session.getInstance().getCurrentUser() instanceof Admin, "Current user should be an instance of Admin");
-        });
     }
 
     /**
@@ -57,5 +40,58 @@ public class LoginHelperTest {
             assertNull(Session.getInstance().getCurrentUser(), "Current user should be null");
         });
     }
+    @Test
+    public void testStudentLogiun(){
+        Platform.runLater(() -> {
+            // Assemble
+            String username = "";
+            String password = "student";
+            // Act
+            boolean result = LoginHelper.authenticate(username, password);
+            // Assert
+            assertTrue(result);
+            assertEquals(ModelBuilder.buildModelFromStudent(1),Session.getInstance().getCurrentUser(), "Current user should be null");
+        });
+    }
+    @Test
+    public void testParentLogiun(){
+        Platform.runLater(() -> {
+            // Assemble
+            String username = "";
+            String password = "parent";
+            // Act
+            boolean result = LoginHelper.authenticate(username, password);
+            // Assert
+            assertTrue(result);
+            assertEquals(ModelBuilder.buildModelFromParent(1),Session.getInstance().getCurrentUser(), "Current user should be null");
+        });
+    }
+    @Test
+    public void testParentOneChildLogiun(){
+        Platform.runLater(() -> {
+            // Assemble
+            String username = "";
+            String password = "parentOneChild";
+            // Act
+            boolean result = LoginHelper.authenticate(username, password);
+            // Assert
+            assertTrue(result);
+            assertEquals(ModelBuilder.buildModelFromParent(3),Session.getInstance().getCurrentUser(), "Current user should be null");
+        });
+    }
+    @Test
+    public void testParentYoungChildLogiun(){
+        Platform.runLater(() -> {
+            // Assemble
+            String username = "";
+            String password = "parentYoungChild";
+            // Act
+            boolean result = LoginHelper.authenticate(username, password);
+            // Assert
+            assertTrue(result);
+            assertEquals(ModelBuilder.buildModelFromParent(12),Session.getInstance().getCurrentUser(), "Current user should be null");
+        });
+    }
+
 }
 

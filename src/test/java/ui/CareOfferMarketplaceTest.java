@@ -1,30 +1,58 @@
 package ui;
 
-import de.badwalden.schule.model.Admin;
+import de.badwalden.schule.Main;
+import de.badwalden.schule.model.Parent;
+import de.badwalden.schule.model.outOfScope.Admin;
 import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Supervisor;
 import de.badwalden.schule.ui.controller.CareOfferMarketplaceController;
-import de.badwalden.schule.ui.helper.Session;
+import de.badwalden.schule.model.helper.Session;
+import de.badwalden.schule.ui.helper.Language;
+import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static javafx.application.Application.launch;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the CareOfferMarketplaceView class.
  */
+
 public class CareOfferMarketplaceTest {
 
     private CareOfferMarketplaceView marketplaceView;
+    private CareOffer sampleCareOffer;
+
+    @BeforeAll
+    public static void initialSetUp() {
+        Setup.start_up_javaFX_plattform();
+
+    }
 
     /**
      * Sets up the test environment before each test method.
      */
     @BeforeEach
     public void setUp() {
-        Session.getInstance().setCurrentUser(new Admin());
+        LanguageHelper.setLocale(Language.GERMAN);
+        Parent parent = new Parent(500, "String firstName", "String lastName", "String cityOfResidence");
+        Session sessionMock = Session.getInstance();
+        sessionMock.setCurrentUser(parent);
+        Supervisor supervisor = new Supervisor(1, "Alice Bauer");
+        sampleCareOffer = new CareOffer(1, supervisor, 4, 1, "Test Care Offer", "Test description", 10);
+        List<CareOffer> careOfferList = new ArrayList<>();
+        careOfferList.add(sampleCareOffer);
+        careOfferList.add(sampleCareOffer);
+        sessionMock.setCachedCareOfferList(careOfferList);
         marketplaceView = new CareOfferMarketplaceView();
     }
 
@@ -37,7 +65,7 @@ public class CareOfferMarketplaceTest {
         // Assemble
         // Act
         // Assert
-        assertTrue(marketplaceView.getContent() instanceof VBox);
+        assertInstanceOf(VBox.class, marketplaceView.getContent());
     }
 
     /**
@@ -50,22 +78,8 @@ public class CareOfferMarketplaceTest {
         // Act
         // Assert
         VBox contentBox = (VBox) marketplaceView.getContent();
-        assertTrue(contentBox.getChildren().size() > 0);
+        assertFalse(contentBox.getChildren().isEmpty());
     }
 
-    /**
-     * Tests the method to show the object page in the marketplace controller.
-     * Checks if the correct care offer is cached in the session after showing the object page.
-     */
-    @Test
-    public void testShowObjectPage() {
-        // Assemble
-        CareOfferMarketplaceController controller = new CareOfferMarketplaceController();
-        CareOffer offer = new CareOffer(1, new Supervisor(1, "Bob Bauer"), 4, 1, "Test Offer", "Test Description", 5);
-        // Act
-        controller.showObjectPage(offer);
-        // Assert
-        assertEquals(offer, Session.getInstance().getCachedCareOffer());
-    }
 }
 

@@ -1,10 +1,6 @@
 package de.badwalden.schule.ui.views;
 
-import de.badwalden.schule.model.Admin;
-import de.badwalden.schule.model.Parent;
-import de.badwalden.schule.model.User;
 import de.badwalden.schule.ui.controller.MainController;
-import de.badwalden.schule.ui.helper.Session;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
@@ -17,36 +13,35 @@ public class MainView extends BorderPane {
     private MainController mainController;
 
     public MainView() {
-        // check what user type is logged in and plot according
-        User user = Session.getInstance().getCurrentUser();
+        sidebarView = new SidebarView();
+        mainSplitPane = new SplitPane();
+        mainController = new MainController(this);
 
-        if (user instanceof Admin || user instanceof Parent) {
-            sidebarView = new SidebarView();
-            mainSplitPane = new SplitPane();
-            mainController = new MainController(this);
+        // Place the sidebar on the left side of the mainSplitPane
+        mainSplitPane.getItems().add(sidebarView);
 
-            // Place the sidebar on the left side of the mainSplitPane
-            mainSplitPane.getItems().add(sidebarView);
+        // Set the initial position of the divider (adjust as needed)
+        mainSplitPane.setDividerPosition(0, 0.3); // 30% of the total width for the sidebar
 
-            // Set the initial position of the divider (adjust as needed)
-            mainSplitPane.setDividerPosition(0, 0.3); // 30% of the total width for the sidebar
-
-            // The rest of the mainSplitPane will contain the dynamic content views
-            mainSplitPane.getItems().add(new VBox()); // Placeholder for content views
-
-            setCenter(mainSplitPane);
-        }
+        // The rest of the mainSplitPane will contain the dynamic content views
+        mainSplitPane.getItems().add(new ImageViewMockup("src/main/resources/images/BadWaldenHomePage.png")); // Placeholder for content views
+        setCenter(mainSplitPane);
     }
 
+    /**
+     * Returns the SidebarView object that represents the sidebar view in the main view.
+     *
+     * @return the SidebarView object representing the sidebar view
+     */
     public SidebarView getSidebarView() {
         return sidebarView;
     }
 
-    public SplitPane getMainSplitPane() {
-        return mainSplitPane;
-    }
-
-    // Add a method to set the content view
+    /**
+     * Sets the content view in the mainSplitPane based on the number of existing items.
+     *
+     * @param  contentView   the Node to set as the content view
+     */
     public void setContentView(Node contentView) {
         if (mainSplitPane.getItems().size() > 1) {
             mainSplitPane.getItems().set(1, contentView);
