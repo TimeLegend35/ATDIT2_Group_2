@@ -23,7 +23,7 @@ public class ParentTest {
      */
     @BeforeEach
     public void setUp(){
-        parent = new Parent();
+        parent = new Parent(500, "String firstName", "String lastName", "String cityOfResidence");
         alice = new Student();
         bob = new Student();
     }
