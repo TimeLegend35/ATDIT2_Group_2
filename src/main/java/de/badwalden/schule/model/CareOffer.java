@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class CareOffer extends Service implements ModelSyncRequirements {
         private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
-        final static CareOfferDAO careOfferDao = new CareOfferDAO();
+        public static CareOfferDAO careOfferDao = new CareOfferDAO();
 
         /**
          * Constructs a CareOffer with the specified details.

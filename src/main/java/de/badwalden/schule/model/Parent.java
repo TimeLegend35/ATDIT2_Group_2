@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents a parent, extending the User class with a list of children.
  */
-public class Parent extends User {
+public class Parent extends User implements ModelSyncRequirements {
     private List<Student> children;
 
     /**
@@ -31,4 +31,13 @@ public class Parent extends User {
         this.children = children;
     }
 
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public Object[] toObjectArray() {
+        return new Object[0];
+    }
 }
