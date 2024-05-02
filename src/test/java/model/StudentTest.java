@@ -1,7 +1,9 @@
 package model;
 
+import de.badwalden.schule.model.CareOffer;
 import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
+import de.badwalden.schule.model.Supervisor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -54,6 +56,27 @@ public class StudentTest {
         student.setServiceList(serviceList);
         // Assert
         assertEquals(serviceList, student.getServiceList(), "Service list should match after setting");
+    }
+
+    @Test
+    public void testSetAndGetAge() {
+        // Assemble
+        int age = 16;
+        // Act
+        student.setAge(age);
+        // Assert
+        assertEquals(age, student.getAge());
+    }
+
+    @Test
+    public void testBoundaryConditionsForAge() {
+        // Assemble
+        int minAge = 0;
+        int maxAge = 120;
+        // Act
+        // Assert
+        assertDoesNotThrow(() -> student.setAge(minAge));
+        assertDoesNotThrow(() -> student.setAge(maxAge));
     }
 }
 

@@ -9,12 +9,14 @@ import de.badwalden.schule.ui.views.CareOfferMarketplaceView;
 import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the CareOfferMarketplaceView class.
  */
+
 public class CareOfferMarketplaceTest {
 
     private CareOfferMarketplaceView marketplaceView;
