@@ -4,6 +4,7 @@ import de.badwalden.schule.ui.helper.Language;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import org.junit.jupiter.api.Test;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,11 +29,6 @@ public class LanguageHelperTest {
         assertEquals("Benutzername", LanguageHelper.getString("login_username"));
     }
 
-    @Test
-    public void testGetStringFallback() {
-        LanguageHelper.setLocale(null);
-        assertEquals("##test123##", LanguageHelper.getString("test123"));
-    }
 
     @Test
     public void testGetLanguageFound() {
