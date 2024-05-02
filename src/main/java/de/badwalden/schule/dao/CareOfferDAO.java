@@ -106,7 +106,7 @@ public class CareOfferDAO implements DatabaseInteractions {
 
         // Check if no care offers are present
         if (results.isEmpty()) {
-            throw new UnexpectedResultsException(LanguageHelper.getString("empty_result"), 10, 0);
+            throw new UnexpectedResultsException(LanguageHelper.getString("empty_result"), 5, 0);
         }
 
         return results;

@@ -19,9 +19,9 @@ public class NavigationHelperTest {
      * Initializes JavaFX platform before running any test method.
      */
     @BeforeAll
-    public static void setUp(){
-        Platform.startup(() -> {
-        });
+    public static void setUp() {
+        Setup.start_up_javaFX_plattform();
+
     }
 
     /**

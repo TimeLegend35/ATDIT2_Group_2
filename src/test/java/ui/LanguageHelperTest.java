@@ -1,8 +1,12 @@
 package ui;
 
+import de.badwalden.schule.ui.helper.Language;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import org.junit.jupiter.api.Test;
 import java.util.Locale;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -10,34 +14,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class LanguageHelperTest {
 
-    /**
-     * Tests the setLocale() method of the LanguageHelper class.
-     * Checks if the locale is correctly set to English (US).
-     */
     @Test
-    public void testSetLocaleToEnglish (){
-//        // Assemble
-//        String language = "English";
-//        // Act
-//        LanguageHelper.setLocale(language);
-//        // Assert
-//        assertEquals(Locale.US, LanguageHelper.locale, "Locale should be set to English (US)");
+    public void testSetLocale() {
+        LanguageHelper.setLocale(Language.GERMAN);
+        assertEquals(new Locale("de", "DE"), LanguageHelper.locale);
     }
 
-    /**
-     * Tests the getString() method of the LanguageHelper class.
-     * Checks if the correct string message is retrieved for the given key in German locale.
-     */
     @Test
-    public void testGetString (){
-//        // Assemble
-//        LanguageHelper.setLocale("Deutsch");
-//        String key = "login_username";
-//        // Act
-//        String result = LanguageHelper.getString(key);
-//        // Assert
-//        assertEquals("Benutzername", result, "Expected key message should be retrieved for German locale");
+    public void testGetString() {
+        LanguageHelper.setLocale(Language.ENGLISH);
+        assertEquals("Username", LanguageHelper.getString("login_username"));
+        LanguageHelper.setLocale(Language.GERMAN);
+        assertEquals("Benutzername", LanguageHelper.getString("login_username"));
     }
+
+    @Test
+    public void testGetStringFallback() {
+        LanguageHelper.setLocale(null);
+        assertEquals("##test123##", LanguageHelper.getString("test123"));
+    }
+
+    @Test
+    public void testGetLanguageFound() {
+        Language language = Language.getLanguage("en");
+        assertEquals(Language.ENGLISH, language);
+    }
+
+    @Test
+    public void testGetLanguageNotFound() {
+        assertThrows(NoSuchElementException.class, () -> {
+            Language.getLanguage("es");
+        });
+    }
+
 
 }
 
