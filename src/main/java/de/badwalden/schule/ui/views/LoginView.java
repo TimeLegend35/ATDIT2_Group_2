@@ -160,4 +160,16 @@ public class LoginView extends BorderPane {
         stayLoggedInCheckBox.setText(LanguageHelper.getString("login_stayLoggedIn"));
         signInButton.setText(LanguageHelper.getString("login_signIn"));
     }
+    public TextField getUserNameTextField(){
+        return  userNameTextField;
+    }
+    public PasswordField getPasswordTextField(){
+        return  passwordTextField;
+    }
+    public CheckBox getStayLoggedInCheckBox(){
+        return stayLoggedInCheckBox;
+    }
+    public Button getSignInButton(){
+        return  signInButton;
+    }
 }
