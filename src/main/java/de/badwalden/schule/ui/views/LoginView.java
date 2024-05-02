@@ -50,7 +50,15 @@ public class LoginView extends BorderPane {
 
         instantiateAttributes();
 
-        centerContent.getChildren().addAll(scenetitle, userNameLabel, userNameTextField, passwordLabel, passwordTextField, stayLoggedInCheckBox, signInButton);
+        centerContent.getChildren().addAll(
+                scenetitle,
+                userNameLabel,
+                userNameTextField,
+                passwordLabel,
+                passwordTextField,
+                stayLoggedInCheckBox,
+                signInButton
+        );
 
         VBox centerContainer = new VBox(centerContent);
         centerContainer.setAlignment(Pos.CENTER);
@@ -78,13 +86,17 @@ public class LoginView extends BorderPane {
 
         signInButton = new Button(LanguageHelper.getString("login_signIn"));
         signInButton.setDefaultButton(true);
-        signInButton.setOnAction(event -> loginController.handleLoginButtonPressed(userNameTextField.getText(), passwordTextField.getText()));
+        signInButton.setOnAction(event -> loginController.handleLoginButtonPressed(
+                        userNameTextField.getText(),
+                        passwordTextField.getText()
+                )
+        );
     }
 
     /**
      * Creates and configures a ComboBox for selecting a language.
      *
-     * @return  the ComboBox for selecting a language
+     * @return the ComboBox for selecting a language
      */
     public ComboBox addLanguageBox() {
         languageComboBox = new ComboBox<>();
@@ -101,7 +113,7 @@ public class LoginView extends BorderPane {
              * Converts the given ID to its corresponding language name.
              *
              * @param  id  the ID of the language
-             * @return     the language name corresponding to the ID, or null if no match found
+             * @return the language name corresponding to the ID, or null if no match found
              */
             @Override
             public String toString(String id) {
@@ -119,7 +131,7 @@ public class LoginView extends BorderPane {
              * Return the ID directly when converting from display name to ID
              *
              * @param  string   the display name to convert
-             * @return          the corresponding ID
+             * @return the corresponding ID
              */
             @Override
             public String fromString(String string) {
@@ -140,7 +152,10 @@ public class LoginView extends BorderPane {
                     loginController.handleLanguageChange(Language.getLanguage(newVal));
                 } catch (NoSuchElementException e) {
                     logger.log(Level.SEVERE, "Error handling the language change", e);
-                    DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Language Change Error", "Error handling the language change. If the Error persists, please contact the Administrator.");
+                    DialogHelper.showAlertDialog(Alert.AlertType.ERROR,
+                            "Language Change Error",
+                            "Error handling the language change. If the Error persists, please contact the Administrator."
+                    );
                 }
             }
         });
@@ -160,16 +175,20 @@ public class LoginView extends BorderPane {
         stayLoggedInCheckBox.setText(LanguageHelper.getString("login_stayLoggedIn"));
         signInButton.setText(LanguageHelper.getString("login_signIn"));
     }
-    public TextField getUserNameTextField(){
-        return  userNameTextField;
+
+    public TextField getUserNameTextField() {
+        return userNameTextField;
     }
-    public PasswordField getPasswordTextField(){
-        return  passwordTextField;
+
+    public PasswordField getPasswordTextField() {
+        return passwordTextField;
     }
-    public CheckBox getStayLoggedInCheckBox(){
+
+    public CheckBox getStayLoggedInCheckBox() {
         return stayLoggedInCheckBox;
     }
-    public Button getSignInButton(){
-        return  signInButton;
+
+    public Button getSignInButton() {
+        return signInButton;
     }
 }

@@ -12,9 +12,9 @@ public class UnexpectedResultsException extends Exception {
     /**
      * Constructs a new exception with the specified detail message, expected count, and actual count.
      *
-     * @param message the detail message
+     * @param message     the detail message
      * @param wantedCount the expected number of results
-     * @param realCount the actual number of results obtained
+     * @param realCount   the actual number of results obtained
      */
     public UnexpectedResultsException(String message, int wantedCount, int realCount) {
 

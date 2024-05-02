@@ -4,6 +4,7 @@ import de.badwalden.schule.ui.helper.DialogHelper;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.scene.control.Alert;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class DBConnector {
      * Throws IllegalArgumentException if the URL is missing or empty, and SQLException on connection failure.
      *
      * @return a new Connection object
-     * @throws SQLException if a database access error occurs
+     * @throws SQLException             if a database access error occurs
      * @throws IllegalArgumentException if the connection URL is null or empty
      */
     public Connection connect() {
@@ -57,8 +58,10 @@ public class DBConnector {
         } catch (ExceptionInInitializerError e) {
             try {
                 large_url = System.getenv("CONNECTION_URL");
-            }catch(Exception e2){
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("url_empty"));
+            } catch (Exception e2) {
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString(
+                        "db_connection_error"), LanguageHelper.getString("url_empty")
+                );
             }
         }
 
@@ -92,8 +95,10 @@ public class DBConnector {
         } catch (ExceptionInInitializerError e) {
             try {
                 large_url = System.getenv("CONNECTION_URL");
-            }catch(Exception e2){
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("url_empty"));
+            } catch (Exception e2) {
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString(
+                        "db_connection_error"), LanguageHelper.getString("url_empty")
+                );
             }
         }
 
@@ -104,7 +109,7 @@ public class DBConnector {
             return DriverManager.getConnection(large_url);
         } catch (Exception e) {
             logger.log(Level.SEVERE, LanguageHelper.getString("reconnection_failed"), e);
-            DialogHelper.showAlertDialog(Alert.AlertType.ERROR,"Reconnection failed", "Please Restart the program");
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, "Reconnection failed", "Please Restart the program");
             return null;
         }
     }
@@ -119,14 +124,16 @@ public class DBConnector {
             this.connection.close();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, LanguageHelper.getString("db_close_log"), e);
-            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("db_close_error"));
+            DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString(
+                    "db_connection_error"), LanguageHelper.getString("db_close_error")
+            );
         }
     }
 
     /**
      * Executes a SQL query with the specified parameters and returns the result as a list of Object arrays.
      *
-     * @param sql the SQL query to execute
+     * @param sql    the SQL query to execute
      * @param params the parameters for the SQL query
      * @return a List of Object arrays, each representing a row of the result set
      */
@@ -151,7 +158,9 @@ public class DBConnector {
                 }
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "SQL Exception in executeQuery");
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("excecute_sql_error"));
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString(
+                        "db_connection_error"), LanguageHelper.getString("excecute_sql_error")
+                );
             }
         }
         return results;
@@ -173,7 +182,9 @@ public class DBConnector {
                 return pstmt.executeUpdate();
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, LanguageHelper.getString("excecute_update_log"), e);
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("excecute_update_error"));
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString(
+                        "db_connection_error"), LanguageHelper.getString("excecute_update_error")
+                );
             }
         }
         return 0;

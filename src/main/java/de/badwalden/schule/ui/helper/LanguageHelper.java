@@ -17,7 +17,7 @@ public class LanguageHelper {
     /**
      * Sets the locale based on the provided Language object.
      *
-     * @param  language   the Language object containing the locale information
+     * @param language the Language object containing the locale information
      */
     public static void setLocale(Language language) {
         try {
@@ -33,8 +33,8 @@ public class LanguageHelper {
     /**
      * Retrieves a localized string for the given key.
      *
-     * @param  key  the key for the desired localized string
-     * @return      the localized string for the given key, or a placeholder string if the resource bundle or key is not found
+     * @param key the key for the desired localized string
+     * @return the localized string for the given key, or a placeholder string if the resource bundle or key is not found
      */
     public static String getString(String key) {
         ResourceBundle bundle;

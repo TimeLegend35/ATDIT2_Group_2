@@ -24,7 +24,7 @@ public class SidebarView extends VBox {
         setPadding(new Insets(10));
         setSpacing(8);
 
-        Label titleLabel = new Label(LanguageHelper.getString("sidebar_title")+"\nBad Walden");
+        Label titleLabel = new Label(LanguageHelper.getString("sidebar_title") + "\nBad Walden");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleLabel.setPadding(new Insets(10, 0, 10, 0));
 
@@ -75,7 +75,9 @@ public class SidebarView extends VBox {
         bottomBox.setSpacing(10);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
 
-        String fullName = Session.getInstance().getCurrentUser().getFirstName() + " " + Session.getInstance().getCurrentUser().getLastName();
+        String fullName = Session.getInstance().getCurrentUser().getFirstName() + " " +
+                Session.getInstance().getCurrentUser().getLastName();
+
         String initials = Arrays.stream(fullName.split(" "))
                 .map(name -> name.substring(0, 1))
                 .collect(Collectors.joining());

@@ -29,7 +29,8 @@ public class StudentDAO implements DatabaseInteractions {
 
         // Check if exactly one student is returned
         if (results.size() != 1) {
-            throw new UnexpectedResultsException(LanguageHelper.getString("return_one_student") + results.size(), 1, results.size());
+            throw new UnexpectedResultsException(LanguageHelper.getString("return_one_student")
+                    + results.size(), 1, results.size());
         }
 
         return results;
@@ -80,10 +81,10 @@ public class StudentDAO implements DatabaseInteractions {
      */
     public List<Object[]> getStudentsIdFromParent(int parentId) {
         String sql = """
-                 SELECT child_id
-                 FROM parent_child_assignment pca
-                 WHERE pca.parent_id = ?
-                 """;
+                SELECT child_id
+                FROM parent_child_assignment pca
+                WHERE pca.parent_id = ?
+                """;
 
         List<Object[]> results = dbConnection.executeQuery(sql, new Object[]{parentId});
 
@@ -93,7 +94,7 @@ public class StudentDAO implements DatabaseInteractions {
     /**
      * Removes a student from a specified care offer in the database.
      *
-     * @param student_ID the ID of the student to remove from the care offer
+     * @param student_ID   the ID of the student to remove from the care offer
      * @param careOffer_ID the ID of the care offer from which the student is removed
      */
     public void removeStudentFromCareOffer(int student_ID, int careOffer_ID) {
@@ -105,7 +106,7 @@ public class StudentDAO implements DatabaseInteractions {
     /**
      * Adds a student to a specified care offer in the database.
      *
-     * @param student_ID the ID of the student to add to the care offer
+     * @param student_ID   the ID of the student to add to the care offer
      * @param careOffer_ID the ID of the care offer to which the student is added
      */
     public void addStudentToCareOffer(int student_ID, int careOffer_ID) {

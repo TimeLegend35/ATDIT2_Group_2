@@ -27,11 +27,13 @@ public class CareOfferController implements DataController {
     /**
      * Updates the registration status of a care offer for a student and updates the UI accordingly.
      *
-     * @param  careOffer                  the care offer to update the registration status for
-     * @param  student                    the student whose registration status is being updated
-     * @param  dialogRegistrationButton   the button that triggered the registration update
+     * @param careOffer                the care offer to update the registration status for
+     * @param student                  the student whose registration status is being updated
+     * @param dialogRegistrationButton the button that triggered the registration update
      */
-    public void changeCareOfferRegistration(CareOffer careOffer, Student student, Button dialogRegistrationButton, List<Button> dialogButtons) {
+    public void changeCareOfferRegistration(CareOffer careOffer, Student student,
+                                            Button dialogRegistrationButton,
+                                            List<Button> dialogButtons) {
         if (student.isRegisteredForOffer(careOffer)) {
             student.getServiceList().remove(careOffer);
             student.update();
@@ -48,9 +50,9 @@ public class CareOfferController implements DataController {
     /**
      * Determines if the student is right of service for the given care offer.
      *
-     * @param  careOffer  the care offer to check
-     * @param  student    the student to check
-     * @return            true if the student is right of service for the care offer, false otherwise
+     * @param careOffer the care offer to check
+     * @param student   the student to check
+     * @return true if the student is right of service for the care offer, false otherwise
      */
     public boolean isRightOfSerice(CareOffer careOffer, Student student) {
         return student.isRightOfService(careOffer);
@@ -59,11 +61,11 @@ public class CareOfferController implements DataController {
     /**
      * Disables the given button for the specified number of seconds, then re-enables it.
      *
-     * @param  button   the button to pause
-     * @param  seconds  the number of seconds to pause the button for
+     * @param button  the button to pause
+     * @param seconds the number of seconds to pause the button for
      */
     public void pauseButtons(List<Button> button, int seconds) {
-        for(Button b : button) {
+        for (Button b : button) {
             // Disable the button
             b.setDisable(true);
 

@@ -6,6 +6,7 @@ import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.helper.ModelBuilder;
 import de.badwalden.schule.model.helper.Session;
 import javafx.scene.control.Alert;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,7 +78,10 @@ public class LoginHelper {
                 return true;
             }
             default -> {
-                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("login_failed"), LanguageHelper.getString("invalid_credentials"));
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR,
+                        LanguageHelper.getString("login_failed"),
+                        LanguageHelper.getString("invalid_credentials")
+                );
                 return false;
             }
         }

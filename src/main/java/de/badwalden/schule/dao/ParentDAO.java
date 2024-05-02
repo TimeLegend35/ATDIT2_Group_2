@@ -2,6 +2,7 @@ package de.badwalden.schule.dao;
 
 import de.badwalden.schule.exception.UnexpectedResultsException;
 import de.badwalden.schule.ui.helper.LanguageHelper;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,7 +12,6 @@ import java.util.logging.Logger;
  * Implements DatabaseInteractions interface to provide database operation methods.
  */
 public class ParentDAO implements DatabaseInteractions {
-
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
 
     /**
@@ -30,7 +30,8 @@ public class ParentDAO implements DatabaseInteractions {
 
         // Check if exactly one parent is returned
         if (results.size() != 1) {
-            throw new UnexpectedResultsException(LanguageHelper.getString("return_one_parent") + results.size(), 1, results.size());
+            throw new UnexpectedResultsException(LanguageHelper.getString("return_one_parent")
+                    + results.size(), 1, results.size());
         }
 
         return results;
