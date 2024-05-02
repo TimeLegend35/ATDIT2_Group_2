@@ -24,7 +24,7 @@ public class MainView extends BorderPane {
         mainSplitPane.setDividerPosition(0, 0.3); // 30% of the total width for the sidebar
 
         // The rest of the mainSplitPane will contain the dynamic content views
-        mainSplitPane.getItems().add(new VBox()); // Placeholder for content views
+        mainSplitPane.getItems().add(new ImageViewMockup("src/main/resources/images/BadWaldenHomePage.png")); // Placeholder for content views
         setCenter(mainSplitPane);
     }
 
