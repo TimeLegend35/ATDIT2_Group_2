@@ -4,18 +4,11 @@ import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.model.Parent;
 import de.badwalden.schule.model.Student;
 import de.badwalden.schule.model.helper.ModelBuilder;
-import de.badwalden.schule.ui.controller.LoginController;
-import de.badwalden.schule.model.User;
-import de.badwalden.schule.model.Admin;
 import javafx.scene.control.Alert;
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginHelper {
-//    private final int salt = 5;
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private static Session session = Session.getInstance();
 
@@ -24,24 +17,8 @@ public class LoginHelper {
     }
 
     public static boolean authenticate(String username, String password) {
-//        LoginHelperDAO dbconn = new LoginHelperDAO();
-//        String db_password = "";
-//
-//        String hashed_password = BCrypt.hashpw(password, BCrypt.gensalt(salt));
-//
-//        auth = BCrypt.checkpw(db_password, hashed_password);
 
         switch (password) {
-            case "admin" -> {
-                // todo update or delete
-                // this makes no sense :)))
-
-                Admin user = new Admin();
-                // save user in Session
-                Session.getInstance().setCurrentUser(user);
-                logger.log(Level.INFO, LanguageHelper.getString("admin_logged_in"));
-                return true;
-            }
             case "parent" -> {
                 // mocked parent id to use for parent example
                 int parentId = 1;
@@ -50,7 +27,7 @@ public class LoginHelper {
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
                 // save user in Session
-                Session.getInstance().setCurrentUser(parent);
+                session.setCurrentUser(parent);
                 logger.log(Level.INFO, LanguageHelper.getString("parent_logged_in"));
                 return true;
             }
@@ -62,7 +39,7 @@ public class LoginHelper {
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
                 // save user in Session
-                Session.getInstance().setCurrentUser(parent);
+                session.setCurrentUser(parent);
                 logger.log(Level.INFO, "Parent with one child logged in");
                 return true;
             }
@@ -74,7 +51,7 @@ public class LoginHelper {
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
                 // save user in Session
-                Session.getInstance().setCurrentUser(parent);
+                session.setCurrentUser(parent);
                 logger.log(Level.INFO, "Parent with one child logged in");
                 return true;
             }
@@ -86,7 +63,7 @@ public class LoginHelper {
                 Student student = ModelBuilder.buildModelFromStudent(studentId);
 
                 // save user in Session
-                Session.getInstance().setCurrentUser(student);
+                session.setCurrentUser(student);
                 logger.log(Level.INFO, LanguageHelper.getString("student_logged_in"));
                 return true;
             }

@@ -81,11 +81,6 @@ public class SidebarView extends VBox {
                 .map(name -> name.substring(0, 1))
                 .collect(Collectors.joining());
 
-        if(Session.getInstance().getCurrentUser() instanceof Admin) {
-            fullName = "Administrator";
-            initials = "ADMIN";
-        }
-
         // Placeholder for logo (replace with your logo)
         Label logoLabel = new Label(initials);
         logoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
