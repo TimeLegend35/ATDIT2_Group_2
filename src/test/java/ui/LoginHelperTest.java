@@ -18,9 +18,8 @@ public class LoginHelperTest {
      */
     @BeforeAll
     public static void setUp() {
-        if (!Platform.isFxApplicationThread()) {
-            Platform.startup(() -> {});
-        }
+        Setup.start_up_javaFX_plattform();
+
     }
 
     /**
