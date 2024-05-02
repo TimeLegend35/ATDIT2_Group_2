@@ -1,11 +1,9 @@
 package dao;
 
 import de.badwalden.schule.dao.ParentDAO;
-import org.testng.annotations.Test;
-
+import org.junit.Test;
 import java.util.List;
-
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 public class ParentDAOTest {
 

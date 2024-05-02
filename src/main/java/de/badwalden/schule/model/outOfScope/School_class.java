@@ -4,7 +4,7 @@ import de.badwalden.schule.model.Student;
 
 import java.util.List;
 
-public class Sclass {
+public class School_class {
     private char classCode;
     private int level;
     private List<Student> studentList;
@@ -13,7 +13,7 @@ public class Sclass {
 
     private List<Attendance> attendanceList;
 
-    public Sclass() {
+    public School_class() {
 
     }
 

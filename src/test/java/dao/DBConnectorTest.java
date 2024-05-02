@@ -1,12 +1,12 @@
 package dao;
 
 import de.badwalden.schule.dao.DBConnector;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class DBConnectorTest {
 

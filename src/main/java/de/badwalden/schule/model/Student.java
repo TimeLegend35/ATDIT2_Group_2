@@ -4,7 +4,7 @@ import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.StudentDAO;
 import de.badwalden.schule.model.helper.Session;
-import de.badwalden.schule.model.outOfScope.Sclass;
+import de.badwalden.schule.model.outOfScope.School_class;
 import de.badwalden.schule.model.outOfScope.Subject;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 
@@ -20,7 +20,7 @@ public class Student extends User implements ModelSyncRequirements {
     private static final CareOfferDAO careOfferDao = new CareOfferDAO();
     private boolean compulsorySchooling;
     private boolean rightOfService;
-    private Sclass sclass;
+    private School_class schoolclass;
     private int age;
     private int classYear; // we only need class year for the implementation of the age checks for care_offers
     private List<Service> serviceList;

@@ -1,10 +1,11 @@
 package dao;
 
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 import de.badwalden.schule.dao.CareOfferDAO;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 
 import java.util.List;
 

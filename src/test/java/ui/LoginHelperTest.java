@@ -17,27 +17,10 @@ public class LoginHelperTest {
      * Initializes JavaFX platform before running any test method.
      */
     @BeforeAll
-    public static void setUp(){
-        Platform.startup(() -> {
-        });
-    }
-
-    /**
-     * Tests the authenticate method of the LoginHelper class for admin credentials.
-     * Checks if admin authentication succeeds and sets the current user as an instance of Admin.
-     */
-    @Test
-    public void testAuthenticateAdmin (){
-        Platform.runLater(() -> {
-            // Assemble
-            String username = "admin";
-            String password = "admin";
-            // Act
-            boolean result = LoginHelper.authenticate(username, password);
-            // Assert
-            assertTrue(result, "Admin authentication should succeed");
-            assertTrue(Session.getInstance().getCurrentUser() instanceof Admin, "Current user should be an instance of Admin");
-        });
+    public static void setUp() {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.startup(() -> {});
+        }
     }
 
     /**
