@@ -48,7 +48,7 @@ public class Student extends User implements ModelSyncRequirements {
         return getFirstName(); // Assuming getFirstName() returns the first name of the user
     }
 
-    private void deregisterStudentFromService(CareOffer careOfferToRemove) {
+    public void deregisterStudentFromService(CareOffer careOfferToRemove) {
         studentDao.removeStudentFromCareOffer(this.getId(), careOfferToRemove.getId());
 
         // set new seats available for CareOffer
@@ -58,7 +58,7 @@ public class Student extends User implements ModelSyncRequirements {
         logger.log(Level.INFO, LanguageHelper.getString("deregistered_student") + this.getId() + LanguageHelper.getString("from_service") + careOfferToRemove.getId());
     }
 
-    private void registerStudentFromService(CareOffer careOfferToAdd) {
+    public void registerStudentFromService(CareOffer careOfferToAdd) {
         studentDao.addStudentToCareOffer(this.getId(), careOfferToAdd.getId());
 
         // set new seats available for CareOffer
