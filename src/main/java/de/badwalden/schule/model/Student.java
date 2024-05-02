@@ -51,7 +51,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void deregisterStudentFromService(CareOffer careOfferToRemove) {
-        studentDao.removeChildFromCareOffer(careOfferToRemove.getId(), this.getId());
+        studentDao.removeChildFromCareOffer(this.getId(),careOfferToRemove.getId());
 
         // set new seats available for CareOffer
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
@@ -61,7 +61,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void registerStudentFromService(CareOffer careOfferToAdd) {
-        studentDao.addChildToCareOffer(careOfferToAdd.getId(), this.getId());
+        studentDao.addChildToCareOffer( this.getId(),careOfferToAdd.getId());
 
         // set new seats available for CareOffer
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
