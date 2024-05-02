@@ -3,15 +3,15 @@ package de.badwalden.schule.model;
 import de.badwalden.schule.dao.CareOfferDAO;
 import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.StudentDAO;
+import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.model.outOfScope.Sclass;
 import de.badwalden.schule.model.outOfScope.Subject;
 import de.badwalden.schule.ui.helper.LanguageHelper;
-import de.badwalden.schule.model.helper.Session;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Student extends User implements ModelSyncRequirements {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
@@ -49,7 +49,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void deregisterStudentFromService(CareOffer careOfferToRemove) {
-        studentDao.removeStudentFromCareOffer(careOfferToRemove.getId(), this.getId());
+        studentDao.removeStudentFromCareOffer(this.getId(), careOfferToRemove.getId());
 
         // set new seats available for CareOffer
         careOfferToRemove.setSeatsAvailable(careOfferToRemove.getSeatsAvailable() + 1);
@@ -59,7 +59,7 @@ public class Student extends User implements ModelSyncRequirements {
     }
 
     private void registerStudentFromService(CareOffer careOfferToAdd) {
-        studentDao.addStudentToCareOffer(careOfferToAdd.getId(), this.getId());
+        studentDao.addStudentToCareOffer(this.getId(), careOfferToAdd.getId());
 
         // set new seats available for CareOffer
         careOfferToAdd.setSeatsAvailable(careOfferToAdd.getSeatsAvailable() - 1);
@@ -72,25 +72,29 @@ public class Student extends User implements ModelSyncRequirements {
         return compulsorySchooling;
     }
 
-    public void setCompulsorySchooling(boolean compulsorySchooling) {
-        this.compulsorySchooling = compulsorySchooling;
+    public boolean getCompulsorySchooling() {
+        return this.compulsorySchooling;
     }
 
-    public boolean getCompulsorySchooling() {return this.compulsorySchooling; }
-
-    public void setClassYear(int class_year) {
-        this.classYear = class_year;
+    public void setCompulsorySchooling(boolean compulsorySchooling) {
+        this.compulsorySchooling = compulsorySchooling;
     }
 
     public int getClassYear() {
         return classYear;
     }
 
+    public void setClassYear(int class_year) {
+        this.classYear = class_year;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
     public void setAge(int Age) {
         this.age = age;
     }
-
-    public int getAge() { return this.age; }
 
     public boolean isRightOfService(CareOffer careOffer) {
         if (this.getClassYear() >= careOffer.getYoungestGrade() && this.getClassYear() <= careOffer.getOldestGrade() && this.rightOfService && careOffer.getSeatsAvailable() > 0) {
@@ -100,11 +104,13 @@ public class Student extends User implements ModelSyncRequirements {
         }
     }
 
+    public boolean getRightOfService() {
+        return this.rightOfService;
+    }
+
     public void setRightOfService(boolean rightOfService) {
         this.rightOfService = rightOfService;
     }
-
-    public boolean getRightOfService() { return this.rightOfService; }
 
     public List<Service> getServiceList() {
         return serviceList;
