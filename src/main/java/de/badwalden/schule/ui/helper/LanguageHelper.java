@@ -42,9 +42,8 @@ public class LanguageHelper {
             bundle = ResourceBundle.getBundle("Messagebundle", locale);
             return bundle.getString(key);
         } catch (NullPointerException | MissingResourceException e) {
-            logger.log(Level.SEVERE, LanguageHelper.getString("load_resource_error"), e);
-            // Placeholder
-            return "##" + key + "##";
+            logger.log(Level.SEVERE, "Key not found: " + key, e);
+            return "Key not found";  // Return a default message or handle the error appropriately
         }
     }
 }

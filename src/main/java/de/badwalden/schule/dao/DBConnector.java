@@ -49,7 +49,7 @@ public class DBConnector {
      * @throws SQLException if a database access error occurs
      * @throws IllegalArgumentException if the connection URL is null or empty
      */
-    private Connection connect() {
+    public Connection connect() {
 
         String large_url = null;
         try {
@@ -150,7 +150,7 @@ public class DBConnector {
                     }
                 }
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, LanguageHelper.getString("excecute_sql_log"), e);
+                logger.log(Level.SEVERE, "SQL Exception in executeQuery");
                 DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("excecute_sql_error"));
             }
         }
