@@ -5,7 +5,6 @@ import de.badwalden.schule.model.Student;
 import de.badwalden.schule.ui.helper.LanguageHelper;
 import de.badwalden.schule.model.helper.Session;
 import de.badwalden.schule.ui.views.CareOfferView;
-import de.badwalden.schule.ui.views.DataController;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.util.Duration;

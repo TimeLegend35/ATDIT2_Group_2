@@ -1,4 +1,4 @@
-package de.badwalden.schule.ui.views;
+package de.badwalden.schule.ui.controller;
 
 public interface DataController {
 
