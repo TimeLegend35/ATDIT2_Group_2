@@ -49,7 +49,7 @@ public class DBConnector {
      * @throws SQLException if a database access error occurs
      * @throws IllegalArgumentException if the connection URL is null or empty
      */
-    public Connection connect() {
+    private Connection connect() {
 
         String large_url = env.get("CONNECTION_URL");
 

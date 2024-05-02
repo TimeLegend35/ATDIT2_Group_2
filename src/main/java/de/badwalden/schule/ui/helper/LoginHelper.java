@@ -27,6 +27,8 @@ public class LoginHelper {
                 // build model
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
                 session.setCurrentUser(parent);
                 logger.log(Level.INFO, LanguageHelper.getString("parent_logged_in"));
@@ -39,6 +41,8 @@ public class LoginHelper {
                 // build model
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
                 session.setCurrentUser(parent);
                 logger.log(Level.INFO, "Parent with one child logged in");
@@ -51,6 +55,8 @@ public class LoginHelper {
                 // build model
                 Parent parent = ModelBuilder.buildModelFromParent(parentId);
 
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
                 session.setCurrentUser(parent);
                 logger.log(Level.INFO, "Parent with one child logged in");
@@ -63,6 +69,8 @@ public class LoginHelper {
                 // build model
                 Student student = ModelBuilder.buildModelFromStudent(studentId);
 
+                // call session again incase session got reset
+                session = Session.getInstance();
                 // save user in Session
                 session.setCurrentUser(student);
                 logger.log(Level.INFO, LanguageHelper.getString("student_logged_in"));
