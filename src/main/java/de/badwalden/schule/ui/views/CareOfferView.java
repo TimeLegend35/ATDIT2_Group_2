@@ -34,7 +34,7 @@ public class CareOfferView extends VBox {
     public TextField youngestGradeTextField;
     public Label oldestGradeLabelValue;
     public TextField oldestGradeTextField;
-    private User user;
+    private User user ;
 
     public CareOfferView() {
         super(15); // Adds spacing between child elements of the VBox

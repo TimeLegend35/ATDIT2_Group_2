@@ -20,13 +20,14 @@ import javafx.scene.text.Font;
 public class CareOfferMarketplaceView extends ScrollPane {
     private CareOfferMarketplaceController controller;
     private VBox contentBox;
+    private User user;
 
     public CareOfferMarketplaceView() {
         super(); // Adds spacing between child elements of the VBox
         controller = new CareOfferMarketplaceController();
 
         // check what user type is logged in and plot according
-        User user = Session.getInstance().getCurrentUser();
+        user = Session.getInstance().getCurrentUser();
 
         contentBox = new VBox(15); // Adds spacing between child elements of the VBox
         contentBox.setPadding(new Insets(15)); // Set padding around the VBox container
