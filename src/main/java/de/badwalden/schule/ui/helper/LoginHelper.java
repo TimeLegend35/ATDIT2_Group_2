@@ -59,7 +59,7 @@ public class LoginHelper {
                 session = Session.getInstance();
                 // save user in Session
                 session.setCurrentUser(parent);
-                logger.log(Level.INFO, "Parent with one child logged in");
+                logger.log(Level.INFO, "Parent with young child logged in");
                 return true;
             }
             case "student" -> {
