@@ -45,6 +45,9 @@ public class LoginController {
         LanguageHelper.setLocale(newLanguage);
         loginView.updateTextsFromResourceBundle();
     }
+    public LoginView getLoginView (){
+        return  loginView;
+    }
 }
 
 
