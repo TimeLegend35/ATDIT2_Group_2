@@ -51,7 +51,16 @@ public class DBConnector {
      */
     private Connection connect() {
 
-        String large_url = env.get("CONNECTION_URL");
+        String large_url = null;
+        try {
+            large_url = env.get("CONNECTION_URL");
+        } catch (ExceptionInInitializerError e) {
+            try {
+                large_url = System.getenv("CONNECTION_URL");
+            }catch(Exception e2){
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("url_empty"));
+            }
+        }
 
         try {
             if (large_url == null || large_url.isEmpty()) {
@@ -77,7 +86,16 @@ public class DBConnector {
      */
     private Connection scheduleReconnection() {
 
-        String large_url = env.get("CONNECTION_URL");
+        String large_url = null;
+        try {
+            large_url = env.get("CONNECTION_URL");
+        } catch (ExceptionInInitializerError e) {
+            try {
+                large_url = System.getenv("CONNECTION_URL");
+            }catch(Exception e2){
+                DialogHelper.showAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"), LanguageHelper.getString("url_empty"));
+            }
+        }
 
         DialogHelper.showTimedAlertDialog(Alert.AlertType.ERROR, LanguageHelper.getString("db_connection_error"),
                 LanguageHelper.getString("reconnection_error"), 31);
