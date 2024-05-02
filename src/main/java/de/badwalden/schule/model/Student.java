@@ -17,7 +17,7 @@ public class Student extends User implements ModelSyncRequirements {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
     private static final Session session = Session.getInstance();
     private static final StudentDAO studentDao = new StudentDAO();
-    private static final CareOfferDAO careOfferDao = new CareOfferDAO();
+    public static CareOfferDAO careOfferDao = new CareOfferDAO();
     private boolean compulsorySchooling;
     private boolean rightOfService;
     private School_class schoolclass;
