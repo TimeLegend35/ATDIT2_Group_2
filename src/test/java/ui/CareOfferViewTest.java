@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the CareOfferController class.
  */
-public class CareOfferTest {
+public class CareOfferViewTest {
 
 public CareOffer sampleCareOffer;
     private CareOfferController careOfferController;
