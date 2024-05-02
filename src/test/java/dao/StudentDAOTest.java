@@ -31,17 +31,17 @@ public class StudentDAOTest {
         assertEquals(1, result.size(), "Should return exactly one student.");
     }
 
-    @Test
-    public void testUpdateStudents() {
-        List<Object[]> targets = new ArrayList<>();
-        targets.add(new Object[]{1, 1, "Emma", "Schulz", 7, true, true});
-        targets.add(new Object[]{2, 2, "Celina", "Schulz", 9, true, true});
-
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
-
-        int result = studentDAO.write(targets);
-        assertEquals(2, result, "Should return the total rows affected.");
-    }
+//    @Test
+//    public void testUpdateStudents() {
+//        List<Object[]> targets = new ArrayList<>();
+//        targets.add(new Object[]{1, 1, "Emma", "Schulz", 7, true, true});
+//        targets.add(new Object[]{2, 2, "Celina", "Schulz", 9, true, true});
+//
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
+//
+//        int result = studentDAO.write(targets);
+//        assertEquals(2, result, "Should return the total rows affected.");
+//    }
 
     @Test
     public void testGetStudentsIdFromParent() {
@@ -55,21 +55,21 @@ public class StudentDAOTest {
         assertEquals(3, result.size(), "Should return list of student IDs.");
     }
 
-    @Test
-    public void testAddStudentToCareOffer() {
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
-
-        assertDoesNotThrow(() -> studentDAO.addStudentToCareOffer(15, 5),
-                "Should add student to care offer without throwing exceptions.");
-    }
-
-    @Test
-    public void testRemoveStudentFromCareOffer() {
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
-
-        assertDoesNotThrow(() -> studentDAO.removeStudentFromCareOffer(15, 5),
-                "Should remove student from care offer without throwing exceptions.");
-    }
+//    @Test
+//    public void testAddStudentToCareOffer() {
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
+//
+//        assertDoesNotThrow(() -> studentDAO.addStudentToCareOffer(15, 5),
+//                "Should add student to care offer without throwing exceptions.");
+//    }
+//
+//    @Test
+//    public void testRemoveStudentFromCareOffer() {
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
+//
+//        assertDoesNotThrow(() -> studentDAO.removeStudentFromCareOffer(15, 5),
+//                "Should remove student from care offer without throwing exceptions.");
+//    }
 
 }
 

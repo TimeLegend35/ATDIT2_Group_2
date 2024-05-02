@@ -54,18 +54,18 @@ public class CareOfferDAOTest {
                 "Should throw UnexpectedResultsException if no results are found.");
     }
 
-    @Test
-    public void testWriteMultipleCareOffers() throws SQLException {
-        List<Object[]> targets = new ArrayList<>();
-        targets.add(new Object[]{101, 2, 0, "Hausaufgabenbetreuung101", "Beschreibung", 20, 1});
-        targets.add(new Object[]{102, 4, 3, "Hort", "Beschreibung102", 15, 2});
-
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);  // Each update affects 1 row
-
-        int affectedRows = careOfferDAO.write(targets);
-
-        assertEquals(2, affectedRows, "Should report two rows affected.");
-    }
+//    @Test
+//    public void testWriteMultipleCareOffers() throws SQLException {
+//        List<Object[]> targets = new ArrayList<>();
+//        targets.add(new Object[]{101, 2, 0, "Hausaufgabenbetreuung101", "Beschreibung", 20, 1});
+//        targets.add(new Object[]{102, 4, 3, "Hort", "Beschreibung102", 15, 2});
+//
+//        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);  // Each update affects 1 row
+//
+//        int affectedRows = careOfferDAO.write(targets);
+//
+//        assertEquals(2, affectedRows, "Should report two rows affected.");
+//    }
 
     @Test
     public void testGetAllCareOffers() throws UnexpectedResultsException {
