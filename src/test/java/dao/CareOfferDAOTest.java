@@ -1,14 +1,8 @@
 package dao;
 
-import static org.junit.Assert.*;
-import de.badwalden.schule.dao.CareOfferDAO;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-
-import java.util.List;
-
+/**
+ * Deprecated Test Class - No longer in use.
+ */
 public class CareOfferDAOTest {
 
 //    // test

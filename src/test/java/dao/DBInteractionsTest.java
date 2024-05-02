@@ -2,9 +2,10 @@ package dao;
 
 import de.badwalden.schule.dao.DBConnector;
 import de.badwalden.schule.dao.DatabaseInteractions;
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 
 public class DBInteractionsTest {
 

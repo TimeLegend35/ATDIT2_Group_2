@@ -4,8 +4,11 @@ import de.badwalden.schule.model.Service;
 import de.badwalden.schule.model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Calendar;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Unit tests for the Service class.
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ServiceTest {
 
     private Student bob;
-    private Service basteln;
+    private Service service;
 
     /**
      * Sets up the test environment before each test method.
@@ -21,38 +24,46 @@ public class ServiceTest {
     @BeforeEach
     public void setUp(){
         bob = new Student();
-        basteln = new Service();
+        service = new Service();
     }
 
-    /**
-     * Tests the addStudentToStudentList() method.
-     * Checks if a student is successfully added to the student list of the service.
-     */
     @Test
-    public void testAddStudentToStudentList(){
-//        // Assemble
-//        // Act
-//        basteln.setNumberOfSeats(2);
-//        basteln.addStudentToStudentList(bob);
-//        // Assert
-//        assertTrue(basteln.getStudentList().contains(bob));
+    public void testSetAndGetId() {
+        // Assemble
+        int id = 123;
+        // Act
+        service.setId(id);
+        // Assert
+        assertEquals(id, service.getId());
     }
 
-    /**
-     * Tests the addStudentToStudentList() method when the service is full.
-     * Checks if a student is not added to the student list when the service is full.
-     */
     @Test
-    public void testAddStudentWhenServiceIsFull(){
-//        // Assemble
-//        Student clemens = new Student();
-//        Student dunja = new Student();
-//        // Act
-//        basteln.setNumberOfSeats(2);
-//        basteln.addStudentToStudentList(clemens);
-//        basteln.addStudentToStudentList(dunja);
-//        basteln.addStudentToStudentList(bob);
-//        // Assert
-//        assertFalse(basteln.getStudentList().contains(bob));
+    public void testSetAndGetStartTime() {
+        // Assemble
+        Calendar startTime = Calendar.getInstance();
+        // Act
+        service.setStartTime(startTime);
+        // Assert
+        assertEquals(startTime, service.getStartTime());
+    }
+
+    @Test
+    public void testSetAndGetEndTime() {
+        // Assemble
+        Calendar endTime = Calendar.getInstance();
+        // Act
+        service.setEndTime(endTime);
+        // Assert
+        assertEquals(endTime, service.getEndTime());
+    }
+
+    @Test
+    public void testSetAndGetSeatsAvailable() {
+        // Assemble
+        int seatsAvailable = 10;
+        // Act
+        service.setSeatsAvailable(seatsAvailable);
+        // Assert
+        assertEquals(seatsAvailable, service.getSeatsAvailable());
     }
 }
