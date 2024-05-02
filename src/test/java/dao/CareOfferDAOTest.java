@@ -57,8 +57,8 @@ public class CareOfferDAOTest {
     @Test
     public void testWriteMultipleCareOffers() throws SQLException {
         List<Object[]> targets = new ArrayList<>();
-        targets.add(new Object[]{101, 2, 0, "Hausaufgabenbetreuung", "Beschreibung", 20, 1});
-        targets.add(new Object[]{102, 4, 3, "Hort", "Beschreibung", 15, 2});
+        targets.add(new Object[]{101, 2, 0, "Hausaufgabenbetreuung101", "Beschreibung", 20, 1});
+        targets.add(new Object[]{102, 4, 3, "Hort", "Beschreibung102", 15, 2});
 
         when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);  // Each update affects 1 row
 

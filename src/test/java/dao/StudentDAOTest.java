@@ -27,11 +27,6 @@ public class StudentDAOTest {
 
     @Test
     public void testGetSingleStudent() throws UnexpectedResultsException {
-        List<Object[]> mockResults = new ArrayList<>();
-        mockResults.add(new Object[]{"John", "Doe", 10}); // Mimic correct result set
-
-        when(dbConnection.executeQuery(anyString(), any())).thenReturn(mockResults);
-
         List<Object[]> result = studentDAO.get(1);
         assertEquals(1, result.size(), "Should return exactly one student.");
     }
@@ -39,8 +34,8 @@ public class StudentDAOTest {
     @Test
     public void testUpdateStudents() {
         List<Object[]> targets = new ArrayList<>();
-        targets.add(new Object[]{1, 2, "Emma", "Smith", 9, true, true});
-        targets.add(new Object[]{2, 3, "Liam", "Jones", 8, true, true});
+        targets.add(new Object[]{1, 1, "Emma", "Schulz", 7, true, true});
+        targets.add(new Object[]{2, 2, "Celina", "Schulz", 9, true, true});
 
         when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
 
@@ -62,17 +57,17 @@ public class StudentDAOTest {
 
     @Test
     public void testAddStudentToCareOffer() {
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
+        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
 
-        assertDoesNotThrow(() -> studentDAO.addStudentToCareOffer(1, 5),
+        assertDoesNotThrow(() -> studentDAO.addStudentToCareOffer(15, 5),
                 "Should add student to care offer without throwing exceptions.");
     }
 
     @Test
     public void testRemoveStudentFromCareOffer() {
-        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(1);
+        when(dbConnection.executeUpdate(anyString(), any())).thenReturn(15);
 
-        assertDoesNotThrow(() -> studentDAO.removeStudentFromCareOffer(1, 5),
+        assertDoesNotThrow(() -> studentDAO.removeStudentFromCareOffer(15, 5),
                 "Should remove student from care offer without throwing exceptions.");
     }
 

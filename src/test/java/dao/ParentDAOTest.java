@@ -29,12 +29,12 @@ public class ParentDAOTest {
     public void testGetSingleParent() throws SQLException, UnexpectedResultsException {
         // Setup mock behavior for DB connection and query execution
         List<Object[]> mockResults = new ArrayList<>();
-        mockResults.add(new Object[]{1, "Mannfred", "Schulz", "Bad Walden"});
+        mockResults.add(new Object[]{15, "Mannfred", "Schulz", "Bad Walden"});
 
         when(dbConnection.executeQuery(anyString(), any())).thenReturn(mockResults);
 
         // Execute
-        List<Object[]> results = parentDAO.get(1);
+        List<Object[]> results = parentDAO.get(12);
 
         // Assert
         assertNotNull(results);
