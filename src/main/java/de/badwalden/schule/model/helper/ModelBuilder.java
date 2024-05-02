@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class ModelBuilder {
     private static final Logger logger = Logger.getLogger(DBConnector.class.getName());
-    private static final Session session = Session.getInstance();
+    private static Session session = Session.getInstance();
     private static final ParentDAO parentDao = new ParentDAO();
     private static final StudentDAO studentDao = new StudentDAO();
     private static final CareOfferDAO careOfferDao = new CareOfferDAO();
@@ -57,6 +57,9 @@ public class ModelBuilder {
      * @return a fully constructed Parent object
      */
     public static Parent buildModelFromParent(int id) {
+        // incase logout happened
+        session = Session.getInstance();
+
         // initialize needed data for Session
         buildSessionData();
 
@@ -87,6 +90,9 @@ public class ModelBuilder {
      * @return a fully constructed Student object
      */
     public static Student buildModelFromStudent(int id) {
+        // incase logout happened
+        session = Session.getInstance();
+
         // initialize needed data for Session
         buildSessionData();
 
