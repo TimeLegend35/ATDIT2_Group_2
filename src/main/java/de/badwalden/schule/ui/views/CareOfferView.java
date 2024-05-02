@@ -15,6 +15,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static de.badwalden.schule.Main.navigationHelper;
 
 public class CareOfferView extends VBox {
@@ -159,6 +162,7 @@ public class CareOfferView extends VBox {
         grid.setPadding(new Insets(20));
 
         int row = 0;
+        List<Button> dialogButtons = new ArrayList<>();
         for (Student child : parent.getChildren()) {
             if (controller.isRightOfSerice(careOffer, child)) {
                 Label childNameLabel = new Label(child.getFirstName() + " (" + LanguageHelper.getString("current_class") + " " + child.getClassYear() + ")");
@@ -171,8 +175,10 @@ public class CareOfferView extends VBox {
                 }
 
                 dialogRegistrationButton.setOnAction(event -> {
-                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton);
+                    controller.changeCareOfferRegistration(careOffer, child, dialogRegistrationButton, dialogButtons);
                 });
+
+                dialogButtons.add(dialogRegistrationButton);
 
                 grid.add(childNameLabel, 0, row);
                 grid.add(dialogRegistrationButton, 1, row);
@@ -188,7 +194,7 @@ public class CareOfferView extends VBox {
                 if (child.isRegisteredForOffer(careOffer)) {
                     Button unregisterChildNoRightOfService = new Button(LanguageHelper.getString("remove_child"));
                     unregisterChildNoRightOfService.setOnAction(event -> {
-                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService);
+                        controller.changeCareOfferRegistration(careOffer, child, unregisterChildNoRightOfService, dialogButtons);
                         unregisterChildNoRightOfService.setVisible(false);
                     });
                     grid.add(unregisterChildNoRightOfService, 1, row);
