@@ -31,9 +31,7 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
 7. Erstellung von Klassendiagrammen
    + **[Issue: Klassendiagramme](https://github.com/TimeLegend35/ATDIT2_Group_2/issues/1)**
   
-## Datenbankshema:
-
-## Datenbankschema für usnseren Use Case:
+## Datenbankschema für unseren Use Case:
 
 ### Table: class_levels
 
