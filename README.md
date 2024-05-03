@@ -20,6 +20,9 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
 + Klassenübersicht (nur für Angestellte)
 + Anwesenheitsliste (basierend auf Krankmeldungen)
 
+### Implementierungsumfang
+Wir haben uns entschieden die An- und Abmeldung an ein Betreuungsangebot zu implementieren. Damit Eltern ihre Kinde einfach für verschiedene Betreuungsangebote anmelden können. Der komplette Prozess mit allen nötigen Überprfung über die Berechtigung in Care Offers zu gehen oder auch ein Jahrgangstufen check sind implementiert. Alle Änderungen werden in einer Remote DB gespeichert.
+
 ## Aufgabenbereiche:
 
 1. Darstellung von Datenbankshema in Entity Relationship Diagramm und Tabellenform
