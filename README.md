@@ -33,9 +33,6 @@ Dies ist eine Übersicht über die Vorbereitungen, welche wir für das erste Mee
   
 ## Datenbankshema:
 
-**ERD - nur Primärschlüssel - ohne vollständige Attribute**
-![grafik](https://raw.githubusercontent.com/TimeLegend35/ATDIT2_Group_2/master/ERD%20-%2003.04.jpg)
-
 ## Datenbankschema für usnseren Use Case:
 
 ### Table: class_levels
